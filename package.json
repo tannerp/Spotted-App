@@ -1,0 +1,24 @@
+{
+  "name": "lyt2020-nodejs_express_mysql-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sherpalhakpa/LYT2020-NodeJS_Express_MySQL-Backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sherpalhakpa/LYT2020-NodeJS_Express_MySQL-Backend/issues"
+  },
+  "homepage": "https://github.com/sherpalhakpa/LYT2020-NodeJS_Express_MySQL-Backend#readme"
+}
