@@ -1,4 +1,4 @@
-# MySQL README 
+# MySQL README
 MySql Database version 8.0.16
 ---
 
@@ -58,6 +58,20 @@ In the mysql client, tell the server to reload the grant tables so that account-
 Reset root password
 
       ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPass';
+
+
+## Common Errors
+
+####  'Client does not support authentication protocol requested by server; consider upgrading MySQL client'
+
+      ALTER USER 'user'@'host' IDENTIFIED WITH mysql_native_password BY 'password';
+
+      FLUSH PRIVILEGES;
+
+      [Stackoverflow](https://stackoverflow.com/questions/50093144/mysql-8-0-client-does-not-support-authentication-protocol-requested-by-server)
+
+
+
 ---
 ## Resources
 NEW USER
