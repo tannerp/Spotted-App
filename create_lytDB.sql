@@ -72,6 +72,7 @@ create table Post(
   postTitle varchar(100) not null,
   postContent varchar(300) not null,
   postDate date not null,
+  postStatus enum ('live', 'expired', 'deleted') not null
   userId int not null,
   constraint Post_User_userId_fk
   foreign key (userId) references User   (userId) on update cascade
