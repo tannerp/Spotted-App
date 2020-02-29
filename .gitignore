@@ -1,3 +1,5 @@
+docker
+.devcontainer
 node_modules/
 .git
 package-lock.json
@@ -16,3 +18,4 @@ doc/api/
 *.js.deps
 *.js.map
 .DS_Store
+

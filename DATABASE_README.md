@@ -49,14 +49,17 @@ Common privileges
 ## Reset Root
 Start mysql with the following flag
 
-    mysql --skip-grant-tables;
+    mysqld --skip-grant-tables;
 
-In the mysql client, tell the server to reload the grant tables so that account-management statements work:
 
+Open a different terminal tab, run:
+
+    mysql;
     FLUSH PRIVILEGES;
 
 Reset root password
 
+<<<<<<< Updated upstream
       ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPass';
 
 
@@ -72,6 +75,9 @@ Reset root password
 
 
 
+=======
+    ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPass';
+>>>>>>> Stashed changes
 ---
 ## Resources
 NEW USER
