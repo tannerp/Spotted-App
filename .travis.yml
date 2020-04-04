@@ -1,96 +1,41 @@
 language: node_js
-<<<<<<< HEAD
 
 node_js:
   - "8"
-
-<<<<<<< HEAD
-<<<<<<< HEAD
 install:
-- npm install
-
-build:
-- npm run build
+  - npm install
 
 cache: node_modules
+
 script: 'true'
 
 before_deploy:
-- npm run build
-- cp package.json ./www/package.json
-# - cd www && zip -r node-server.zip .
+  - rm -rf www/ || true
+  - tsc
+  - mkdir www/tmp
+  - cp package.json ./www/package.json
+  - ls -la www
+  - cd www && zip -r node-server.zip .
 
 after_deploy:
   - rm -rf .tmp
   - rm -rf .DS_Store
   - rm -rf node_modules
   - rm node-server.zip
-=======
-=======
->>>>>>> 310d7f6... mend
-sudo: required
-
-services:
-  - docker
-
-after_deploy:
-<<<<<<< HEAD
->>>>>>> e27b688... Configure Travis CI with AWS
   - echo "done deploying"
+
 
 deploy:
     provider: elasticbeanstalk
-<<<<<<< HEAD
-    zip-file: node-server.zip
     access_key_id: $ACCESSKEYID
     secret_access_key: $SECRET_ACCESS_KEY_NODE
-    region: "us-west-2"  
+    zip-file: node-server.zip
+    region: "us-west-2"
+    skip_cleanup: true
     app: "spotted-dev"
     env: "spotted-dev-dev"
     bucket_name: "elasticbeanstalk-us-west-2-169203564268"
-    branch_path: "spotted-dev"
+    bucket_path: "spotted-dev"
+
     on:
       branch: master
-=======
-    access_key_id: $ACCESSKEYID
-    secret_access_key:
-      secure: "$SECRET_ACCESS_KEY_NODE"
-    region: "us-west-2"  
-    app: "elastic-beanstalk-tutorial"
-    env: " spotted-dev-dev "
-    # bucket_name: "elasticbeanstalk-ca-central-1-882371129764"
-    on:
-      branch: aws
->>>>>>> e27b688... Configure Travis CI with AWS
-=======
-  - echo "done deploying"
->>>>>>> 310d7f6... mend
-=======
-node_js: - 6.9.1
-before_script:
-script:
-before_deploy:
-- rm -rf .tmp
-- rm -rf .DS_Store
-- rm -rf node_modules
-- export ELASTIC_BEANSTALK_ENV=node-server-${TRAVIS_BRANCH}
-- zip -r --exclude=\*.git\* --exclude=\*.DS_Store\* --exclude=\*test\  node-server.zip
-  .
-- export ELASTIC_BEANSTALK_LABEL=git-$(git rev-parse --verify HEAD --short)
-- export ELASTIC_BEANSTALK_DESCRIPTION=https://github.com/sumn2u/node-server/tree/$(gitrev-parse HEAD)
-after_deploy:
-- rm node-server.zip
-deploy:
-  provider: elasticbeanstalk
-  access_key_id: $ACCESSKEYID
-  secret_access_key: "${SECRET_ACCESS_KEY_NODE}"
-  zip-file: node-server.zip
-  skip_cleanup: true
-  region: us-west-2
-  app: spotted-app
-  only_create_app_version: false
-  
-env:
-  global:
-    # secure: <secret-access-key>=
->>>>>>> d105140... mend

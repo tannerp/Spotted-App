@@ -1,10 +1,8 @@
-
+# If you're building an application, you may want to check-in your pubspec.lock
 docker
 .devcontainer
-node_modules/
 .git
 package-lock.json
-# If you're building an application, you may want to check-in your pubspec.lock
 pubspec.lock
 
 # Elastic Beanstalk Files
@@ -21,3 +19,7 @@ pubspec.lock
 *.js.map
 .DS_Store
 
+# Dependency directories
+node_modules/
+jspm_packages/
+.DS_Store
