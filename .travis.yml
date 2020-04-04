@@ -1,0 +1,59 @@
+language: node_js
+
+node_js:
+  - "8"
+
+<<<<<<< HEAD
+install:
+- npm install
+
+build:
+- npm run build
+
+cache: node_modules
+script: 'true'
+
+before_deploy:
+- npm run build
+- cp package.json ./www/package.json
+# - cd www && zip -r node-server.zip .
+
+after_deploy:
+  - rm -rf .tmp
+  - rm -rf .DS_Store
+  - rm -rf node_modules
+  - rm node-server.zip
+=======
+sudo: required
+
+services:
+  - docker
+
+after_deploy:
+>>>>>>> e27b688... Configure Travis CI with AWS
+  - echo "done deploying"
+
+deploy:
+    provider: elasticbeanstalk
+<<<<<<< HEAD
+    zip-file: node-server.zip
+    access_key_id: $ACCESSKEYID
+    secret_access_key: $SECRET_ACCESS_KEY_NODE
+    region: "us-west-2"  
+    app: "spotted-dev"
+    env: "spotted-dev-dev"
+    bucket_name: "elasticbeanstalk-us-west-2-169203564268"
+    branch_path: "spotted-dev"
+    on:
+      branch: master
+=======
+    access_key_id: $ACCESSKEYID
+    secret_access_key:
+      secure: "$SECRET_ACCESS_KEY_NODE"
+    region: "us-west-2"  
+    app: "elastic-beanstalk-tutorial"
+    env: " spotted-dev-dev "
+    # bucket_name: "elasticbeanstalk-ca-central-1-882371129764"
+    on:
+      branch: aws
+>>>>>>> e27b688... Configure Travis CI with AWS

@@ -24,9 +24,9 @@ Postman is a useful tool to issue and save requests. Postman can create GET, PUT
 
 ## Running the Server Locally
 To run the server locally in developer mode, open terminal and run:
+
 ```bash
 npm run dev
 ```
 
 Developer mode runs off the TypeScript source. Any saves will reset the server and run the latest version of the codebase. 
-
