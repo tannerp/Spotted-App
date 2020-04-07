@@ -25,4 +25,4 @@ tsconfig.json
 node_modules/
 jspm_packages/
 .DS_Store
-www
+www/
