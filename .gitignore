@@ -4,6 +4,8 @@ docker
 .git
 package-lock.json
 pubspec.lock
+tslint.json
+tsconfig.json
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
@@ -23,3 +25,4 @@ pubspec.lock
 node_modules/
 jspm_packages/
 .DS_Store
+www
