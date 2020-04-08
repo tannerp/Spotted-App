@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - "8"
+  - "10"
 install:
   - npm install
   - npm update
@@ -11,12 +11,13 @@ cache: node_modules
 script: 'true'
 
 before_deploy:
-  - rm -rf www/ || true
+  - rm -rf build-backend/ || true
   - tsc
-  - mkdir www/tmp
-  - cp package.json ./www/package.json
-  - ls -la www
-  - cd www && zip -r node-server.zip .
+  - mkdir build-backend/tmp
+  - cp package.json ./build-backend/package.json
+  - cp .npmrc build-backend/.npmrc 
+  - ls -la build-backend
+  - cd build-backend && zip -r node-server.zip .
 
 after_deploy:
   - rm -rf .tmp
@@ -24,7 +25,6 @@ after_deploy:
   - rm -rf node_modules
   - rm node-server.zip
   - echo "done deploying"
-
 
 deploy:
     provider: elasticbeanstalk
@@ -37,6 +37,5 @@ deploy:
     env: "spotted-dev-dev"
     bucket_name: "elasticbeanstalk-us-west-2-169203564268"
     bucket_path: "spotted-dev"
-
     on:
       branch: master

@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { UserRouter } from './users/routes/user.router';
+import { callbackify } from 'util';
 
 const router: Router = Router();
 
