@@ -5,7 +5,6 @@ docker
 package-lock.json
 pubspec.lock
 tslint.json
-tsconfig.json
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

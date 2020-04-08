@@ -11,13 +11,15 @@ cache: node_modules
 script: 'true'
 
 before_deploy:
-  - rm -rf build-backend/ || true
-  - tsc
-  - mkdir build-backend/tmp
-  - cp package.json ./build-backend/package.json
-  - cp .npmrc build-backend/.npmrc 
-  - ls -la build-backend
-  - cd build-backend && zip -r node-server.zip .
+  - npm run build
+  # - rm -rf frontend
+  # - rm -rf build-backend/ || true
+  # - tsc
+  # - mkdir build-backend/tmp
+  # - cp package.json ./build-backend/package.json
+  # - cp .npmrc build-backend/.npmrc 
+  # - ls -la build-backend
+  # - cd build-backend && zip -r node-server.zip .
 
 after_deploy:
   - rm -rf .tmp
@@ -30,7 +32,7 @@ deploy:
     provider: elasticbeanstalk
     access_key_id: $ACCESSKEYID
     secret_access_key: $SECRET_ACCESS_KEY_NODE
-    zip-file: node-server.zip
+    zip-file: build-backend/Archive.zip
     region: "us-west-2"
     skip_cleanup: true
     app: "spotted-dev"
