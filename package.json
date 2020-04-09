@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf build-backend/ || true",
     "build": "npm run clean && tsc && cp package.json build-backend/package.json  && cp .npmrc build-backend/.npmrc && mkdir build-backend/tmp/ && cd build-backend && zip -r Archive.zip . && cd ..",
-    "dev": "ts-node-dev --respawn --transpileOnly ./src/server.ts"
+    "dev": "ts-node-dev --respawn --transpileOnly ./backend/server.ts"
   },
   "repository": {
     "type": "git",
