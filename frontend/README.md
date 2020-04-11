@@ -1,4 +1,4 @@
-# spotted
+# frontend
 
 A new Flutter project.
 

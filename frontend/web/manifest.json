@@ -1,6 +1,6 @@
 {
-    "name": "spotted",
-    "short_name": "spotted",
+    "name": "frontend",
+    "short_name": "frontend",
     "start_url": ".",
     "display": "minimal-ui",
     "background_color": "#0175C2",
