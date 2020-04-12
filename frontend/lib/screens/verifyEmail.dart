@@ -139,7 +139,7 @@ class _VerifyFormState extends State<VerifyForm> {
 
 
                   //API interaction
-                  _verifyEmailPostRequest(_firstName, _lastName, _email);        
+                  _verifyEmailPostRequest(_firstName, _lastName, _email);
                 },
               )
             ],
@@ -154,15 +154,22 @@ _verifyEmailPostRequest(String firstName, String lastName, String email) async {
   // set up POST request arguments
 
   //url should be updated with our api route
-  String url = 'https://jsonplaceholder.typicode.com/posts';
+  // String url = 'https://jsonplaceholder.typicode.com/posts';
+  String url = 'http://localhost:8082/api/v0/users/regis';
   Map<String, String> arg = {"Content-type": "application/json"};
+  
   String json = '{"userId": "$firstName", "title": "$lastName", "body": "$email"}';
 
+  print(url);
   // make POST request
   http.Response response = await http.post(url, headers: arg, body: json);
+  // response.headers.add("Access-Control-Allow-Origin", "*");
   // check the status code for the result
 
   int statusCode = response.statusCode;
+
+  print(response);
+  print(statusCode);
 
   if (statusCode > 400){
     return('http post failed status Code: $statusCode');
