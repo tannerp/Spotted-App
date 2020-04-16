@@ -56,7 +56,9 @@ const router: Router = Router();
     // });
 
 router.post('/', async (req: Request, res: Response) => {
-    const email = req.body.email;
+    
+    // body.body is for ios
+    const email = req.body.email || req.body.body;    
 
     const newEmail = await new EmailVerify({
         email: email,
@@ -65,12 +67,14 @@ router.post('/', async (req: Request, res: Response) => {
 
     let savedVrfEmail;
     
-    // try{
-    //     savedVrfEmail = await newEmail.save();
+    try{
+        savedVrfEmail = await newEmail.save();
 
-    // }catch(e){
-    //     throw e;
-    // }
+    }catch(e){
+        // console.error(e)
+        // mysql deplicate code ER_DUP_ENTRY
+        throw e;
+    }
 
     let verifyEmailLink: string = "tannerphan.com"
     try{

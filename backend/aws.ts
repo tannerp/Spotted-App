@@ -19,7 +19,6 @@ export const ses = new AWS.SES({ apiVersion: '2010-12-01' });
 export async function sendEmail(emailAdr: string, name: string, verifyLink: string): Promise<string> {
 
   try {
-
     // const templatedata = {
     //   parameter_name: name
     // };
