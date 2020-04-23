@@ -27,8 +27,7 @@
   let el = document.getElementById("test")
   if (md.mobile()) {
       el.innerHTML = "Open Mobile App! " + token;
-      window.location.replace("spot://spotted.spu.com/"); setTimeout(function () {
-
+      window.location.replace("spot://spotted.spu.com/"+token); setTimeout(function () {
       window.location.replace("tannerphan.com"); }, 2000);
     } else {
     }

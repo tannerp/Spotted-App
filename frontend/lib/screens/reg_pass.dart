@@ -5,7 +5,7 @@ import 'package:validators/validators.dart';
 
 
 
-class RegisterApp extends StatelessWidget {
+class RegPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

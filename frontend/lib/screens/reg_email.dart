@@ -15,7 +15,7 @@ import 'package:validators/validators.dart';
 //   }
 // }
 
-class VerifyScreen extends StatelessWidget {
+class RegEmail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

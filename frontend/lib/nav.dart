@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/screens/reg_pass.dart';
 import 'package:provider/provider.dart';
-import 'package:frontend/screens/verifyEmail.dart';
-import 'package:frontend/screens/register.dart';
+import 'package:frontend/screens/reg_email.dart';
+import 'package:frontend/screens/reg_pass.dart';
 
 import 'bloc.dart';
 
@@ -27,9 +28,9 @@ class Nav extends StatelessWidget {
         // }
 
          if (!snapshot.hasData) {
-          return VerifyScreen();
+          return RegEmail();
         } else {
-          return RegisterApp();
+          return RegPassword();
       }
       }
     );

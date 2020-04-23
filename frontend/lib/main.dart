@@ -1,22 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/screens/verifyEmail.dart';
-import 'package:frontend/screens/register.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+import 'bloc.dart';
+import 'poc.dart';
 
-class MyApp extends StatelessWidget {
+void main() => runApp(SpottedApp());
+
+
+class SpottedApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    DeepLinkBloc _bloc = DeepLinkBloc();
     return MaterialApp(
-      title: 'Spotted App',
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-      ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => VerifyScreen(),
-        '/register': (context) => RegisterApp()
-      }
-    );
+        title: 'Spotted',
+        theme: ThemeData(
+            primarySwatch: Colors.blue,
+            textTheme: TextTheme(
+              title: TextStyle(
+                fontWeight: FontWeight.w300,
+                color: Colors.blue,
+                fontSize: 25.0,
+              ),
+            )),
+        home: Scaffold(
+            body: Provider<DeepLinkBloc>(
+                create: (context) => _bloc,
+                dispose: (context, bloc) => bloc.dispose(),
+                child: MainNav())));
   }
 }
