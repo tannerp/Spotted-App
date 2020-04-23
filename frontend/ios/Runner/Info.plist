@@ -22,10 +22,10 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>spotted.tannerphan.com</string>
+			<string>spotted.spu.com</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-			<string>poc</string>
+			<string>spot</string>
 			</array>
 		</dict>
 	</array>
