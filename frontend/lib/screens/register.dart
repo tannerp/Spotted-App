@@ -1,20 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:validators/validators.dart';
-//import 'dart:convert';
-
-
-
-class RegisterApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: {
-        '/': (context) => RegisterScreen(),
-      },
-    );
-  }
-}
 
 class RegisterScreen extends StatelessWidget {
   @override
@@ -159,7 +145,7 @@ class _RegisterFormState extends State<RegisterForm> {
     );
   }
   
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Register")),
@@ -195,8 +181,8 @@ class _RegisterFormState extends State<RegisterForm> {
 
                   _registerGetRequest();  
                   //API interaction
-                  _registerPostRequest(_firstName, _lastName, _email);      
-                  
+                  _registerPostRequest(_firstName, _lastName, _email);  
+                   Navigator.pushNamed(context, '/createProfile');                     
                 },
               )
             ],

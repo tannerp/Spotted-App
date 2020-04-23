@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/screens/createProfile.dart';
 import 'package:frontend/screens/verifyEmail.dart';
 import 'package:frontend/screens/register.dart';
 
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => VerifyScreen(),
-        '/register': (context) => RegisterApp()
+        '/register': (context) => RegisterScreen(),
+        '/createProfile': (context) => CreateProfileScreen(),
       }
     );
   }

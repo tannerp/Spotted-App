@@ -2,18 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:validators/validators.dart';
 
-
-class CreateProfileApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: {
-        '/': (context) => CreateProfileScreen(),
-      },
-    );
-  }
-}
-
 class CreateProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -42,6 +30,11 @@ class _CreateProfileFormState extends State<CreateProfileForm> {
   String _firstName;
   String _lastName;
   String _email;
+  String _major;
+  //List<String> _yourMajor = ['Science', 'Art','Humanities', 'soiciology'];
+  List<String> _yourMajorStatus = ['Intended', 'Admitted'];
+  List<String> _housing = ['On-campus', 'Off-campus'];
+  List<String> _interest = ['Academics','Housing','Soical Life'];
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -103,6 +96,48 @@ class _CreateProfileFormState extends State<CreateProfileForm> {
       },
     );
   }
+
+   Widget _buildMajor() {
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'Your Major'),
+      maxLength: 15,
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Major is Required';
+        }
+
+        return null;
+      },
+      onSaved: (String value) {
+        _major = value;
+      },
+    );
+  }
+
+  //Drop Down List for yourMajors for later
+  /*Widget _nicerDropDown(String lable, var itemList, String selectedItem){
+    return Row (
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                Text(lable),
+                DropdownButton<String>(
+                items: itemList.map((String dropDownStringItem){
+                  return DropdownMenuItem<String>(
+                    value: dropDownStringItem,
+                    child: Text(dropDownStringItem),
+                  );
+                }).toList(),
+                onChanged: (String newValueSelected){
+                //select value and other necessary actions when your chooses value
+                setState((){
+                  selectedItem = newValueSelected;
+                });
+              },
+              value: selectedItem,
+              ),
+                ],
+              );
+  }*/
   
    @override
   Widget build(BuildContext context) {
@@ -118,7 +153,23 @@ class _CreateProfileFormState extends State<CreateProfileForm> {
               _buildFirstName(),
               _buildLastName(),
               _buildEmail(),
-              SizedBox(height: 100),
+              _buildMajor(),
+              SizedBox(height: 20.0),
+              NicerDropDownButton(
+                itemList: _yourMajorStatus,
+                label: 'Select yourMajor Status:',
+              ),
+              SizedBox(height: 20.0),
+              NicerDropDownButton(
+                itemList: _housing,
+                label: 'Select housing Status:',
+              ),
+              SizedBox(height: 20.0),
+              NicerDropDownButton(
+                itemList: _interest,
+                label: 'Select Topic of Choice:',
+              ),
+              SizedBox(height: 50),
               RaisedButton(
                 child: Text(
                   'CreateProfile',
@@ -138,11 +189,53 @@ class _CreateProfileFormState extends State<CreateProfileForm> {
                   //API interaction
                   _createProfilePostRequest(_firstName, _lastName, _email);      
                 },
-              )
+              ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class NicerDropDownButton extends StatefulWidget {
+  final String label;
+  final List<String> itemList;
+
+  NicerDropDownButton({this.label, this.itemList});
+
+  
+  @override
+  _NicerDropDownState createState() => _NicerDropDownState();
+}
+
+class _NicerDropDownState extends State<NicerDropDownButton> {
+  String selectedItem;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+       child: Row (
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                Text(widget.label),
+                DropdownButton<String>(
+                items: widget.itemList.map((String dropDownStringItem){
+                  return DropdownMenuItem<String>(
+                    value: dropDownStringItem,
+                    child: Text(dropDownStringItem),
+                  );
+              }).toList(),
+              onChanged: (String newValueSelected){
+                //select value and other necessary actions when your chooses value
+                setState((){
+                  this.selectedItem = newValueSelected;
+                });
+              },
+              value: selectedItem,
+              ),
+                ],
+              ),
     );
   }
 }

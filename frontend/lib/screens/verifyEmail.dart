@@ -2,19 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:validators/validators.dart';
 
-
-
-// class VerifyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       routes: {
-//         '/': (context) => VerifyScreen(),
-//       },
-//     );
-//   }
-// }
-
 class VerifyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -127,20 +114,16 @@ class _VerifyFormState extends State<VerifyForm> {
                   style: TextStyle(color: Colors.blue, fontSize: 16),
                 ),
                 onPressed: () {
-                    Navigator.pushNamed(context, '/register');
                   if (!_formKey.currentState.validate()) {
                     return;
                   }
-
                   _formKey.currentState.save();
-
                   print(_firstName);
                   print(_lastName);
                   print(_email);  
-
-
                   //API interaction
                   _verifyEmailPostRequest(_firstName, _lastName, _email);
+                   Navigator.pushNamed(context, '/register');
                 },
               )
             ],
