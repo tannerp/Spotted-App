@@ -3,6 +3,9 @@ import { Router, Request, Response } from 'express';
 import { EmailVerify } from '../models/EmailVerify';
 import * as c from '../../../../config/config';
 import * as AWS from '../../../../aws';
+import * as smartunique from '@pushrocks/smartunique';
+
+
 
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
@@ -29,7 +32,7 @@ const router: Router = Router();
     //     }
     
     //     // find the user
-    //     const user = await User.findByPk(email);
+    //     const user = await User.findByPk(email); 
     //     // check that user doesnt exists
     //     if(user) {
     //         return res.status(422).send({ auth: false, message: 'User may already exist' });
@@ -56,32 +59,34 @@ const router: Router = Router();
     // });
 
 router.post('/', async (req: Request, res: Response) => {
-    const email = req.body.email;
+    
+    // body.body is for ios
+    const email = req.body.email || req.body.body;
+    const fname = req.body.first_name;
+    const lname = req.body.last_name;
+    const uuid = smartunique.shortId();
 
-    const newEmail = await new EmailVerify({
+    const ev = await new EmailVerify({
+        hash: uuid,
+        first_name: fname,
+        last_name: lname,
         email: email,
         name: "tanner phan"
     });
-
     let savedVrfEmail;
-    
-    // try{
-    //     savedVrfEmail = await newEmail.save();
-
-    // }catch(e){
-    //     throw e;
-    // }
-
-    let verifyEmailLink: string = "tannerphan.com"
     try{
-        AWS.sendEmail(email, "Tanner Phan", verifyEmailLink);
+        savedVrfEmail = await ev.save();
     }catch(e){
+        // console.error(e)
+        // mysql deplicate code ER_DUP_ENTRY
         throw e;
     }
 
-
-    
-    console.log("POST EMAIL: " + email);
+    try{
+        AWS.sendRegistrationEmail(ev);
+    }catch(e){
+        throw e;
+    }
 
     res.send('auth')
 });

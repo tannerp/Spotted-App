@@ -1,8 +1,7 @@
 import AWS = require('aws-sdk');
 import { config } from './config/config';
-
+import {EmailVerify} from './controllers/v0/users/models/EmailVerify';
 const c = config.dev;
-
 //Configure AWS
 var credentials = new AWS.SharedIniFileCredentials({ profile: 'default' });
 AWS.config.credentials = credentials;
@@ -16,10 +15,11 @@ export const s3 = new AWS.S3({
 // Create the promise and SES service object
 export const ses = new AWS.SES({ apiVersion: '2010-12-01' });
 
-export async function sendEmail(emailAdr: string, name: string, verifyLink: string): Promise<string> {
-
+export async function sendRegistrationEmail(ev: EmailVerify): Promise<string> {
+  const LINK = c.base_url + '/confirm/' + ev.hash;
+  
+  // TODO LINK FOR BROWSER
   try {
-
     // const templatedata = {
     //   parameter_name: name
     // };
@@ -370,13 +370,13 @@ export async function sendEmail(emailAdr: string, name: string, verifyLink: stri
                     <!-- START CENTERED WHITE CONTAINER -->
                     <table role="presentation" class="main">
 
-                      <!-- START MAIN CONTENT AREA -->
+                      <!-- START MAIN CONTENT AREA   -->
                       <tr>
                         <td class="wrapper">
                           <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                             <tr>
                               <td>
-                                <p>Hi ${name},</p>
+                                <p>Hi ${ev.first_name}!</p>
                                 <p>Please verify your email by clicking the button below:</p>
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                                   <tbody>
@@ -385,7 +385,7 @@ export async function sendEmail(emailAdr: string, name: string, verifyLink: stri
                                         <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                           <tbody>
                                             <tr>
-                                              <td> <a href=${verifyLink} target="_blank">Verify Email</a> </td>
+                                              <td> <a href=${LINK} target="_blank">Verify Email</a> </td>
                                             </tr>
                                           </tbody>
                                         </table>
@@ -409,8 +409,8 @@ export async function sendEmail(emailAdr: string, name: string, verifyLink: stri
                       <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                         <tr>
                           <td class="content-block">
-                            <span class="apple-link">Seattle Pacific University</span>
-                            <br> Software Engineering II - Spring 2020
+                          <br> Software Engineering II - Spring 2020
+                          <span class="apple-link">Seattle Pacific University</span>
                           </td>
                         </tr>
                         <tr>
@@ -435,7 +435,7 @@ export async function sendEmail(emailAdr: string, name: string, verifyLink: stri
       Destination: {
         /* required */
         ToAddresses: [
-          emailAdr,
+          ev.email
         ]
       },
       Message: { /* required */
@@ -451,7 +451,7 @@ export async function sendEmail(emailAdr: string, name: string, verifyLink: stri
         },
         Subject: {
           Charset: 'UTF-8',
-          Data: 'Test email'
+          Data: 'Test email:: SPOTTED REGISTERING'
         }
       },
       Source: 'phant2@spu.edu', /* required */
@@ -463,7 +463,6 @@ export async function sendEmail(emailAdr: string, name: string, verifyLink: stri
     // console.debug(`sendMail param: ${JSON.stringify(params)}`);
     // const sesResponse = await ses.sendTemplatedEmail(params).promise();
     const sesResponse = await ses.sendEmail(params).promise();
-
 
     console.log(`sendMail requestId: ${sesResponse.$response.requestId} and messageId: ${sesResponse.MessageId}`);
     return 'OK';

@@ -2,8 +2,15 @@ import {Table, Column, Model, PrimaryKey, CreatedAt, UpdatedAt} from 'sequelize-
 
 @Table
 export class EmailVerify extends Model<EmailVerify> {
+  @Column
+  public hash!: string;
+
+  @Column
+  public last_name: string;
+
+  @Column
+  public first_name!: string;
   
-  @PrimaryKey
   @Column
   public email!: string;
 
@@ -17,7 +24,7 @@ export class EmailVerify extends Model<EmailVerify> {
 
   short() {
     return {
-      email: this.email
+      hash: this.hash
     }
   }
 }
