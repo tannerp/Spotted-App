@@ -1,4 +1,7 @@
 export const config = {
+  "mobile": {
+    "ios_url": "spot://spotted.spu.com"
+  },
   "dev": {
     "username": process.env.DB_USERNAME,
     "password": process.env.DB_PASSWORD,

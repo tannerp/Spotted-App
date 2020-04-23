@@ -14,4 +14,3 @@ export const sequelize = new Sequelize({
   dialect: 'mysql',
   storage: ':memory:',
 });
-
