@@ -3,19 +3,8 @@ import 'package:http/http.dart' as http;
 import 'package:validators/validators.dart';
 
 
+class RegisterEmail extends StatelessWidget {
 
-// class VerifyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       routes: {
-//         '/': (context) => VerifyScreen(),
-//       },
-//     );
-//   }
-// }
-
-class RegEmail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,20 +116,16 @@ class _VerifyFormState extends State<VerifyForm> {
                   style: TextStyle(color: Colors.blue, fontSize: 16),
                 ),
                 onPressed: () {
-                    Navigator.pushNamed(context, '/register');
                   if (!_formKey.currentState.validate()) {
                     return;
                   }
-
                   _formKey.currentState.save();
-
                   print(_firstName);
                   print(_lastName);
                   print(_email);  
-
-
                   //API interaction
                   _verifyEmailPostRequest(_firstName, _lastName, _email);
+                   Navigator.pushNamed(context, '/register');
                 },
               )
             ],
@@ -164,7 +149,6 @@ _verifyEmailPostRequest(String firstName, String lastName, String email) async {
   print(url);
   // make POST request
   http.Response response = await http.post(url, headers: arg, body: json);
-  // response.headers.add("Access-Control-Allow-Origin", "*");
   // check the status code for the result
 
   int statusCode = response.statusCode;
