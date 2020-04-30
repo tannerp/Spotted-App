@@ -1,16 +1,42 @@
+<!DOCTYPE html>
 <html>
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Register with Spotted</title>
+  <title>Create your Spotted Account</title>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.4.4/mobile-detect.min.js"></script>
 </head>
 
+<head>
+  <link rel="stylesheet" type="text/css" href="css-style/style.css">
+</head>
+
 <body>
-  <h2> Register</h2>
-  <h2 id="test"></h2>
+  <img src="css-style/Spotted.png" alt="spotted">
+  <h1> Register</h1>
+
+  <!-- TODO: Password form to complete user registration -->
+  <form action="">
+    <div>
+      <label for="pass">Password (8 characters minimum):</label>
+      <input type="password" id="pass" name="password"pattern="[0-9a-fA-F]{4,8}"
+      title="Enter a password consisting of at least of 8 characters" minlength="8" required>
+
+    </div>
+    
+    <div>
+      <label for="pass">Password (8 characters minimum):</label>
+      <input type="password" id="pass" name="password" pattern="[0-9a-fA-F]{4,8}"
+      title="Enter a password consisting of at least 8 characters" minlength="8" required>
+  </div>
+
+
+    <input type="submit" value="Confirm">
+  </form>
+  <h1 id="test"></h1>
 </body>
+
 
 <script type="text/javascript">
   var md = new MobileDetect(window.navigator.userAgent);
