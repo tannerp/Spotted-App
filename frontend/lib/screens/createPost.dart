@@ -1,8 +1,14 @@
+// import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-//import 'package:validators/validators.dart';
+import 'dart:convert';
+
+import './../app_config.dart';
+
+
 
 class CreatePostScreen extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,10 +117,10 @@ class _CreatePostFormState extends State<CreatePostForm> {
                   print(_title);
                   print(_content);
 
-                  _createPostGetRequest();  
+                  // _createPostGetRequest();  
                   //API interaction
                   _createPostPostRequest(_title, _content);  
-                   Navigator.pushNamed(context, '/createProfile');                     
+                  //  Navigator.pushNamed(context, '/createProfile');                     
                 },
               )
             ],
@@ -128,18 +134,19 @@ class _CreatePostFormState extends State<CreatePostForm> {
 _createPostGetRequest() async {
   print('Hello');
   String url = 'https://jsonplaceholder.typicode.com/posts';
+  // String url = _url_host;
 
   Map<String, String> arg = {"Accept": "application/json"};
 
-  http.Response response = await http.get(url, headers: arg);
+  // http.Response response = await http.get(url, headers: arg);
 
   // sample info available in response
-  int statusCode = response.statusCode;
+  // int statusCode = response.statusCode;
   
   //Needs work: needs to be cast to a user Model
   //Map<String, dynamic> data = json.decode(response.body);
-  print('Get succedful $statusCode \n Response is as follows: \n');
-  print(response.body);
+  // print('Get succedful $statusCode \n Response is as follows: \n');
+  // print(response.body);
   
   //List data2 = JSON.decode(response.body);
  
@@ -149,17 +156,25 @@ _createPostGetRequest() async {
 _createPostPostRequest(String title, String content) async {
   // set up POST request arguments
 
-  //url should be updated with our api route
-  String url = 'https://jsonplaceholder.typicode.com/posts';
-  Map<String, String> arg = {"Content-type": "application/json"};
-  String json = '{"userId": "$title", "title": "$content"}';
+  // String url = await AppConfig.forEnvironment('dev');
+  // String url = 'http://localhost:8082/api/v0/posts/new';
+  String url = 'http://localhost:8082/api/v0/posts/newpost';
 
+  //url should be updated with our api route
+  // String url = 'https://jsonplaceholder.typicode.com/posts';
+
+  Map<String, String> arg = {"Content-type": "application/json"};
   // make POST request
   // use SSL to encrytp body
-  http.Response response = await http.post(url, headers: arg, body: json);
+  http.Response response = await http.post(url, headers: arg, body: jsonEncode(<String, String>{
+      'title': title,
+      'content': content,
+      'userId': "999"
+    }),);
   // check the status code for the result
 
   int statusCode = response.statusCode;
+  print("Status code $statusCode");
 
   if (statusCode > 400){
     return('http post failed status Code: $statusCode');

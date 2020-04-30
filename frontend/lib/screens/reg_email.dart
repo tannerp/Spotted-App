@@ -149,7 +149,6 @@ _verifyEmailPostRequest(String firstName, String lastName, String email) async {
   print(url);
   // make POST request
   http.Response response = await http.post(url, headers: arg, body: json);
-  // response.headers.add("Access-Control-Allow-Origin", "*");
   // check the status code for the result
 
   int statusCode = response.statusCode;
