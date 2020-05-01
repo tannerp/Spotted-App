@@ -9,7 +9,7 @@ class VerifyScreen extends StatelessWidget {
       backgroundColor: Colors.grey[200],
       body: Center(
         child: SizedBox(
-          width: 400,
+          //width: 400,
           child: Card(
             child: VerifyForm(),
           ),
