@@ -3,6 +3,7 @@ import { sequelize } from './sequelize';
 
 import { IndexRouter } from './controllers/v0/index.router';
 
+import path from 'path';
 import bodyParser from 'body-parser';
 import { config } from './config/config';
 import { V0MODELS } from './controllers/v0/model.index';
@@ -16,6 +17,9 @@ const c = config.dev;
   const app = express();
   const port = process.env.PORT || 8082; // default port to listen
   
+  // app.use(express.static('./html'));
+  // app.use(express.static('./static/confirm.html'));
+
   app.use(bodyParser.json());
 
   //CORS Should be restricted
@@ -31,6 +35,12 @@ const c = config.dev;
   // Root URI call
   app.get( "/", async ( req, res ) => {
     res.send( "/api/v0/" );
+  } );
+
+  // Email Registration Link
+  app.get( "/confirm/:hash", async ( req, res ) => {
+    // console.log(req.body);
+    res.sendFile(path.join(__dirname, './static/confirm.html'));
   } );
   
 

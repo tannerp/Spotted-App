@@ -2,7 +2,6 @@ import AWS = require('aws-sdk');
 import { config } from './config/config';
 import {EmailVerify} from './controllers/v0/users/models/EmailVerify';
 const c = config.dev;
-const IOS_URL = config.mobile.ios_url;
 //Configure AWS
 var credentials = new AWS.SharedIniFileCredentials({ profile: 'default' });
 AWS.config.credentials = credentials;
@@ -17,10 +16,8 @@ export const s3 = new AWS.S3({
 export const ses = new AWS.SES({ apiVersion: '2010-12-01' });
 
 export async function sendRegistrationEmail(ev: EmailVerify): Promise<string> {
-  const LINK = IOS_URL + '/' + ev.hash;
-
-  console.log(LINK)
-
+  const LINK = c.base_url + '/confirm/' + ev.hash;
+  
   // TODO LINK FOR BROWSER
   try {
     // const templatedata = {
