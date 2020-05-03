@@ -1,0 +1,21 @@
+img{
+    widows: 500px;
+}
+
+h1{
+    color:lightseagreen;
+    font-family: verdana;
+    font-size: 150%;
+    color: rgb(162, 22, 22);
+}
+
+  label {
+    display: block;
+    font: .9rem 'Fira Sans', sans-serif;
+}
+
+input[type='submit'],
+label {
+    margin-top: 1rem;
+}
+

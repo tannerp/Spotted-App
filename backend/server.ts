@@ -38,11 +38,12 @@ const c = config.dev;
   } );
 
   // Email Registration Link
-  app.get( "/confirm/:hash", async ( req, res ) => {
+  app.use('/register', express.static(path.join(__dirname, './static/register')));
+  app.get( "/register/:hash", async ( req, res ) => {
     // console.log(req.body);
-    res.sendFile(path.join(__dirname, './static/confirm.html'));
-  } );
-  
+    res.sendFile(path.join(__dirname, './static/register/confirm.html'));
+  } );    
+
 
   // Start the Server
   app.listen( port, () => {

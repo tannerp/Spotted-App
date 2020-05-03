@@ -1,54 +1,71 @@
-import 'bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:provider/provider.dart';
 
-import './screens/createPost.dart';
-import './screens/createProfile.dart';
-import './screens/navBar.dart';
-import './screens/reg_email.dart';
-import './screens/reg_pass.dart';
-import './screens/newsFeed.dart';
-import 'bloc.dart';
-import 'main_nav.dart';
+import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spotted/login/login_page.dart';
+import 'package:user_repository/user_repository.dart';
 
-void main() => runApp(SpottedApp());
+import 'package:spotted/authentication/authentication.dart';
+import 'package:spotted/splash/splash.dart';
+import 'package:spotted/home/home.dart';
+import 'package:spotted/common/common.dart';
 
-class SpottedApp extends StatelessWidget {
-  // This widget is the root of your application.
+class SimpleBlocDelegate extends BlocDelegate {
+  @override
+  void onEvent(Bloc bloc, Object event) {
+    print(event);
+    super.onEvent(bloc, event);
+  }
+
+  @override
+  void onTransition(Bloc bloc, Transition transition) {
+    print(transition);
+    super.onTransition(bloc, transition);
+  }
+
+  @override
+  void onError(Bloc bloc, Object error, StackTrace stackTrace) {
+    print(error);
+    super.onError(bloc, error, stackTrace);
+  }
+}
+
+void main() {
+  BlocSupervisor.delegate = SimpleBlocDelegate();
+  final userRepository = UserRepository();
+  runApp(
+    BlocProvider<AuthenticationBloc>(
+      create: (context) {
+        return AuthenticationBloc(userRepository: userRepository)
+          ..add(AppStarted());
+      },
+      child: App(userRepository: userRepository),
+    ),
+  );
+}
+
+class App extends StatelessWidget {
+  final UserRepository userRepository;
+
+  App({Key key, @required this.userRepository}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    DeepLinkBloc _bloc = DeepLinkBloc();
     return MaterialApp(
-      title: 'Spotted App',
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
+      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        builder: (context, state) {
+          if (state is AuthenticationAuthenticated) {
+            return HomePage();
+          }
+          if (state is AuthenticationUnauthenticated) {
+            return LoginPage(userRepository: userRepository);
+          }
+          if (state is AuthenticationLoading) {
+            return LoadingIndicator();
+          }
+          return SplashPage();
+        },
       ),
-      initialRoute: '/home',
-      routes: {
-        '/': (context) => RegisterEmail(),
-        '/register': (context) => RegisterEmail(),
-        '/createProfile': (context) => CreateProfileScreen(),
-        '/createPost': (context) => CreatePostForm(),
-        '/home': (context) => AppBarWidget(),
-        '/newsFeed': (context) => NewsFeed(),
-      }
     );
-        // title: 'Spotted',
-        // theme: ThemeData(
-        //     primarySwatch: Colors.blue,
-        //     textTheme: TextTheme(
-        //       title: TextStyle(
-        //         fontWeight: FontWeight.w300,
-        //         color: Colors.blue,
-        //         fontSize: 25.0,
-        //       ),
-        //     )),
-        // home: Scaffold(
-        //     body: Provider<DeepLinkBloc>(
-        //         create: (context) => _bloc,
-        //         dispose: (context, bloc) => bloc.dispose(),
-        //         child: MainNav())));
   }
 }
