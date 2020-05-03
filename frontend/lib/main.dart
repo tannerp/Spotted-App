@@ -32,7 +32,7 @@ class SpottedApp extends StatelessWidget {
         '/createProfile': (context) => CreateProfileScreen(),
         '/createPost': (context) => CreatePostForm(),
         '/home': (context) => AppBarWidget(),
-        '/newsFeed': (context) => NewsFeedWidget(),
+        '/newsFeed': (context) => NewsFeed(),
       }
     );
         // title: 'Spotted',

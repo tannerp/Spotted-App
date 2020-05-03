@@ -15,7 +15,6 @@ class CreatePostScreen extends StatelessWidget {
       backgroundColor: Colors.grey[200],
       body: Center(
         child: SizedBox(
-          width: 400,
           child: Card(
             child: CreatePostForm(),
           ),

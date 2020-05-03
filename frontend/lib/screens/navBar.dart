@@ -14,7 +14,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   int _selectedIndex = 0;
 
   final tabs = [
-    Center(child: NewsFeedWidget(),),
+    Center(child: NewsFeed(),),
     Center(child: CreatePostScreen(),),
     Center(child: Text("My Post Coming Soon"),),
   ];
