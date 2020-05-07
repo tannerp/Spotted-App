@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotted/login/login_page.dart';
+import 'package:spotted/post/post_bloc.dart';
+import 'package:spotted/repositories/post_api_client.dart';
+import 'package:spotted/repositories/post_repository.dart';
+import 'package:spotted/repositories/post_api_client.dart';
 import 'package:user_repository/user_repository.dart';
+import 'package:spotted/repositories/repository.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:spotted/authentication/authentication.dart';
 import 'package:spotted/splash/splash.dart';
@@ -33,38 +39,35 @@ class SimpleBlocDelegate extends BlocDelegate {
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
   final userRepository = UserRepository();
-  runApp(
-    BlocProvider<AuthenticationBloc>(
-      create: (context) {
-        return AuthenticationBloc(userRepository: userRepository)
-          ..add(AppStarted());
-      },
-      child: App(userRepository: userRepository),
-    ),
+  final PostRepository postRepository = PostRepository(
+    postApiClient: PostApiClient(
+      httpClient: http.Client(),
+      ),
+  );
+
+  runApp(App(
+    userRepository: userRepository, 
+    postRepository: postRepository)
   );
 }
 
 class App extends StatelessWidget {
   final UserRepository userRepository;
+  final PostRepository postRepository;
+  
 
-  App({Key key, @required this.userRepository}) : super(key: key);
+  App({Key key, @required this.userRepository, @required this.postRepository}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-        builder: (context, state) {
-          if (state is AuthenticationAuthenticated) {
-            return HomePage();
-          }
-          if (state is AuthenticationUnauthenticated) {
-            return LoginPage(userRepository: userRepository);
-          }
-          if (state is AuthenticationLoading) {
-            return LoadingIndicator();
-          }
-          return SplashPage();
-        },
+      title: 'newsFeed',
+      home: Scaffold(
+        appBar: AppBar(title: Text('Post')),
+        body: BlocProvider(
+          create: (context) => PostBloc(repository: postRepository),
+          child: HomePage(),
+          ),
       ),
     );
   }
