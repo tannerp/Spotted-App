@@ -1,40 +1,51 @@
 <!DOCTYPE html>
-<html>
-
+<html lang = "en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>Create your Spotted Account</title>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.4.4/mobile-detect.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 </head>
 
+<!-- link to style sheet -->
 <head>
   <link rel="stylesheet" type="text/css" href="css-style/style.css">
 </head>
 
 <body>
-  <img src="css-style/Spotted.png" alt="spotted">
-  <h1> Register</h1>
-
+  
+  <div style="margin: auto; width: fit-content; border: 100px black; background-color: white;">
+    <img src="css-style/Spotted.png" alt="spotted">
+    <header> 
+      <h1> Register</h1>
+    </header>
+  </div> 
+ 
   <!-- TODO: Password form to complete user registration -->
   <form action="">
-    <div>
-      <label for="pass">Password (8 characters minimum):</label>
-      <input type="password" id="pass" name="password"pattern="[0-9a-fA-F]{4,8}"
-      title="Enter a password consisting of at least of 8 characters" minlength="8" required>
-
-    </div>
+  <div style="margin: auto; width: fit-content; border: 100px black; background-color: white;">
+  <div class="custom-input required">
+    <label for="registration-form-password"> </label>
+    <input type="password" class="password-validate password-assist" placeholder="******" id="registration-form-password" autocomplete="off" data-password-assist="{&quot;header&quot;:&quot;Your password must have:&quot;,&quot;check1&quot;:&quot;Upper &amp; lowercase letters&quot;,&quot;check2&quot;:&quot;At least one number&quot;,&quot;check3&quot;:&quot;1 special character (e.g. !@#$%^&amp;*)&quot;,&quot;check4&quot;:&quot;8 or more characters&quot;,&quot;strength&quot;:&quot;Strength:&quot;,&quot;instructions&quot;:&quot;Avoid using a password that you use with other websites or that might be easy for someone else to guess.&quot;}" name="dwfrm_profile_login_password" required value="" maxLength="25" />
+    <div id="registration-form-password-error" class="invalid-feedback"></div>
+    <span>Password</span>
+    </label>
+  <div class="invalid-feedback"></div>
+  </div>
     
-    <div>
-      <label for="pass">Password (8 characters minimum):</label>
-      <input type="password" id="pass" name="password" pattern="[0-9a-fA-F]{4,8}"
-      title="Enter a password consisting of at least 8 characters" minlength="8" required>
+  <div class="custom-input required">
+    <label for="registration-form-password"> </label>
+    <input type="password" class="password-validate password-assist" placeholder="******" id="registration-form-password" autocomplete="off" data-password-assist="{&quot;header&quot;:&quot;Your password must have:&quot;,&quot;check1&quot;:&quot;Upper &amp; lowercase letters&quot;,&quot;check2&quot;:&quot;At least one number&quot;,&quot;check3&quot;:&quot;1 special character (e.g. !@#$%^&amp;*)&quot;,&quot;check4&quot;:&quot;8 or more characters&quot;,&quot;strength&quot;:&quot;Strength:&quot;,&quot;instructions&quot;:&quot;Avoid using a password that you use with other websites or that might be easy for someone else to guess.&quot;}" name="dwfrm_profile_login_password" required value="" maxLength="25" />
+    <div id="registration-form-password-error" class="invalid-feedback"></div>
+    <span>Password</span>
+    </label>
+    <div class="invalid-feedback"></div>
   </div>
 
-
-    <input type="submit" value="Confirm">
+  <input type="submit" value="Confirm">
   </form>
   <h1 id="test"></h1>
+</div>
 </body>
 
 

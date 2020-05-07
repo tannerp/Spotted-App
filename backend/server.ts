@@ -39,7 +39,7 @@ const c = config.dev;
 
   // Email Registration Link
   app.get( "/confirm/:hash", async ( req, res ) => {
-    console.log(req.body);
+    // console.log(req.body);
     res.sendFile(path.join(__dirname, './static/confirm.html'));
   } );
   
