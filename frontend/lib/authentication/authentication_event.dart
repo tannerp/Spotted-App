@@ -23,3 +23,14 @@ class LoggedIn extends AuthenticationEvent {
 }
 
 class LoggedOut extends AuthenticationEvent {}
+
+
+// Registration
+abstract class RegistrationtionEvent extends Equatable {
+  const RegistrationtionEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+class RegisterEmail extends RegistrationtionEvent {}

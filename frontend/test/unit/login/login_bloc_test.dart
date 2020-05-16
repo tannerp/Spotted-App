@@ -2,7 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:mockito/mockito.dart';
-import 'package:user_repository/user_repository.dart';
+import 'package:spotted/repositories/user_repository.dart';
 
 import 'package:spotted/authentication/authentication.dart';
 import 'package:spotted/login/bloc/login_bloc.dart';

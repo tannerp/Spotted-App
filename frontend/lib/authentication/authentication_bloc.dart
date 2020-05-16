@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
-import 'package:user_repository/user_repository.dart';
+import 'package:spotted/repositories/user_repository.dart';
 
 import 'package:spotted/authentication/authentication.dart';
 
@@ -38,6 +38,12 @@ class AuthenticationBloc
 
     if (event is LoggedOut) {
       yield AuthenticationLoading();
+      await userRepository.deleteToken();
+      yield AuthenticationUnauthenticated();
+    }
+
+    if (event is RegisterEmail) {
+      yield AuthenticationRegister();
       await userRepository.deleteToken();
       yield AuthenticationUnauthenticated();
     }

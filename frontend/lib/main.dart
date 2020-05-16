@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotted/login/login_page.dart';
 import 'package:spotted/post/post_bloc.dart';
+import 'package:spotted/register/register_page.dart';
+
 import 'package:spotted/repositories/post_api_client.dart';
 import 'package:spotted/repositories/post_repository.dart';
-import 'package:spotted/repositories/post_api_client.dart';
-import 'package:user_repository/user_repository.dart';
+// import 'package:spotted/repositories/post_api_client.dart';
 import 'package:spotted/repositories/repository.dart';
-import 'package:http/http.dart' as http;
+
+import 'package:spotted/repositories/user_repository.dart';
 
 import 'package:spotted/authentication/authentication.dart';
 import 'package:spotted/splash/splash.dart';
@@ -42,32 +45,75 @@ void main() {
   final PostRepository postRepository = PostRepository(
     postApiClient: PostApiClient(
       httpClient: http.Client(),
-      ),
+    ),
   );
 
-  runApp(App(
-    userRepository: userRepository, 
-    postRepository: postRepository)
+  runApp(
+    BlocProvider<AuthenticationBloc>(
+        create: (context) {
+          return AuthenticationBloc(userRepository: userRepository)
+            ..add(AppStarted());
+        },
+        child: App(
+            userRepository: userRepository, postRepository: postRepository)),
   );
 }
 
 class App extends StatelessWidget {
   final UserRepository userRepository;
   final PostRepository postRepository;
-  
 
-  App({Key key, @required this.userRepository, @required this.postRepository}) : super(key: key);
+  App({Key key, @required this.userRepository, @required this.postRepository})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'newsFeed',
-      home: Scaffold(
-        appBar: AppBar(title: Text('Post')),
-        body: BlocProvider(
-          create: (context) => PostBloc(repository: postRepository),
-          child: HomePage(),
-          ),
+      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        builder: (context, state) {
+          if (state is AuthenticationUnauthenticated) {
+            return MaterialApp(
+                title: 'Spotted App',
+                theme: ThemeData(
+                  primarySwatch: Colors.teal,
+                ),
+                initialRoute: '/new_post',
+                routes: {
+                  '/': (context) => BlocProvider(
+                        create: (context) =>
+                            PostBloc(repository: postRepository),
+                        child: LoginPage(userRepository: userRepository),
+                      ),
+                  '/login': (context) => BlocProvider(
+                        create: (context) =>
+                            PostBloc(repository: postRepository),
+                        child: LoginPage(userRepository: userRepository),
+                      ),
+                  '/register': (context) => BlocProvider(
+                        create: (context) =>
+                            PostBloc(repository: postRepository),
+                        child: RegisterPage(),
+                      ),
+                      //  TODO Remove when merge new post brand
+                  '/new_post': (context) => BlocProvider(
+                        create: (context) =>
+                            PostBloc(repository: postRepository),
+                        child: RegisterPage(),
+                      ),
+                });
+          }
+          if (state is AuthenticationAuthenticated) {
+            // return LoginPage(userRepository: userRepository);
+            return BlocProvider(
+              create: (context) => PostBloc(repository: postRepository),
+              child: HomePage(),
+            );
+          }
+          if (state is AuthenticationLoading) {
+            return LoadingIndicator();
+          }
+          return SplashPage();
+        },
       ),
     );
   }

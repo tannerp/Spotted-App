@@ -3,15 +3,14 @@ import 'dart:async';
 import 'package:meta/meta.dart';
 
 class UserRepository {
+  String token;
+  
   Future<String> authenticate({
     @required String username,
     @required String password,
   }) async {
     await Future.delayed(Duration(seconds: 1));
-<<<<<<< HEAD
     // fetch api
-=======
->>>>>>> dc97499a73bc97c49f906f89bebb087894bf2447
     return 'token';
   }
 

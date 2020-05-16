@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotted/login/login_form.dart';
-import 'package:user_repository/user_repository.dart';
+import 'package:spotted/repositories/user_repository.dart';
 
 import 'package:spotted/authentication/authentication.dart';
 import 'package:spotted/login/bloc/login_bloc.dart';
