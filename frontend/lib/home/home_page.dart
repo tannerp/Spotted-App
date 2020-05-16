@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:spotted/post/bloc.dart';
+import 'package:spotted/components/postTile.dart';
 
 class HomePage extends StatelessWidget {
 
@@ -21,10 +22,19 @@ class HomePage extends StatelessWidget {
       }
 
       if (state is PostLoaded) {
-        return ListTile (
-          title: Text(state.post.title == null ? '2' : state.post.title),
+        return ListView(
+          children: <Widget>[
+            Card(child: makePost(
+              post: state.post,
+              userName: 'Lhakpa',
+              userImage: 'Blah',
+              postTime: 'Blah',
+            )),
+          ],
+          
+          /*title: Text(state.post.title == null ? '2' : state.post.title),
           subtitle: Text(state.post.body == null ? '2' : state.post.body),
-          dense: true,
+          dense: true,*/
         );
       }
      
