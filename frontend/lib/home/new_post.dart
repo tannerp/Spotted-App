@@ -6,7 +6,7 @@ import 'package:spotted/post/bloc.dart';
 
 // NOTE can start with creating the UI. We will wire it up later
 
-class HomePage extends StatelessWidget {
+class NewPost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -24,25 +24,32 @@ class HomePage extends StatelessWidget {
 
       if (state is PostLoaded) {
         
-        return Form(
-            child: Column(
-              children: [
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'username'),
-                  // controller: _usernameController,
+        return Scaffold(
+      appBar: AppBar(title: Text("Verify Email")),
+      body: Container(
+        margin: EdgeInsets.all(24),
+        child: Form(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+             TextField(),
+             TextField(),
+              SizedBox(height: 100),
+              RaisedButton(
+                child: Text(
+                  'Submit',
+                  style: TextStyle(color: Colors.blue, fontSize: 16),
                 ),
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'password'),
-                  // controller: _passwordController,
-                  obscureText: true,
-                ),
-                RaisedButton(
-                  onPressed: (){ print("Button Pressed");},
-                  child: Text('Submit'),
-                ),         
-              ],
-            ),
-          );
+                onPressed: () {
+                  print("Button pressed");
+                  
+                },
+              )
+            ],
+          ),
+        ),
+      ),
+    );
 
      
       }
