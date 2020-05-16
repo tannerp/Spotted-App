@@ -31,3 +31,8 @@ pbconfig$
 .idea
 
 Flutter/.*
+
+.npmrc
+.package.json.swp
+.travis.yml
+old_frontend/

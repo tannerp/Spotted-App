@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Create your Spotted Account</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.4.4/mobile-detect.min.js"></script>
+</head>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+  <img src="Spotted.png" alt="spotted">
+  <h1> Register</h1>
+
+  <!-- TODO: Password form to complete user registration -->
+  <form action="">
+    <div>
+      <label for="pass">Password (8 characters minimum):</label>
+      <input type="password" id="pass" name="password" pattern="[0-9a-fA-F]{4,8}"
+        title="Enter a password consisting of at least of 8 characters" minlength="8" required>
+
+    </div>
+
+    <div>
+      <label for="pass">Password (8 characters minimum):</label>
+      <input type="password" id="pass_confirm" name="password" pattern="[0-9a-fA-F]{4,8}"
+        title="Enter a password consisting of at least 8 characters" minlength="8" required>
+    </div>
+
+
+    <input type="submit" value="Confirm" onclick="submitPass()">
+  </form>  
+</body>
+
+
+<script type="text/javascript">
+  const base = "http://localhost:8082"
+  const url = base + "/api/v0/users/regis/pass"
+  var md = new MobileDetect(window.navigator.userAgent);
+  let el = document.getElementById("pass_confirm")
+  let el_0 = document.getElementById("pass")
+  
+  
+  console.log(md.mobile()); // 'Sony'
+  // if (document.readyState === "complete") {
+  console.log("LOAD COMPLETED")
+
+  // check if mobile and ask to open native app
+  const tmp_arr = window.location.href.split("/");
+  // const hash = tmp_arr[tmp_arr.length - 1]
+  const hash = "gjeYDnt2w";
+  // let el = document.getElementById("")
+
+  // if this page is opened on a mobile device, checks if the app is install
+  // and send a deep link request to open the sister page of this inside of the app
+  if (md.mobile()) {
+    el.innerHTML = "Open Mobile App! " + token;
+    window.location.replace("spot://spotted.spu.com/" + token);
+    setTimeout(function () {
+      window.location.replace("tannerphan.com");
+    }, 2000);
+  } else {}
+
+  
+  function submitPass() {
+    // console.log("Button Pressed")
+    // console.log(el.value);
+    var xmlhttp = new XMLHttpRequest(); // new HttpRequest instance 
+    xmlhttp.open("POST", url);
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
+    xmlhttp.send(JSON.stringify({
+      pass: el.value,
+      hash: hash
+    }));
+
+    el_0.value = "";
+    el.value = ""
+  }
+</script>
+
+</html>
