@@ -29,7 +29,6 @@ const c = config.dev;
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     next();
   });
-
   app.use('/api/v0/', IndexRouter)
 
   // Root URI call

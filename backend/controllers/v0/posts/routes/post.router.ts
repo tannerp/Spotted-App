@@ -14,7 +14,7 @@ router.post('/newpost', async (req: Request, res: Response) => {
     const title = req.body.title;
     const content = req.body.content;
 
-    console.log(req.body)
+    // console.log(req.body)
     const post =  await new Post({title: title, content: content});
     let savedPost;
     try {

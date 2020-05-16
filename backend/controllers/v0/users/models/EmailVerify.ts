@@ -2,6 +2,8 @@ import {Table, Column, Model, PrimaryKey, CreatedAt, UpdatedAt} from 'sequelize-
 
 @Table
 export class EmailVerify extends Model<EmailVerify> {
+  
+  @PrimaryKey
   @Column
   public hash!: string;
 

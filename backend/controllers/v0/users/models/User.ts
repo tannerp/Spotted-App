@@ -11,6 +11,12 @@ export class User extends Model<User> {
   public password_hash!: string; // for nullable fields
 
   @Column
+  public first_name!: string; // for nullable fields
+  
+  @Column
+  public last_name!: string; // for nullable fields
+
+  @Column
   @CreatedAt
   public createdAt: Date = new Date();
 
@@ -20,7 +26,9 @@ export class User extends Model<User> {
 
   short() {
     return {
-      email: this.email
+      email: this.email,
+      first_name: this.first_name,
+      last_name: this.last_name,
     }
   }
 }

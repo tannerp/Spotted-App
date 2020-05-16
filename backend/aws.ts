@@ -16,7 +16,7 @@ export const s3 = new AWS.S3({
 export const ses = new AWS.SES({ apiVersion: '2010-12-01' });
 
 export async function sendRegistrationEmail(ev: EmailVerify): Promise<string> {
-  const LINK = c.base_url + '/confirm/' + ev.hash;
+  const LINK = c.base_url + '/register/' + ev.hash;
   
   // TODO LINK FOR BROWSER
   try {
