@@ -26,7 +26,8 @@ router.post('/newpost', async (req: Request, res: Response) => {
 });
 
 router.get('/all', async (req: Request, res: Response) => {
-    res.send('auth')
+    const posts = Post.findAll({limit: 3});
+    res.status(201).send({posts: posts});
 });
 
 export const PostRouter: Router = router;

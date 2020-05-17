@@ -2,7 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:spotted/models/models.dart';
 
- Widget makePost({Post post, userImage, userName, postTime}) {
+class PostTileWidget extends StatelessWidget {
+  PostTileWidget({this.post, this.userImage, this.userName, this.postTime, this.onPressed});
+
+  final Post post;
+
+  final String userName;
+
+  final ImageProvider userImage;
+
+  final TimeOfDay postTime;
+
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: makePost(
+        post: post,
+        userImage: userImage,
+        userName: userName,
+        postTime: postTime
+      ),
+    );
+  }
+}
+
+ Widget makePost({Post post, ImageProvider userImage, String userName, TimeOfDay postTime}) {
     return Container(
       margin: EdgeInsets.only(bottom: 20),
       child: Column(
@@ -19,7 +45,7 @@ import 'package:spotted/models/models.dart';
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                        image: AssetImage(userImage),
+                        image: userImage,
                         fit: BoxFit.cover
                       )
                     ),
@@ -30,7 +56,7 @@ import 'package:spotted/models/models.dart';
                     children: <Widget>[
                       Text(userName, style: TextStyle(color: Colors.grey[900], fontSize: 18, fontWeight: FontWeight.bold, letterSpacing: 1),),
                       SizedBox(height: 3,),
-                      Text(postTime, style: TextStyle(fontSize: 15, color: Colors.grey),),
+                      Text(postTime.toString(), style: TextStyle(fontSize: 15, color: Colors.grey),),
                     ],
                   )
                 ],
@@ -52,7 +78,7 @@ import 'package:spotted/models/models.dart';
                 children: <Widget>[
                   makeHelp(),
                   SizedBox(width: 5,),
-                  Text("2.5K", style: TextStyle(fontSize: 15, color: Colors.grey[800]),)
+                  Text("200", style: TextStyle(fontSize: 15, color: Colors.grey[800]),)
                 ],
               ),
               Text("400 Helps", style: TextStyle(fontSize: 13, color: Colors.grey[800]),)
