@@ -2,19 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spotted/login/login_page.dart';
+import 'package:spotted/components/bottomNav.dart';
 import 'package:spotted/post/post_bloc.dart';
 import 'package:spotted/repositories/post_api_client.dart';
 import 'package:spotted/repositories/post_repository.dart';
-import 'package:spotted/repositories/post_api_client.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:spotted/repositories/repository.dart';
 import 'package:http/http.dart' as http;
-
-import 'package:spotted/authentication/authentication.dart';
-import 'package:spotted/splash/splash.dart';
-import 'package:spotted/home/home.dart';
-import 'package:spotted/common/common.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override
@@ -66,7 +60,7 @@ class App extends StatelessWidget {
         appBar: AppBar(title: Text('Post')),
         body: BlocProvider(
           create: (context) => PostBloc(repository: postRepository),
-          child: HomePage(),
+          child: AppBarWidget(),
           ),
       ),
     );
