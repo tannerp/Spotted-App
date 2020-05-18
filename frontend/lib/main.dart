@@ -71,6 +71,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
 //       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
 //         builder: (context, state) {
 //           if (state is AuthenticationUnauthenticated) {
@@ -117,9 +118,8 @@ class App extends StatelessWidget {
 //           return SplashPage();
 //         },
 // =======
-      title: 'newsFeed',
+      title: 'Home',
       home: Scaffold(
-        appBar: AppBar(title: Text('Post')),
         body: BlocProvider(
           create: (context) => PostBloc(repository: postRepository),
           child: AppBarWidget(),
