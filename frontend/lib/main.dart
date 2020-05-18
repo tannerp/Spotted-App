@@ -19,6 +19,7 @@ import 'package:spotted/splash/splash.dart';
 import 'package:spotted/home/home.dart';
 import 'package:spotted/home/new_post.dart';
 import 'package:spotted/login/login_page.dart';
+import 'package:spotted/profile/ProfilePage.dart';
 // import 'package:spotted/common/common.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
@@ -101,6 +102,10 @@ class App extends StatelessWidget {
               '/new_post': (context) => BlocProvider(
                     create: (context) => PostBloc(repository: postRepository),
                     child: NewPost(),
+                  ),
+              '/profile': (context) => BlocProvider(
+                    create: (context) => PostBloc(repository: postRepository),
+                    child: ProfilePage(),
                   ),
             });
       }

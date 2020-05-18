@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spotted/components/messagePage.dart';
 import '../home/home_page.dart';
 import '../home/MyPostPage.dart';
+import '../profile/ProfilePage.dart';
 
 class AppBarWidget extends StatefulWidget {
   AppBarWidget({Key key}) : super(key: key);
@@ -18,9 +19,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
       child: Text("New Post Page"),
     ),
     Center(child: HomePage()),
-    Center(
-      child: MyPostsPage()
-    ),
+    Center(child: MyPostsPage()),
   ];
 
   @override
@@ -30,15 +29,15 @@ class _AppBarWidgetState extends State<AppBarWidget> {
         title: const Text('Seattle Pacific University'),
         backgroundColor: Colors.black,
         leading: IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {
-              print("Menu");
-            }),
+            icon: Icon(Icons.person),
+            onPressed: () => {Navigator.pushNamed(context, "/profile")}),
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.message),
-              onPressed: () =>{
-                Navigator.push(context, MaterialPageRoute(builder: (context) => MessageApp()))})
+              onPressed: () => {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MessageApp()))
+                  })
         ],
       ),
       body: Center(
@@ -53,7 +52,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             title: Text('Home'),
-          ),          
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.face),
             title: Text('My Post'),

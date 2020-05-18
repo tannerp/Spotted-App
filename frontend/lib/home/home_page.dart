@@ -7,6 +7,7 @@ import 'package:spotted/components/postTile.dart';
 
 class HomePage extends StatelessWidget {
 
+
   @override
   Widget build(BuildContext context) {
         return BlocBuilder<PostBloc, PostState>(
@@ -24,8 +25,7 @@ class HomePage extends StatelessWidget {
         if (state is PostLoaded) {
           return ListView(
               children: <Widget>[
-                Card(
-                  child: PostTileWidget(
+                Card(child: PostTileWidget(
                   post: state.post,
                   userName: 'Lhakpa',
                   userImage: NetworkImage("https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
