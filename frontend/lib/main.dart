@@ -10,15 +10,15 @@ import 'package:spotted/register/register_page.dart';
 import 'package:spotted/repositories/post_api_client.dart';
 import 'package:spotted/repositories/post_repository.dart';
 
-
 import 'package:spotted/repositories/repository.dart';
 
 import 'package:spotted/repositories/user_repository.dart';
 
 import 'package:spotted/authentication/authentication.dart';
 import 'package:spotted/splash/splash.dart';
-// import 'package:spotted/home/home.dart';
-// import 'package:spotted/home/new_post.dart';
+import 'package:spotted/home/home.dart';
+import 'package:spotted/home/new_post.dart';
+import 'package:spotted/login/login_page.dart';
 // import 'package:spotted/common/common.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
@@ -70,61 +70,51 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-
-//       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-//         builder: (context, state) {
-//           if (state is AuthenticationUnauthenticated) {
-//             return MaterialApp(
-//                 title: 'Spotted App',
-//                 theme: ThemeData(
-//                   primarySwatch: Colors.teal,
-//                 ),
-//                 initialRoute: '/new_post',
-//                 routes: {
-//                   '/': (context) => BlocProvider(
-//                         create: (context) =>
-//                             PostBloc(repository: postRepository),
-//                         child: LoginPage(userRepository: userRepository),
-//                       ),
-//                   '/login': (context) => BlocProvider(
-//                         create: (context) =>
-//                             PostBloc(repository: postRepository),
-//                         child: LoginPage(userRepository: userRepository),
-//                       ),
-//                   '/register': (context) => BlocProvider(
-//                         create: (context) =>
-//                             PostBloc(repository: postRepository),
-//                         child: RegisterPage(),
-//                       ),
-//                       //  TODO Remove when merge new post brand
-//                   '/new_post': (context) => BlocProvider(
-//                         create: (context) =>
-//                             PostBloc(repository: postRepository),
-//                         child: NewPost(),
-//                       ),
-//                 });
-//           }
-//           if (state is AuthenticationAuthenticated) {
-//             // return LoginPage(userRepository: userRepository);
-//             return BlocProvider(
-//               create: (context) => PostBloc(repository: postRepository),
-//               child: HomePage(),
-//             );
-//           }
-//           if (state is AuthenticationLoading) {
-//             return LoadingIndicator();
-//           }
-//           return SplashPage();
-//         },
-// =======
-      title: 'Home',
-      home: Scaffold(
-        body: BlocProvider(
+    return MaterialApp(home:
+        BlocBuilder<AuthenticationBloc, AuthenticationState>(
+            builder: (context, state) {
+      if (state is AuthenticationUnauthenticated) {
+        return MaterialApp(
+            title: 'Spotted App',
+            theme: ThemeData(
+              primarySwatch: Colors.teal,
+            ),
+            initialRoute: '/home',
+            routes: {
+              '/': (context) => BlocProvider(
+                    create: (context) => PostBloc(repository: postRepository),
+                    child: LoginPage(userRepository: userRepository),
+                  ),
+              '/home': (context) => BlocProvider(
+                    create: (context) => PostBloc(repository: postRepository),
+                    child: AppBarWidget(),
+                  ),
+              '/login': (context) => BlocProvider(
+                    create: (context) => PostBloc(repository: postRepository),
+                    child: LoginPage(userRepository: userRepository),
+                  ),
+              '/register': (context) => BlocProvider(
+                    create: (context) => PostBloc(repository: postRepository),
+                    child: RegisterPage(),
+                  ),
+              //  TODO Remove when merge new post brand
+              '/new_post': (context) => BlocProvider(
+                    create: (context) => PostBloc(repository: postRepository),
+                    child: NewPost(),
+                  ),
+            });
+      }
+      if (state is AuthenticationAuthenticated) {
+        // return LoginPage(userRepository: userRepository);
+        return BlocProvider(
           create: (context) => PostBloc(repository: postRepository),
-          child: AppBarWidget(),
-          ),
-      ),
-    );
+          child: HomePage(),
+        );
+      }
+      if (state is AuthenticationLoading) {
+        return CircularProgressIndicator();
+      }
+      return SplashPage();
+    }));
   }
 }

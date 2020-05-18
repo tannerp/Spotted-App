@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spotted/components/messagePage.dart';
 import '../home/home_page.dart';
+import '../home/MyPostPage.dart';
 
 class AppBarWidget extends StatefulWidget {
   AppBarWidget({Key key}) : super(key: key);
@@ -13,12 +14,12 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   int _selectedIndex = 0;
 
   final tabs = [
+    Center(
+      child: Text("New Post Page"),
+    ),
     Center(child: HomePage()),
     Center(
-      child: Text("blah"),
-    ),
-    Center(
-      child: Text("My Post Coming Soon"),
+      child: MyPostsPage()
     ),
   ];
 
