@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spotted/components/bottomNav.dart';
-import 'package:spotted/home/home.dart';
 
 import 'package:spotted/post/bloc.dart';
 import 'package:spotted/components/postTile.dart';
@@ -33,13 +31,7 @@ class HomePage extends StatelessWidget {
                   postTime: TimeOfDay.now(),
                 )),
               ],
-              
-              /*title: Text(state.post.title == null ? '2' : state.post.title),
-              subtitle: Text(state.post.body == null ? '2' : state.post.body),
-              dense: true,*/
             );
-            /*
-            ),*/
         }  
         return Center(
             child: CircularProgressIndicator(),

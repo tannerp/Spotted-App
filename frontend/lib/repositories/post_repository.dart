@@ -9,7 +9,7 @@ class PostRepository {
   final PostApiClient postApiClient;
 
   PostRepository({@required this.postApiClient})
-      : assert(postApiClient != null) {}
+      : assert(postApiClient != null);
 
   Future<Post> fetchPost() async {
     return await postApiClient.fetchPost();

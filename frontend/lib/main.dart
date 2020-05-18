@@ -55,9 +55,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'newsFeed',
       home: Scaffold(
-        appBar: AppBar(title: Text('Post')),
         body: BlocProvider(
           create: (context) => PostBloc(repository: postRepository),
           child: AppBarWidget(),
