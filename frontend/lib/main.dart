@@ -9,10 +9,11 @@ import 'package:spotted/register/register_page.dart';
 
 import 'package:spotted/repositories/post_api_client.dart';
 import 'package:spotted/repositories/post_repository.dart';
+import 'package:spotted/repositories/user_repository.dart';
+import 'package:spotted/repositories/user_api_client.dart';
 
 import 'package:spotted/repositories/repository.dart';
 
-import 'package:spotted/repositories/user_repository.dart';
 
 import 'package:spotted/authentication/authentication.dart';
 import 'package:spotted/splash/splash.dart';
@@ -44,10 +45,17 @@ class SimpleBlocDelegate extends BlocDelegate {
 
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
-  final userRepository = UserRepository();
+  final http.Client httpClient = http.Client();
+  
+  final userRepository = UserRepository(
+    client: UserApiClient(
+      httpClient: httpClient,
+    ),
+  );
+
   final PostRepository postRepository = PostRepository(
     postApiClient: PostApiClient(
-      httpClient: http.Client(),
+      httpClient: httpClient,
     ),
   );
 
@@ -85,11 +93,7 @@ class App extends StatelessWidget {
               '/': (context) => BlocProvider(
                     create: (context) => PostBloc(repository: postRepository),
                     child: LoginPage(userRepository: userRepository),
-                  ),
-              '/home': (context) => BlocProvider(
-                    create: (context) => PostBloc(repository: postRepository),
-                    child: AppBarWidget(),
-                  ),
+                  ),              
               '/login': (context) => BlocProvider(
                     create: (context) => PostBloc(repository: postRepository),
                     child: LoginPage(userRepository: userRepository),
@@ -113,7 +117,7 @@ class App extends StatelessWidget {
         // return LoginPage(userRepository: userRepository);
         return BlocProvider(
           create: (context) => PostBloc(repository: postRepository),
-          child: HomePage(),
+          child: AppBarWidget(),
         );
       }
       if (state is AuthenticationLoading) {

@@ -15,30 +15,23 @@ class UserApiClient {
     @required this.httpClient,
   }) : assert(httpClient != null);
 
-  // Future<Post> fetchPost() async {
-  //   final url = 'https://jsonplaceholder.typicode.com/posts/1';
-  //   final response = await this.httpClient.get(url);
 
-  //   if (response.statusCode != 200) {
-  //     throw new Exception('error getting posts');
-  //   }
-
-  //   final json = jsonDecode(response.body);
-  //   return Post.fromJson(json);
-  // }
-
-  Future<String> authenticate(String email, String pass) async {
+  Future<dynamic> authenticate(String email, String pass) async {
     // final String title = post.title;
     // final String body = post.body;
-    final url = "$_baseUrl/login";
+    Map<String, String> arg = {"Content-type": "application/json"};
+    final url = "$_baseUrl/api/v0/users/auth/login";
 
-    final response = await this.httpClient.post(url);
+    final Map<String, String> json = {"email": email, "password": pass}; 
+
+    final http.Response response = await this.httpClient.post(url, headers: arg, body: jsonEncode(json));
+
+    print(response);
 
     if (response.statusCode != 200) {
-      throw new Exception('error getting posts');
+      throw new Exception('Authentication Error');
     }
 
-    return jsonDecode(response.body);
-    
+    return jsonDecode(response.body);;
   }
 }

@@ -57,8 +57,7 @@ class _LoginFormState extends State<LoginForm> {
                       () {
                         // return state is! LoginLoading ? _onLoginButtonPressed : null,
                         if( state is! LoginLoading) {
-                      // _onLoginButtonPressed();
-                        Navigator.pushNamed(context, '/register');
+                        _onLoginButtonPressed();
                         }
                         },
                   child: Text('Register'),

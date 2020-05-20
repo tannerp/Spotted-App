@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:validators/validators.dart';
 
-
 class RegisterPage extends StatelessWidget {
 
   @override
@@ -120,9 +119,6 @@ class _VerifyFormState extends State<VerifyForm> {
                     return;
                   }
                   _formKey.currentState.save();
-                  print(_firstName);
-                  print(_lastName);
-                  print(_email);  
                   //API interaction
                   _verifyEmailPostRequest(_firstName, _lastName, _email);
                    Navigator.pushNamed(context, '/register');
@@ -152,9 +148,6 @@ _verifyEmailPostRequest(String firstName, String lastName, String email) async {
   // check the status code for the result
 
   int statusCode = response.statusCode;
-
-  print(response);
-  print(statusCode);
 
   if (statusCode > 400){
     return('http post failed status Code: $statusCode');
