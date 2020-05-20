@@ -22,7 +22,16 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         //print(post);
         yield PostLoaded(post: post);
       } catch (_) {
-        yield PostError();
+        yield PostError("Please enter your content");
+      }
+    }
+    else if (event is SavePost) {
+      yield PostSaving();
+      try {
+        final String message = await repository.createPost(event.post);
+        yield PostEmpty();
+      } catch (_) {
+        yield PostError("Failed to save post");     
       }
     }
   }

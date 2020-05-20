@@ -18,7 +18,6 @@ import 'package:spotted/repositories/repository.dart';
 import 'package:spotted/authentication/authentication.dart';
 import 'package:spotted/splash/splash.dart';
 import 'package:spotted/home/home.dart';
-import 'package:spotted/home/new_post.dart';
 import 'package:spotted/login/login_page.dart';
 import 'package:spotted/profile/ProfilePage.dart';
 // import 'package:spotted/common/common.dart';
@@ -101,11 +100,6 @@ class App extends StatelessWidget {
               '/register': (context) => BlocProvider(
                     create: (context) => PostBloc(repository: postRepository),
                     child: RegisterPage(),
-                  ),
-              //  TODO Remove when merge new post brand
-              '/new_post': (context) => BlocProvider(
-                    create: (context) => PostBloc(repository: postRepository),
-                    child: NewPost(),
                   ),
               '/profile': (context) => BlocProvider(
                     create: (context) => PostBloc(repository: postRepository),
