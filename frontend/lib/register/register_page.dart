@@ -144,7 +144,7 @@ _verifyEmailPostRequest(String firstName, String lastName, String email) async {
   String url = 'http://localhost:8082/api/v0/users/regis';
   Map<String, String> arg = {"Content-type": "application/json"};
   
-  String json = '{"userId": "$firstName", "title": "$lastName", "body": "$email"}';
+  String json = '{"fname": "$firstName", "lname": "$lastName", "email": "$email"}';
 
   print(url);
   // make POST request

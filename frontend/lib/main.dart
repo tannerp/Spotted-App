@@ -80,7 +80,7 @@ class App extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: Colors.teal,
             ),
-            initialRoute: '/home',
+            initialRoute: 'register',
             routes: {
               '/': (context) => BlocProvider(
                     create: (context) => PostBloc(repository: postRepository),

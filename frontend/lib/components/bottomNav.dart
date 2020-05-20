@@ -12,25 +12,26 @@ class AppBarWidget extends StatefulWidget {
 }
 
 class _AppBarWidgetState extends State<AppBarWidget> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   final tabs = [
-    Center(
-      child: Text("New Post Page"),
-    ),
+    Center(child: Text("New Post Page")),
     Center(child: HomePage()),
     Center(child: MyPostsPage()),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(  
       appBar: AppBar(
         title: const Text('Seattle Pacific University'),
         backgroundColor: Colors.black,
         leading: IconButton(
             icon: Icon(Icons.person),
-            onPressed: () => {Navigator.pushNamed(context, "/profile")}),
+            onPressed: () => {
+                  print('profile pressed'),
+                  Navigator.pushNamed(context, "/profile")
+                }),
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.message),

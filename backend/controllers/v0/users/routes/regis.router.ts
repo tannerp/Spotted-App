@@ -23,8 +23,8 @@ router.post('/', async (req: Request, res: Response) => {
     
     // body.body is for ios
     const email = req.body.email || req.body.body;
-    const fname = req.body.first_name;
-    const lname = req.body.last_name;
+    const fname = req.body.fname;
+    const lname = req.body.lname;
     const uuid = smartunique.shortId();
 
     const ev = await new EmailVerify({
@@ -32,8 +32,6 @@ router.post('/', async (req: Request, res: Response) => {
         first_name: fname,
         last_name: lname,
         email: email,
-        name: "tanner phan"
-        // TODO
     });
     
     let savedVrfEmail;
@@ -66,6 +64,8 @@ router.post('/pass', async (req: Request, res: Response) => {
     console.log(req.body);
     const user_db = await EmailVerify.findByPk(hash);
 
+    console.log(user_db);
+
     // create new user /w password
     if (!user_db) {
         console.error("Unable to find user");
@@ -95,6 +95,7 @@ router.post('/pass', async (req: Request, res: Response) => {
             password_hash: passhashed
         })
         let savedUser = user.save().then( user => {
+            
             jwt = generateJWT(user);
             return res.status(200).send({ auth: true, token: jwt, user: user.short()});
         })
