@@ -18,4 +18,5 @@ class PostRepository {
   Future<String> createPost(Post post) async {
     return await postApiClient.createPost(post);
   }
+
 }
