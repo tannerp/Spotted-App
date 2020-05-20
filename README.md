@@ -4,7 +4,6 @@
 
 Spotted is a private Q/A application for any organization. User needs an organzation email in order to be verified and placed in the organization's private QnA.
 As an verified member, users can ask questions and answer other people's questions.
-***
 ## Getting Setup
 
 ### Flutter App - See README in frontend directory
