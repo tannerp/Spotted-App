@@ -14,7 +14,6 @@ import 'package:spotted/repositories/user_api_client.dart';
 
 import 'package:spotted/repositories/repository.dart';
 
-
 import 'package:spotted/authentication/authentication.dart';
 import 'package:spotted/splash/splash.dart';
 import 'package:spotted/home/home.dart';
@@ -45,7 +44,7 @@ class SimpleBlocDelegate extends BlocDelegate {
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
   final http.Client httpClient = http.Client();
-  
+
   final userRepository = UserRepository(
     client: UserApiClient(
       httpClient: httpClient,
@@ -92,7 +91,7 @@ class App extends StatelessWidget {
               '/': (context) => BlocProvider(
                     create: (context) => PostBloc(repository: postRepository),
                     child: LoginPage(userRepository: userRepository),
-                  ),              
+                  ),
               '/login': (context) => BlocProvider(
                     create: (context) => PostBloc(repository: postRepository),
                     child: LoginPage(userRepository: userRepository),
@@ -110,10 +109,19 @@ class App extends StatelessWidget {
       if (state is AuthenticationAuthenticated) {
         // return LoginPage(userRepository: userRepository);
         return BlocProvider(
-          create: (context) => PostBloc(repository: postRepository),
-          child: AppBarWidget(),
-        );
+            create: (context) => PostBloc(repository: postRepository),
+            child: MaterialApp(initialRoute: '/', routes: {
+              '/': (context) => BlocProvider(
+                    create: (context) => PostBloc(repository: postRepository),
+                    child: AppBarWidget(postRepository: postRepository,),
+                  ),
+              '/home': (context) => BlocProvider(
+                    create: (context) => PostBloc(repository: postRepository),
+                    child: AppBarWidget(postRepository: postRepository),
+                  )
+            }));
       }
+
       if (state is AuthenticationLoading) {
         return CircularProgressIndicator();
       }

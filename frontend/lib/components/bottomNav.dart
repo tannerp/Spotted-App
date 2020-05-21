@@ -5,25 +5,50 @@ import '../home/home_page.dart';
 import '../home/MyPostPage.dart';
 import '../profile/ProfilePage.dart';
 
+import 'package:spotted/post/post_bloc.dart';
+import 'package:spotted/repositories/post_repository.dart';
+import 'package:spotted/repositories/user_repository.dart';
+import 'package:spotted/repositories/user_api_client.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 class AppBarWidget extends StatefulWidget {
-  AppBarWidget({Key key}) : super(key: key);
+  UserRepository userRepository;
+  PostRepository postRepository;
+  List<Widget> tabs;
+
+  AppBarWidget({Key key, @required this.postRepository})
+      : assert(postRepository != null),
+        super(key: key) {
+    tabs = [
+      BlocProvider(
+        create: (context) {
+          return PostBloc(
+            repository: postRepository,
+          );
+        },
+        child: NewPost(),
+      ),
+      Center(child: HomePage()),
+      Center(child: MyPostsPage()),
+    ];
+  }
 
   @override
-  _AppBarWidgetState createState() => _AppBarWidgetState();
+  _AppBarWidgetState createState() => _AppBarWidgetState(tabs: tabs);
 }
 
 class _AppBarWidgetState extends State<AppBarWidget> {
   int _selectedIndex = 1;
+  PostRepository _postRepository;
 
-  final tabs = [
-    Center(child: NewPost()),
-    Center(child: HomePage()),
-    Center(child: MyPostsPage()),
-  ];
+  final List<Widget> tabs;
+
+  _AppBarWidgetState({@required this.tabs});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(  
+    return Scaffold(
       appBar: AppBar(
         title: const Text('Seattle Pacific University'),
         backgroundColor: Colors.black,
