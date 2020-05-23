@@ -11,7 +11,7 @@ As an verified member of an organization, a user has the ability to ask question
 
 ### Installing project dependencies
 
-      npm install
+    npm install
 
 ### Starting up NodeJS backend
 *Requires Enviroment Variables below*

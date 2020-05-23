@@ -1,3 +1,4 @@
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/semantics.dart';
 import 'package:spotted/models/post.dart';
@@ -8,6 +9,13 @@ abstract class PostEvent extends Equatable {
 
 class FetchPost extends PostEvent {
   const FetchPost();
+
+  @override
+  List<Object> get props => [];
+}
+
+class FetchNewsfeed extends PostEvent {
+  const FetchNewsfeed();
 
   @override
   List<Object> get props => [];

@@ -6,48 +6,66 @@ import '../home/MyPostPage.dart';
 import '../profile/ProfilePage.dart';
 
 import 'package:spotted/post/post_bloc.dart';
+import 'package:spotted/post/post_state.dart';
+import 'package:spotted/post/post_event.dart';
 import 'package:spotted/repositories/post_repository.dart';
 import 'package:spotted/repositories/user_repository.dart';
 import 'package:spotted/repositories/user_api_client.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AppBarWidget extends StatefulWidget {
+class SpottedApp extends StatefulWidget {
+  final PostRepository postRepository;
   UserRepository userRepository;
-  PostRepository postRepository;
   List<Widget> tabs;
 
-  AppBarWidget({Key key, @required this.postRepository})
+  SpottedApp({Key key, @required this.postRepository})
       : assert(postRepository != null),
-        super(key: key) {
-    tabs = [
-      BlocProvider(
-        create: (context) {
-          return PostBloc(
-            repository: postRepository,
-          );
-        },
-        child: NewPost(),
-      ),
-      Center(child: HomePage()),
-      Center(child: MyPostsPage()),
-    ];
+        super(key: key);
+  @override
+  _SpottedApp createState() => _SpottedApp(repo: postRepository);
+}
+
+class _SpottedApp extends State<SpottedApp> {
+  int _selectedIndex = 1;
+  PostBloc postBloc;
+  PostRepository repo;
+  List<Widget> _tabs;
+
+  _SpottedApp({@required this.repo}) {
+    postBloc = new PostBloc(repository: repo);
+    // _tabs = [
+    //   BlocProvider(
+    //     create: (context) {
+    //       return PostBloc(
+    //         repository: postRepository,
+    //       );
+    //     },
+    //     child: NewPost(),
+    //   ),
+    //   BlocProvider(
+    //     create: (context) {
+    //       return PostBloc(
+    //         repository: postRepository,
+    //       );
+    //     },
+    //     child: HomePage(),
+    //   ),
+    //   Center(child: MyPostsPage()),
+    // ];
   }
 
   @override
-  _AppBarWidgetState createState() => _AppBarWidgetState(tabs: tabs);
-}
-
-class _AppBarWidgetState extends State<AppBarWidget> {
-  int _selectedIndex = 1;
-  PostRepository _postRepository;
-
-  final List<Widget> tabs;
-
-  _AppBarWidgetState({@required this.tabs});
-
-  @override
   Widget build(BuildContext context) {
+    _tabs = [
+      Center(child: NewPost()),
+      BlocProvider.value(
+        value: BlocProvider.of<PostBloc>(context),
+        child: HomePage(),
+      ),
+      Center(child: MyPostsPage()),
+    ];
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text('Seattle Pacific University'),
@@ -68,7 +86,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
         ],
       ),
       body: Center(
-        child: tabs[_selectedIndex],
+        child: _tabs[_selectedIndex],
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

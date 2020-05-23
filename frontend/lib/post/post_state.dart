@@ -31,6 +31,16 @@ class PostLoaded extends PostState {
   List<Object> get props => [Post];
 }
 
+class NewsfeedReady extends PostState {
+  final List<dynamic> posts;
+
+  const NewsfeedReady({@required this.posts});
+
+
+  @override
+  List<Object> get props => [posts];
+}
+
 class PostError extends PostState {
   final String message;
   const PostError(this.message);

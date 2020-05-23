@@ -25,13 +25,12 @@ class UserApiClient {
     final Map<String, String> json = {"email": email, "password": pass}; 
 
     final http.Response response = await this.httpClient.post(url, headers: arg, body: jsonEncode(json));
-
-    print(response);
+ 
 
     if (response.statusCode != 200) {
       throw new Exception('Authentication Error');
     }
 
-    return jsonDecode(response.body);;
+    return jsonDecode(response.body);
   }
 }

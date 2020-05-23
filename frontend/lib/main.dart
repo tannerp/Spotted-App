@@ -77,7 +77,8 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home:
+    return MaterialApp(
+      home:
         BlocBuilder<AuthenticationBloc, AuthenticationState>(
             builder: (context, state) {
       if (state is AuthenticationUnauthenticated) {
@@ -99,11 +100,7 @@ class App extends StatelessWidget {
               '/register': (context) => BlocProvider(
                     create: (context) => PostBloc(repository: postRepository),
                     child: RegisterPage(),
-                  ),
-              '/profile': (context) => BlocProvider(
-                    create: (context) => PostBloc(repository: postRepository),
-                    child: ProfilePage(),
-                  ),
+                  ),          
             });
       }
       if (state is AuthenticationAuthenticated) {
@@ -113,12 +110,16 @@ class App extends StatelessWidget {
             child: MaterialApp(initialRoute: '/', routes: {
               '/': (context) => BlocProvider(
                     create: (context) => PostBloc(repository: postRepository),
-                    child: AppBarWidget(postRepository: postRepository,),
+                    child: SpottedApp(postRepository: postRepository,),
                   ),
               '/home': (context) => BlocProvider(
                     create: (context) => PostBloc(repository: postRepository),
-                    child: AppBarWidget(postRepository: postRepository),
-                  )
+                    child: SpottedApp(postRepository: postRepository),
+                  ),
+              '/profile': (context) => BlocProvider(
+                    create: (context) => PostBloc(repository: postRepository),
+                    child: ProfilePage(),
+                  ),
             }));
       }
 
