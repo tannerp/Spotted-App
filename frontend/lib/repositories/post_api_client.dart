@@ -46,7 +46,7 @@ class PostApiClient {
           <String, String>{'title': title, 'content': body, 'userId': ""}),
     );
 
-    if (response.statusCode != 200) {
+    if (response.statusCode > 300) {
       throw new Exception('error getting posts');
     }
 

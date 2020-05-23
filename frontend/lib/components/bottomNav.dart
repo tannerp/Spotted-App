@@ -33,36 +33,24 @@ class _SpottedApp extends State<SpottedApp> {
   List<Widget> _tabs;
 
   _SpottedApp({@required this.repo}) {
-    postBloc = new PostBloc(repository: repo);
-    // _tabs = [
-    //   BlocProvider(
-    //     create: (context) {
-    //       return PostBloc(
-    //         repository: postRepository,
-    //       );
-    //     },
-    //     child: NewPost(),
-    //   ),
-    //   BlocProvider(
-    //     create: (context) {
-    //       return PostBloc(
-    //         repository: postRepository,
-    //       );
-    //     },
-    //     child: HomePage(),
-    //   ),
-    //   Center(child: MyPostsPage()),
-    // ];
+    this.postBloc = new PostBloc(repository: repo);
   }
 
   @override
   Widget build(BuildContext context) {
     _tabs = [
-      Center(child: NewPost()),
-      BlocProvider.value(
-        value: BlocProvider.of<PostBloc>(context),
+      BlocProvider(
+        create: (BuildContext context) =>  PostBloc(repository: repo),
+        child: NewPost(),
+      ),
+      BlocProvider(
+        create: (BuildContext context) =>  PostBloc(repository: repo),
         child: HomePage(),
       ),
+      // BlocProvider.value(
+      //   value: BlocProvider.of<PostBloc>(context),
+      //   child: HomePage(),
+      // ),
       Center(child: MyPostsPage()),
     ];
     

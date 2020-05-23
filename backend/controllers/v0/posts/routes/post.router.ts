@@ -27,8 +27,7 @@ router.post('/newpost', async (req: Request, res: Response) => {
 });
 
 router.get('/all', async (req: Request, res: Response) => {
-    console.log("getting all posts");
-    const posts = await Post.findAll({limit: 3});
+    const posts = await Post.findAll({limit: 30});
     // console.log(posts);
     res.status(200).send({posts: posts});
 });

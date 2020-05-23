@@ -15,18 +15,7 @@ class NewPost extends StatelessWidget {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 16),
         alignment: Alignment.center,
-        child: BlocListener<PostBloc, PostState>(
-          listener: (context, state) {
-            if (state is PostError) {
-              Scaffold.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.message),
-                ),
-              );
-            }
-          },
-          child: BlocBuilder<PostBloc, PostState>(
-            builder: (context, state) {
+        child:  BlocBuilder<PostBloc, PostState>(builder: (context, state) {
               if (state is PostEmpty) {
                 return buildInitialInput();
                 //BlocProvider.of<PostBloc>(context).add(FetchPost());
@@ -38,9 +27,12 @@ class NewPost extends StatelessWidget {
                 return buildSaving();
               } else if (state is PostError) {
                 return buildInitialInput();
+              }else {
+                return buildInitialInput();
               }
+
             },
-          ),
+
         ),
       ),
     );
