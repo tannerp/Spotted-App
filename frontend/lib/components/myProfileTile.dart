@@ -4,6 +4,11 @@ import 'package:flutter/cupertino.dart';
 
 
 class ProfilePageWidget extends StatefulWidget {
+  final String userName;
+  final String userEmail;
+
+  ProfilePageWidget(this.userName, this.userEmail);
+
   @override
   MapScreenState createState() => MapScreenState();
 }
@@ -12,6 +17,9 @@ class MapScreenState extends State<ProfilePageWidget>
     with SingleTickerProviderStateMixin {
   bool _status = true;
   final FocusNode myFocusNode = FocusNode();
+  
+
+   
 
   @override
   void initState() {
@@ -153,6 +161,7 @@ class MapScreenState extends State<ProfilePageWidget>
                             children: <Widget>[
                               new Flexible(
                                 child: new TextField(
+                                  controller: TextEditingController()..text = widget.userName,
                                   decoration: const InputDecoration(
                                     hintText: "Enter Your Name",
                                   ),
@@ -191,6 +200,7 @@ class MapScreenState extends State<ProfilePageWidget>
                             children: <Widget>[
                               new Flexible(
                                 child: new TextField(
+                                  controller: TextEditingController()..text = widget.userEmail,
                                   decoration: const InputDecoration(
                                       hintText: "Enter Email ID"),
                                   enabled: !_status,

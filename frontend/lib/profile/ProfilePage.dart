@@ -27,7 +27,8 @@ class ProfilePage extends StatelessWidget {
       }
 
       if (state is ProfileLoaded) {
-        return ProfilePageWidget();
+        //fetchprofile method should return User
+        return ProfilePageWidget('Lhakpa','sherpal@spu.edu');
       }
       return Center(
         child: CircularProgressIndicator(),

@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
                 itemCount: state.posts.length,
                 itemBuilder: (BuildContext ctxt, int index) {
                   return new Card(
-                      child: PostTileWidget(
+                    child: PostTileWidget(
                     post: state.posts[index],
                     userName: 'Lhakpa',
                     userImage: NetworkImage(
