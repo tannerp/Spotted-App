@@ -34,5 +34,15 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         yield PostError("Failed to save post");     
       }
     }
+    else if (event is DeletePost) {
+      yield PostDeleted();
+      // We don't have api for delete post i'll leave this comment out
+      /*try {
+        final String message = await repository.deletePost(event.post);
+        yield PostDeleted();
+      } catch (_) {
+        yield PostError("Failed to delete post");     
+      }*/
+    }
   }
 }
