@@ -7,7 +7,8 @@ abstract class PostEvent extends Equatable {
 }
 
 class FetchPost extends PostEvent {
-  const FetchPost();
+  final String postId;
+  const FetchPost({this.postId});
 
   @override
   List<Object> get props => [];
@@ -23,6 +24,14 @@ class SavePost extends PostEvent {
 
 class CreatePost extends PostEvent {
   const CreatePost();
+  
+  @override
+  List<Object> get props => [];
+}
+
+class DeletePost extends PostEvent {
+  final String postId;
+  const DeletePost({this.postId});
   
   @override
   List<Object> get props => [];
