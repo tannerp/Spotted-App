@@ -10,17 +10,11 @@ abstract class PostState extends Equatable {
   List<Object> get props => [];
 }
 
-class PostEmpty extends PostState {
-  
-}
+class PostEmpty extends PostState {}
 
-class PostSaving extends PostState {
+class PostSaving extends PostState {}
 
-}
-
-class PostLoading extends PostState {
-  
-}
+class PostLoading extends PostState {}
 
 class PostLoaded extends PostState {
   final Post post;
@@ -31,9 +25,27 @@ class PostLoaded extends PostState {
   List<Object> get props => [Post];
 }
 
+class NewsfeedReady extends PostState {
+  final List<dynamic> posts;
+
+  const NewsfeedReady({@required this.posts});
+
+  @override
+  List<Object> get props => [posts];
+}
+
+class MyPostsReady extends PostState {
+  final List<dynamic> posts;
+
+  const MyPostsReady({@required this.posts});
+
+  @override
+  List<Object> get props => [posts];
+}
+
 class PostError extends PostState {
   final String message;
   const PostError(this.message);
-  @override 
-  List<Object> get props =>[message];
+  @override
+  List<Object> get props => [message];
 }

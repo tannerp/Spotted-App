@@ -11,7 +11,7 @@ class User extends Equatable{
   List <Object> get props => [token, firstName, lastName];
 
   static User fromJson(dynamic json){
-    return User(
+    return new User(
       firstName: json['first_name'],
       lastName: json['last_name'],
       token: json['token'],

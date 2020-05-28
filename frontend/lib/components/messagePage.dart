@@ -11,8 +11,7 @@ class MessageApp extends StatelessWidget {
         leading: IconButton(
             icon: Icon(Icons.arrow_left),
             onPressed: () {
-              Navigator.pop(context,
-                  MaterialPageRoute(builder: (context) => AppBarWidget()));
+              print("logout");
             }),
       ),
       body: Text("Message here"),

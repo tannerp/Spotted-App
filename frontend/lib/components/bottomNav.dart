@@ -5,25 +5,55 @@ import '../home/home_page.dart';
 import '../home/MyPostPage.dart';
 import '../profile/ProfilePage.dart';
 
-class AppBarWidget extends StatefulWidget {
-  AppBarWidget({Key key}) : super(key: key);
+import 'package:spotted/post/post_bloc.dart';
+import 'package:spotted/post/post_state.dart';
+import 'package:spotted/post/post_event.dart';
+import 'package:spotted/repositories/post_repository.dart';
+import 'package:spotted/repositories/user_repository.dart';
+import 'package:spotted/repositories/user_api_client.dart';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class SpottedApp extends StatefulWidget {
+  final PostRepository postRepository;
+  UserRepository userRepository;
+  List<Widget> tabs;
+
+  SpottedApp({Key key, @required this.postRepository})
+      : assert(postRepository != null),
+        super(key: key);
   @override
-  _AppBarWidgetState createState() => _AppBarWidgetState();
+  _SpottedApp createState() => _SpottedApp(repo: postRepository);
 }
 
-class _AppBarWidgetState extends State<AppBarWidget> {
+class _SpottedApp extends State<SpottedApp> {
   int _selectedIndex = 1;
+  PostBloc postBloc;
+  final PostRepository repo;
+  List<Widget> _tabs;
 
-  final tabs = [
-    Center(child: NewPost()),
-    Center(child: HomePage()),
-    Center(child: MyPostsPage()),
-  ];
+  _SpottedApp({@required this.repo}) {
+    this.postBloc = new PostBloc(repository: repo);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(  
+    _tabs = [
+      BlocProvider(
+        create: (BuildContext context) => PostBloc(repository: repo),
+        child: NewPost(),
+      ),
+      BlocProvider(
+        create: (BuildContext context) => PostBloc(repository: repo),
+        child: HomePage(),
+      ),
+      BlocProvider(
+        create: (BuildContext context) => PostBloc(repository: repo),
+        child: MyPostsPage(),
+      ),
+    ];
+
+    return Scaffold(
       appBar: AppBar(
         title: const Text('Seattle Pacific University'),
         backgroundColor: Colors.black,
@@ -43,7 +73,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
         ],
       ),
       body: Center(
-        child: tabs[_selectedIndex],
+        child: _tabs[_selectedIndex],
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

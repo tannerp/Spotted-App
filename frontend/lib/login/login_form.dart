@@ -55,10 +55,8 @@ class _LoginFormState extends State<LoginForm> {
                  RaisedButton(
                   onPressed:                  
                       () {
-                        // return state is! LoginLoading ? _onLoginButtonPressed : null,
-                        if( state is! LoginLoading) {
-                        _onLoginButtonPressed();
-                        }
+                        Navigator.pushNamed(context, "/register");
+  
                         },
                   child: Text('Register'),
                 ),

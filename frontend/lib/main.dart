@@ -14,7 +14,6 @@ import 'package:spotted/repositories/user_api_client.dart';
 
 import 'package:spotted/repositories/repository.dart';
 
-
 import 'package:spotted/authentication/authentication.dart';
 import 'package:spotted/splash/splash.dart';
 import 'package:spotted/home/home.dart';
@@ -45,7 +44,7 @@ class SimpleBlocDelegate extends BlocDelegate {
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
   final http.Client httpClient = http.Client();
-  
+
   final userRepository = UserRepository(
     client: UserApiClient(
       httpClient: httpClient,
@@ -78,7 +77,8 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home:
+    return MaterialApp(
+      home:
         BlocBuilder<AuthenticationBloc, AuthenticationState>(
             builder: (context, state) {
       if (state is AuthenticationUnauthenticated) {
@@ -92,28 +92,34 @@ class App extends StatelessWidget {
               '/': (context) => BlocProvider(
                     create: (context) => PostBloc(repository: postRepository),
                     child: LoginPage(userRepository: userRepository),
-                  ),              
+                  ),
               '/login': (context) => BlocProvider(
                     create: (context) => PostBloc(repository: postRepository),
                     child: LoginPage(userRepository: userRepository),
                   ),
-              '/register': (context) => BlocProvider(
-                    create: (context) => PostBloc(repository: postRepository),
-                    child: RegisterPage(),
-                  ),
-              '/profile': (context) => BlocProvider(
-                    create: (context) => PostBloc(repository: postRepository),
-                    child: ProfilePage(),
-                  ),
+              '/register': (context) => RegisterPage(),
             });
       }
       if (state is AuthenticationAuthenticated) {
         // return LoginPage(userRepository: userRepository);
         return BlocProvider(
-          create: (context) => PostBloc(repository: postRepository),
-          child: AppBarWidget(),
-        );
+            create: (context) => PostBloc(repository: postRepository),
+            child: MaterialApp(initialRoute: '/', routes: {
+              '/': (context) => BlocProvider(
+                    create: (context) => PostBloc(repository: postRepository),
+                    child: SpottedApp(postRepository: postRepository,),
+                  ),
+              '/home': (context) => BlocProvider(
+                    create: (context) => PostBloc(repository: postRepository),
+                    child: SpottedApp(postRepository: postRepository),
+                  ),
+              '/profile': (context) => BlocProvider(
+                    create: (context) => PostBloc(repository: postRepository),
+                    child: ProfilePage(),
+                  ),
+            }));
       }
+
       if (state is AuthenticationLoading) {
         return CircularProgressIndicator();
       }

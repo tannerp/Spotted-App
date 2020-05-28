@@ -10,14 +10,17 @@ class Post extends Equatable{
   @override
   List <Object> get props => [id, title, body];
 
-  static Post fromJson(dynamic json){
+  // static Post fromJson(dynamic json) {
+  factory Post.fromJson(Map<String,dynamic> json) {
+
+    print("FromJson");
     return Post(
-      id: json['id'],
-      title: json['title'],
-      body: json['body'],
+      id: json['id']??"",
+      title: json['title']?? "",
+      body: json['content'],
     );
   }
   
   @override
-  String toString() => 'Post {id: $id}';
+  String toString() => 'Post {id: $id $title}';
 }
