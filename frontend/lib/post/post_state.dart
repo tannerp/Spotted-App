@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:spotted/models/models.dart';
+import 'package:spotted/post/bloc.dart';
 
 abstract class PostState extends Equatable {
   const PostState();
@@ -36,4 +37,8 @@ class PostError extends PostState {
   const PostError(this.message);
   @override 
   List<Object> get props =>[message];
+}
+
+class PostDeleted extends PostState {
+  
 }
