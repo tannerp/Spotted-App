@@ -1,17 +1,23 @@
 import 'dart:async';
 
 import 'package:meta/meta.dart';
+import 'package:spotted/repositories/user_api_client.dart';
+import 'package:spotted/models/user.dart';
 
 class UserRepository {
-  String token;
+  User user;
+  UserApiClient client;
+
+  UserRepository({@required this.client}) : assert (client != null);
   
   Future<String> authenticate({
-    @required String username,
+    @required String email,
     @required String password,
   }) async {
-    await Future.delayed(Duration(seconds: 1));
+    final  json_rspn = await client.authenticate(email, password);
+    this.user = User.fromJson(json_rspn);
     // fetch api
-    return 'token';
+    return this.user.token;
   }
 
   Future<void> deleteToken() async {

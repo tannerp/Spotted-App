@@ -27,7 +27,9 @@ class LoginPage extends StatelessWidget {
             userRepository: userRepository,
           );
         },
-        child: LoginForm(),
+        child: Container(
+          margin: EdgeInsets.all(24), 
+          child: LoginForm()),        
       ),
     );
   }

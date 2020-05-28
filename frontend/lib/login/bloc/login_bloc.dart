@@ -30,7 +30,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       try {
         final token = await userRepository.authenticate(
-          username: event.username,
+          email: event.username,
           password: event.password,
         );
 

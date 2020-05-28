@@ -5,39 +5,73 @@ import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:spotted/models/models.dart';
+import 'package:spotted/post/bloc.dart';
 
 class PostApiClient {
-  final _baseUrl = 'https://jsonplaceholder.typicode.com/posts/1';
+  final _baseUrl = 'http://localhost:8082/api/v0/posts';
   final http.Client httpClient;
+
   PostApiClient({
     @required this.httpClient,
   }) : assert(httpClient != null);
 
-  Future <Post> fetchPost() async {
-  final url = 'https://jsonplaceholder.typicode.com/posts/1';
-  final response = await this.httpClient.get(url);
+  Future<List<dynamic>> fetchNewsfeed() async {
+    final url = '$_baseUrl/all';
 
-  if(response.statusCode != 200){
-    throw new Exception('error getting posts');
+    final http.Response response = await this.httpClient.get(url);
+
+    if (response.statusCode != 200) {
+      throw new Exception('Authentication Error');
+    }
+    final List<dynamic> list =
+        await jsonDecode(response.body)["posts"].map((rawPost) {
+      print(rawPost);
+      return Post.fromJson(rawPost);
+    }).toList();
+    return list;
   }
+  
+  
+  Future<List<dynamic>> fetchMyPosts() async {
+    final url = '$_baseUrl/myposts';
+    
+    print("Fetching my posts");
 
-  final json = jsonDecode(response.body);
-  return Post.fromJson(json);
-  } 
+    final http.Response response = await this.httpClient.get(url);
+
+    if (response.statusCode != 200) {
+      throw new Exception('Authentication Error');
+    }
+    final List<dynamic> list =
+        await jsonDecode(response.body)["posts"].map((rawPost) {
+      print(rawPost);
+      return Post.fromJson(rawPost);
+    }).toList();
+    return list;
+  }
 
   Future<String> createPost(Post post) async {
     final String title = post.title;
     final String body = post.body;
-    final url = "$_baseUrl/$title/$body";
-    final response = await this.httpClient.post(url);
 
-    if(response.statusCode != 200){
-    throw new Exception('error getting posts');
+    Map<String, String> arg = {"Content-type": "application/json"};
+    // make POST request
+    // use SSL to encrytp body
+
+    final url = _baseUrl + "/newpost";
+
+    http.Response response = await http.post(
+      url,
+      headers: arg,
+      body: jsonEncode(
+          <String, String>{'title': title, 'content': body, 'userId': ""}),
+    );
+
+    if (response.statusCode > 300) {
+      throw new Exception('error getting posts');
     }
 
-    //final json = jsonDecode(response.body);
     return ("post succesful");
-  } 
+  }
+
 }
-
-
