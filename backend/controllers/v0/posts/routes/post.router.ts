@@ -5,8 +5,6 @@ import * as c from '../../../../config/config';
 
 import { NextFunction } from 'connect';
 
-import * as EmailValidator from 'email-validator';
-
 const router: Router = Router();
 
 // New Post
@@ -29,6 +27,21 @@ router.post('/newpost', async (req: Request, res: Response) => {
 router.get('/all', async (req: Request, res: Response) => {
     const posts = await Post.findAll({limit: 30});
     // console.log(posts);
+    res.status(200).send({posts: posts});
+});
+
+
+router.get('/myposts', async (req: Request, res: Response) => {
+    console.log("Getting my posts");
+
+    const posts = await Post.findAll({
+        where: {
+            userID: 3
+        }
+    })
+
+    console.log(posts);
+    
     res.status(200).send({posts: posts});
 });
 

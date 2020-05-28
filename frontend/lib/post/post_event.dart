@@ -21,6 +21,13 @@ class FetchNewsfeed extends PostEvent {
   List<Object> get props => [];
 }
 
+class FetchMyPosts extends PostEvent {
+  const FetchMyPosts();
+
+  @override
+  List<Object> get props => [];
+}
+
 class SavePost extends PostEvent {
   final Post post;
   const SavePost(this.post);

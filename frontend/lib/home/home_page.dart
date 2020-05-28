@@ -20,18 +20,20 @@ class HomePage extends StatelessWidget {
       }
 
       if (state is NewsfeedReady) {
-        return ListView.builder(
-            itemCount: state.posts.length,
-            itemBuilder: (BuildContext ctxt, int index) {
-              return new Card(
-                  child: PostTileWidget(
-                post: state.posts[index],
-                userName: 'Lhakpa',
-                userImage: NetworkImage(
-                    "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
-                postTime: TimeOfDay.now(),
-              ));
-            });
+        if (state.posts == null) return Center();
+        return Center(
+            child: ListView.builder(
+                itemCount: state.posts.length,
+                itemBuilder: (BuildContext ctxt, int index) {
+                  return new Card(
+                      child: PostTileWidget(
+                    post: state.posts[index],
+                    userName: 'Lhakpa',
+                    userImage: NetworkImage(
+                        "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+                    postTime: TimeOfDay.now(),
+                  ));
+                }));
       }
 
       if (state is PostLoading) {

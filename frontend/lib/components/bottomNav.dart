@@ -29,7 +29,7 @@ class SpottedApp extends StatefulWidget {
 class _SpottedApp extends State<SpottedApp> {
   int _selectedIndex = 1;
   PostBloc postBloc;
-  PostRepository repo;
+  final PostRepository repo;
   List<Widget> _tabs;
 
   _SpottedApp({@required this.repo}) {
@@ -40,20 +40,19 @@ class _SpottedApp extends State<SpottedApp> {
   Widget build(BuildContext context) {
     _tabs = [
       BlocProvider(
-        create: (BuildContext context) =>  PostBloc(repository: repo),
+        create: (BuildContext context) => PostBloc(repository: repo),
         child: NewPost(),
       ),
       BlocProvider(
-        create: (BuildContext context) =>  PostBloc(repository: repo),
+        create: (BuildContext context) => PostBloc(repository: repo),
         child: HomePage(),
       ),
-      // BlocProvider.value(
-      //   value: BlocProvider.of<PostBloc>(context),
-      //   child: HomePage(),
-      // ),
-      Center(child: MyPostsPage()),
+      BlocProvider(
+        create: (BuildContext context) => PostBloc(repository: repo),
+        child: MyPostsPage(),
+      ),
     ];
-    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Seattle Pacific University'),

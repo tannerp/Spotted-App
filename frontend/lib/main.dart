@@ -97,10 +97,7 @@ class App extends StatelessWidget {
                     create: (context) => PostBloc(repository: postRepository),
                     child: LoginPage(userRepository: userRepository),
                   ),
-              '/register': (context) => BlocProvider(
-                    create: (context) => PostBloc(repository: postRepository),
-                    child: RegisterPage(),
-                  ),          
+              '/register': (context) => RegisterPage(),
             });
       }
       if (state is AuthenticationAuthenticated) {

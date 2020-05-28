@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:spotted/models/models.dart';
+import 'package:spotted/post/bloc.dart';
 
 class PostApiClient {
   final _baseUrl = 'http://localhost:8082/api/v0/posts';
@@ -22,10 +23,30 @@ class PostApiClient {
     if (response.statusCode != 200) {
       throw new Exception('Authentication Error');
     }
-    final List<dynamic> list = await jsonDecode(response.body)["posts"].map((rawPost) {
-              print(rawPost);
-              return Post.fromJson(rawPost);
-            }).toList();
+    final List<dynamic> list =
+        await jsonDecode(response.body)["posts"].map((rawPost) {
+      print(rawPost);
+      return Post.fromJson(rawPost);
+    }).toList();
+    return list;
+  }
+  
+  
+  Future<List<dynamic>> fetchMyPosts() async {
+    final url = '$_baseUrl/myposts';
+    
+    print("Fetching my posts");
+
+    final http.Response response = await this.httpClient.get(url);
+
+    if (response.statusCode != 200) {
+      throw new Exception('Authentication Error');
+    }
+    final List<dynamic> list =
+        await jsonDecode(response.body)["posts"].map((rawPost) {
+      print(rawPost);
+      return Post.fromJson(rawPost);
+    }).toList();
     return list;
   }
 
@@ -52,4 +73,5 @@ class PostApiClient {
 
     return ("post succesful");
   }
+
 }
