@@ -16,24 +16,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SpottedApp extends StatefulWidget {
   final PostRepository postRepository;
-  UserRepository userRepository;
+  final UserRepository userRepository;
   List<Widget> tabs;
 
-  SpottedApp({Key key, @required this.postRepository})
+  SpottedApp({Key key, @required this.postRepository, @required this.userRepository})
       : assert(postRepository != null),
         super(key: key);
   @override
-  _SpottedApp createState() => _SpottedApp(repo: postRepository);
+  _SpottedApp createState() => _SpottedApp(post_repo: postRepository, user_repo: userRepository);
 }
 
 class _SpottedApp extends State<SpottedApp> {
   int _selectedIndex = 1;
+  PostRepository post_repo;
+  UserRepository user_repo;
+  
   PostBloc postBloc;
-  final PostRepository repo;
+
+
   List<Widget> _tabs;
 
-  _SpottedApp({@required this.repo}) {
-    this.postBloc = new PostBloc(repository: repo);
+  _SpottedApp({@required this.post_repo, @required this.user_repo}) {
+    this.postBloc = new PostBloc(repo: post_repo, userRepo: user_repo);
   }
 
   @override

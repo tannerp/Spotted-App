@@ -95,11 +95,11 @@ class App extends StatelessWidget {
             initialRoute: 'register',
             routes: {
               '/': (context) => BlocProvider(
-                    create: (context) => PostBloc(repository: postRepository),
+                    create: (context) => PostBloc(repo: postRepository, userRepo: this.userRepository),
                     child: LoginPage(userRepository: userRepository),
                   ),
               '/login': (context) => BlocProvider(
-                    create: (context) => PostBloc(repository: postRepository),
+                    create: (context) => PostBloc(repo: postRepository, userRepo: this.userRepository),
                     child: LoginPage(userRepository: userRepository),
                   ),
               '/register': (context) => RegisterPage(),
@@ -108,17 +108,20 @@ class App extends StatelessWidget {
       if (state is AuthenticationAuthenticated) {
         // return LoginPage(userRepository: userRepository);
         return BlocProvider(
-            create: (context) => PostBloc(repository: postRepository),
+            create: (context) => PostBloc(repo: postRepository, userRepo: this.userRepository),
             child: MaterialApp(initialRoute: '/', routes: {
               '/': (context) => BlocProvider(
-                    create: (context) => PostBloc(repository: postRepository),
+                    create: (context) => PostBloc(repo: postRepository, userRepo: this.userRepository),
                     child: SpottedApp(
                       postRepository: postRepository,
+                      userRepository: userRepository,
                     ),
                   ),
               '/home': (context) => BlocProvider(
-                    create: (context) => PostBloc(repository: postRepository),
-                    child: SpottedApp(postRepository: postRepository),
+                    create: (context) => PostBloc(repo: postRepository, userRepo: this.userRepository),
+                    child: SpottedApp(
+                      postRepository: postRepository,
+                      userRepository: userRepository,),
                   ),
               '/profile': (context) => BlocProvider(
                     create: (context) => ProfileBloc(repository: userRepository),

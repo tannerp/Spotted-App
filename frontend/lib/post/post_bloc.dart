@@ -6,8 +6,10 @@ import 'package:spotted/models/models.dart';
 import 'package:spotted/post/bloc.dart';
 
 class PostBloc extends Bloc<PostEvent, PostState> {
-  final PostRepository repository;
-  PostBloc({@required this.repository}) : assert(repository != null);
+  final PostRepository repo;
+  final UserRepository userRepo;
+
+  PostBloc({@required this.repo, @required this.userRepo}) : assert(repo != null);
 
   @override
   PostState get initialState => PostEmpty();
@@ -19,7 +21,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
 
       try {
         final List<dynamic> posts =
-            await repository.fetchNewsFeed().then((value) {
+            await repo.fetchNewsFeed().then((value) {
           return value;
         });
         if (posts != null) yield NewsfeedReady(posts: posts);
@@ -32,7 +34,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
 
       try {
         final List<dynamic> posts =
-            await repository.fetchMyPosts().then((value) {
+            await repo.fetchMyPosts().then((value) {
           return value;
         });
         print("Post bloc " + posts.toString());
@@ -44,7 +46,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       yield PostSaving();
 
       try {
-        final String message = await repository.createPost(event.post);
+        final String message = await repo.createPost(event.post);
         yield PostEmpty();
       } catch (_) {
         yield PostError("Failed to save post");
@@ -53,7 +55,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       yield PostDeleted("Successful deleted post");
       // We don't have api for delete post i'll leave this comment out
       /*try {
-        final String message = await repository.deletePost(event.post);
+        final String message = await repo.deletePost(event.post);
         yield PostDeleted();
       } catch (_) {
         yield PostError("Failed to delete post");     
