@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotted/profile/bloc.dart';
 import 'package:spotted/profile/profile_state.dart';
 import 'package:spotted/profile/profile_event.dart';
+import 'package:spotted/components/myProfileTile.dart';
 
 class ProfilePage extends StatelessWidget {
   
@@ -26,7 +27,7 @@ class ProfilePage extends StatelessWidget {
       }
 
       if (state is ProfileLoaded) {
-        return Text("Profile Page");
+        return ProfilePageWidget();
       }
       return Center(
         child: CircularProgressIndicator(),
@@ -34,3 +35,5 @@ class ProfilePage extends StatelessWidget {
     });
   }
 }
+
+
