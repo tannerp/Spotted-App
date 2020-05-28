@@ -39,18 +39,27 @@ class _SpottedApp extends State<SpottedApp> {
   @override
   Widget build(BuildContext context) {
     _tabs = [
-      BlocProvider(
-        create: (BuildContext context) => PostBloc(repository: repo),
+      BlocProvider.value(
+        value: BlocProvider.of<PostBloc>(context),
         child: NewPost(),
       ),
-      BlocProvider(
-        create: (BuildContext context) => PostBloc(repository: repo),
+      BlocProvider.value(
+        value: BlocProvider.of<PostBloc>(context),
         child: HomePage(),
       ),
-      BlocProvider(
-        create: (BuildContext context) => PostBloc(repository: repo),
+      BlocProvider.value(
+        value: BlocProvider.of<PostBloc>(context),
         child: MyPostsPage(),
-      ),
+      )
+
+      // BlocProvider(
+      //   create: (BuildContext context) => PostBloc(repository: repo),
+      //   child: HomePage(),
+      // ),
+      // BlocProvider(
+      //   create: (BuildContext context) => PostBloc(repository: repo),
+      //   child: MyPostsPage(),
+      // ),
     ];
 
     return Scaffold(
@@ -59,10 +68,7 @@ class _SpottedApp extends State<SpottedApp> {
         backgroundColor: Colors.black,
         leading: IconButton(
             icon: Icon(Icons.person),
-            onPressed: () => {
-                  print('profile pressed'),
-                  Navigator.pushNamed(context, "/profile")
-                }),
+            onPressed: () => {Navigator.pushNamed(context, "/profile")}),
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.message),
@@ -95,6 +101,13 @@ class _SpottedApp extends State<SpottedApp> {
         onTap: (index) {
           setState(() {
             _selectedIndex = index;
+            
+            if (index == 1) {
+              BlocProvider.of<PostBloc>(context).add(FetchNewsfeed());
+            }
+            if (index == 2) {
+              BlocProvider.of<PostBloc>(context).add(FetchMyPosts());
+            }
           });
         },
       ),

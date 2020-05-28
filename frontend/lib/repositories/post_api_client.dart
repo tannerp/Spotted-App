@@ -33,7 +33,7 @@ class PostApiClient {
   
   
   Future<List<dynamic>> fetchMyPosts() async {
-    final url = '$_baseUrl/myposts';
+    final url = '$_baseUrl/all';
     
     print("Fetching my posts");
 

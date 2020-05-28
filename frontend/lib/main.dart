@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotted/components/bottomNav.dart';
 import 'package:spotted/post/post_bloc.dart';
 import 'package:spotted/register/register_page.dart';
+// import 'package:spotted/
 
 import 'package:spotted/repositories/post_api_client.dart';
 import 'package:spotted/repositories/post_repository.dart';
@@ -23,6 +24,7 @@ import 'package:spotted/common/common.dart';
 
 import 'package:spotted/login/login_page.dart';
 import 'package:spotted/profile/ProfilePage.dart';
+import 'package:spotted/profile/bloc.dart';
 // import 'package:spotted/common/common.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
@@ -119,7 +121,7 @@ class App extends StatelessWidget {
                     child: SpottedApp(postRepository: postRepository),
                   ),
               '/profile': (context) => BlocProvider(
-                    create: (context) => PostBloc(repository: postRepository),
+                    create: (context) => ProfileBloc(repository: userRepository),
                     child: ProfilePage(),
                   ),
             }));

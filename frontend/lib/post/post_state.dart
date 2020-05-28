@@ -36,12 +36,12 @@ class NewsfeedReady extends PostState {
 }
 
 class MyPostsReady extends PostState {
-  final List<dynamic> posts;
+  final List<dynamic> my_posts;
 
-  const MyPostsReady({@required this.posts});
+  const MyPostsReady({@required this.my_posts});
 
   @override
-  List<Object> get props => [posts];
+  List<Object> get props => [my_posts];
 }
 
 class PostError extends PostState {

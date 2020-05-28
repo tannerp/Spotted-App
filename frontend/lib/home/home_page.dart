@@ -15,12 +15,12 @@ class HomePage extends StatelessWidget {
 
       if (state is PostError) {
         return Center(
-          child: Text('failed to fetch post'),
+          child: Text('Failed to fetch post'),
         );
       }
 
       if (state is NewsfeedReady) {
-        if (state.posts == null) return Center();
+        if (state.posts == null) return Container();
         return Center(
             child: ListView.builder(
                 itemCount: state.posts.length,

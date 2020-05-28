@@ -7,7 +7,6 @@ import 'package:spotted/post/bloc.dart';
 
 class PostBloc extends Bloc<PostEvent, PostState> {
   final PostRepository repository;
-  List<Post> _newsfeed;
   PostBloc({@required this.repository}) : assert(repository != null);
 
   @override
@@ -36,7 +35,8 @@ class PostBloc extends Bloc<PostEvent, PostState> {
             await repository.fetchMyPosts().then((value) {
           return value;
         });
-        if (posts != null) yield MyPostsReady(posts: posts);
+        print("Post bloc " + posts.toString());
+        if (posts != null) yield MyPostsReady(my_posts: posts);
       } catch (e) {
         yield PostError("Please enter your content");
       }
@@ -49,8 +49,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       } catch (_) {
         yield PostError("Failed to save post");
       }
-    }
-    else if (event is DeletePost) {
+    } else if (event is DeletePost) {
       yield PostDeleted("Successful deleted post");
       // We don't have api for delete post i'll leave this comment out
       /*try {

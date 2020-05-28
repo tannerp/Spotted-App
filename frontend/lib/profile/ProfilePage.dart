@@ -2,24 +2,30 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:spotted/post/bloc.dart';
-import 'package:spotted/components/postTile.dart';
+import 'package:spotted/profile/bloc.dart';
+import 'package:spotted/profile/profile_state.dart';
+import 'package:spotted/profile/profile_event.dart';
 
 class ProfilePage extends StatelessWidget {
+  
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PostBloc, PostState>(builder: (context, state) {
-      if (state is PostEmpty) {
-        BlocProvider.of<PostBloc>(context).add(FetchPost());
+    BlocProvider.of<ProfileBloc>(context).add(FetchProfile());
+
+    return BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
+      
+      if (state is ProfileEmpty) {
+        BlocProvider.of<ProfileBloc>(context).add(FetchProfile());
       }
 
-      if (state is PostError) {
+      if (state is ProfileError) {
         return Center(
           child: Text('failed to fetch profile'),
         );
       }
 
-      if (state is PostLoaded) {
+      if (state is ProfileLoaded) {
         return Text("Profile Page");
       }
       return Center(
