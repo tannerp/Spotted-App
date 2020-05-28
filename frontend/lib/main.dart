@@ -18,6 +18,7 @@ import 'package:spotted/authentication/authentication.dart';
 import 'package:spotted/splash/splash.dart';
 import 'package:spotted/home/home.dart';
 import 'package:spotted/home/new_post.dart';
+import 'package:spotted/home/view_post.dart';
 import 'package:spotted/common/common.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
@@ -78,7 +79,7 @@ class App extends StatelessWidget {
                 theme: ThemeData(
                   primarySwatch: Colors.teal,
                 ),
-                initialRoute: '/new_post',
+                initialRoute: '/view_post',
                 routes: {
                   '/': (context) => BlocProvider(
                         create: (context) =>
@@ -101,6 +102,11 @@ class App extends StatelessWidget {
                             PostBloc(repository: postRepository),
                         child: NewPost(),
                       ),
+                  '/view_post':(context) => BlocProvider(
+                        create: (context) =>
+                            PostBloc(repository: postRepository),
+                        child: ViewPost(),
+                  ),
                 });
           }
           if (state is AuthenticationAuthenticated) {
