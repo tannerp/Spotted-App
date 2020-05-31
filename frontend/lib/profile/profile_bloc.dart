@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:spotted/repositories/repository.dart';
 import 'package:spotted/profile/profile_event.dart';
 import 'package:spotted/profile/profile_state.dart';
-import 'package:spotted/models/user.dart';
+import 'package:spotted/models/models.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final UserRepository repository;  

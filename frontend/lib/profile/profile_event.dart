@@ -1,7 +1,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/semantics.dart';
-import 'package:spotted/models/User.dart';
+import 'package:spotted/models/models.dart';
 
 abstract class ProfileEvent extends Equatable {
   const ProfileEvent();

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:meta/meta.dart';
 import 'package:spotted/profile/profile_event.dart';
 import 'package:spotted/repositories/user_api_client.dart';
-import 'package:spotted/models/user.dart';
+import 'package:spotted/models/models.dart';
 
 class UserRepository {
   User user;

@@ -1,23 +1,23 @@
 import 'package:equatable/equatable.dart';
 
 class Post extends Equatable{
-  final id;
+  final int id;
+  final String userID;
   final String title;
   final String body;
 
-  const Post({this.id, this.title, this.body});
+  const Post({this.id, this.userID, this.title, this.body});
 
   @override
   List <Object> get props => [id, title, body];
 
   // static Post fromJson(dynamic json) {
   factory Post.fromJson(Map<String,dynamic> json) {
-
-    print("FromJson");
     return Post(
-      id: json['id']??"",
-      title: json['title']?? "",
-      body: json['content'],
+      id: json['id']?? "",
+      userID: json['userID']?? "",
+      title: json['title'] ?? "",
+      body: json['content'] ?? "",
     );
   }
   

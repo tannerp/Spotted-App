@@ -15,7 +15,9 @@ class PostApiClient {
     @required this.httpClient,
   }) : assert(httpClient != null);
 
-  Future<List<dynamic>> fetchNewsfeed() async {
+
+
+  Future<List<Post>> fetchNewsfeed() async {
     final url = '$_baseUrl/all';
 
     final http.Response response = await this.httpClient.get(url);
@@ -23,32 +25,43 @@ class PostApiClient {
     if (response.statusCode != 200) {
       throw new Exception('Authentication Error');
     }
-    final List<dynamic> list =
-        await jsonDecode(response.body)["posts"].map((rawPost) {
-      print(rawPost);
-      return Post.fromJson(rawPost);
-    }).toList();
-    return list;
+
+    List<dynamic> list;
+    try{
+          list = await jsonDecode(response.body)["posts"].map((rawPost) {
+            print(rawPost);
+        return Post.fromJson(rawPost);
+      }).toList();
+    }catch(e){
+      print(e);
+    }
+    return List<Post>.from(list);
   }
   
   
-  Future<List<dynamic>> fetchMyPosts() async {
-    final url = '$_baseUrl/all';
+
+
+  Future<List<Post>> fetchMyPosts() async {
+    final url = '$_baseUrl/myposts';
     
-    print("Fetching my posts");
-
     final http.Response response = await this.httpClient.get(url);
-
-    if (response.statusCode != 200) {
+  if (response.statusCode != 200) {
       throw new Exception('Authentication Error');
     }
-    final List<dynamic> list =
-        await jsonDecode(response.body)["posts"].map((rawPost) {
-      print(rawPost);
-      return Post.fromJson(rawPost);
-    }).toList();
-    return list;
+
+    List<dynamic> list;
+    try{
+          list = await jsonDecode(response.body)["posts"].map((rawPost) {
+            print(rawPost);
+        return Post.fromJson(rawPost);
+      }).toList();
+    }catch(e){
+      print(e);
+    }
+    return List<Post>.from(list);
   }
+
+
 
   Future<String> createPost(Post post) async {
     final String title = post.title;
@@ -73,5 +86,7 @@ class PostApiClient {
 
     return ("post succesful");
   }
+
+
 
 }

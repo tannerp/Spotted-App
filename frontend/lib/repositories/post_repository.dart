@@ -13,14 +13,16 @@ class PostRepository {
   PostRepository({@required this.postApiClient})
       : assert(postApiClient != null);
       
-  Future<List<dynamic>> fetchNewsFeed() async {
-    final List<dynamic> result = await postApiClient.fetchNewsfeed();
+  Future<List<Post>> fetchNewsFeed() async {
+    final List<Post> result = await postApiClient.fetchNewsfeed();
     // return postApiClient .fetchNewsfeed();
+    print("Post repo");
+    print(result);
     return result;
   }
 
-  Future<List<dynamic>> fetchMyPosts() async {
-    final List<dynamic> result = await postApiClient.fetchMyPosts();
+  Future<List<Post>> fetchMyPosts() async {
+    final List<Post> result = await postApiClient.fetchMyPosts();
     // return postApiClient .fetchNewsfeed();
     return result;
   }

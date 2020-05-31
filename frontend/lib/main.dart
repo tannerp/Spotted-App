@@ -75,11 +75,15 @@ void main() {
 }
 
 class App extends StatelessWidget {
+
   final UserRepository userRepository;
+
   final PostRepository postRepository;
+  
+  final PostBloc postBloc;
 
   App({Key key, @required this.userRepository, @required this.postRepository})
-      : super(key: key);
+      : this.postBloc = new PostBloc(postRepo: postRepository, userRepo: userRepository), super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -94,36 +98,25 @@ class App extends StatelessWidget {
             ),
             initialRoute: 'register',
             routes: {
-              '/': (context) => BlocProvider(
-                    create: (context) => PostBloc(repository: postRepository),
-                    child: LoginPage(userRepository: userRepository),
-                  ),
-              '/login': (context) => BlocProvider(
-                    create: (context) => PostBloc(repository: postRepository),
-                    child: LoginPage(userRepository: userRepository),
-                  ),
+              '/': (context) => LoginPage(userRepository: userRepository),
+              '/login': (context) => LoginPage(userRepository: userRepository,),
               '/register': (context) => RegisterPage(),
             });
       }
+
       if (state is AuthenticationAuthenticated) {
         // return LoginPage(userRepository: userRepository);
         return BlocProvider(
-            create: (context) => PostBloc(repository: postRepository),
-            child: MaterialApp(initialRoute: '/', routes: {
-              '/': (context) => BlocProvider(
-                    create: (context) => PostBloc(repository: postRepository),
-                    child: SpottedApp(
-                      postRepository: postRepository,
-                    ),
-                  ),
-              '/home': (context) => BlocProvider(
-                    create: (context) => PostBloc(repository: postRepository),
-                    child: SpottedApp(postRepository: postRepository),
-                  ),
-              '/profile': (context) => BlocProvider(
-                    create: (context) => ProfileBloc(repository: userRepository),
-                    child: ProfilePage(),
-                  ),
+            create: (context) => PostBloc(postRepo: postRepository, userRepo: userRepository),
+            child: MaterialApp(
+              initialRoute: '/', 
+              routes: {
+              '/': (context) => BlocProvider.value(value: BlocProvider.of<PostBloc>(context),
+              child: SpottedApp()),
+              '/home': (context) => BlocProvider.value(value: BlocProvider.of<PostBloc>(context),
+              child: SpottedApp()),
+              '/profile': (context) => BlocProvider.value(value: BlocProvider.of<PostBloc>(context),
+              child: ProfilePage()),                  
             }));
       }
 
@@ -131,6 +124,7 @@ class App extends StatelessWidget {
         return CircularProgressIndicator();
       }
       return SplashPage();
+
     }));
   }
 }

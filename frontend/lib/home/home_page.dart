@@ -40,6 +40,8 @@ class HomePage extends StatelessWidget {
         return Center(
           child: CircularProgressIndicator(),
         );
+      } else{
+        return Container();
       }
     });
   }

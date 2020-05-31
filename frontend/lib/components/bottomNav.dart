@@ -15,26 +15,19 @@ import 'package:spotted/repositories/user_api_client.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SpottedApp extends StatefulWidget {
-  final PostRepository postRepository;
-  UserRepository userRepository;
+  // final PostRepository postRepository;
+  // UserRepository userRepository;
   List<Widget> tabs;
 
-  SpottedApp({Key key, @required this.postRepository})
-      : assert(postRepository != null),
-        super(key: key);
+  SpottedApp({Key key})
+      : super(key: key);
   @override
-  _SpottedApp createState() => _SpottedApp(repo: postRepository);
+  _SpottedApp createState() => _SpottedApp();
 }
 
 class _SpottedApp extends State<SpottedApp> {
   int _selectedIndex = 1;
-  PostBloc postBloc;
-  final PostRepository repo;
   List<Widget> _tabs;
-
-  _SpottedApp({@required this.repo}) {
-    this.postBloc = new PostBloc(repository: repo);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,10 +97,11 @@ class _SpottedApp extends State<SpottedApp> {
             
             if (index == 1) {
               BlocProvider.of<PostBloc>(context).add(FetchNewsfeed());
-            }
-            if (index == 2) {
+            }            
+            else if (index == 2) {
               BlocProvider.of<PostBloc>(context).add(FetchMyPosts());
             }
+
           });
         },
       ),
