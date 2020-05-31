@@ -47,6 +47,12 @@ class ProfilePage extends StatelessWidget {
           )),
           );
       }
+
+      if (state is ProfileLoading) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }
       return Center(
         child: CircularProgressIndicator(),
       );
