@@ -16,6 +16,9 @@ export class Post extends Model<Post> {
   public content!: string; // for nullable fields
 
   @Column
+  public helps: string; // for nullable fields
+  
+  @Column
   @CreatedAt
   public createdAt: Date = new Date();
 
