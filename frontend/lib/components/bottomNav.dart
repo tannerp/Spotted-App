@@ -3,7 +3,6 @@ import 'package:spotted/components/messagePage.dart';
 import 'package:spotted/home/NewPostPage.dart';
 import '../home/home_page.dart';
 import '../home/MyPostPage.dart';
-import '../profile/ProfilePage.dart';
 
 import 'package:spotted/post/post_bloc.dart';
 import 'package:spotted/post/post_state.dart';

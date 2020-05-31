@@ -21,7 +21,6 @@ router.post('/newpost', requireAuth, async (req: Request, res: Response) => {
     const content = req.body.content;
     const email = req.body.user.email;
 
-    console.log(req.body)
     const post =  new Post({user_email: email, title: title, content: content});
     let savedPost;
     try {
@@ -49,9 +48,6 @@ router.get('/all', requireAuth, async (req: Request, res: Response) => {
 
 
 router.get('/myposts', requireAuth, async (req: Request, res: Response) => {
-
-    console.log(req.body.user);
-
     
     const posts = await Post.findAll({
         where: {
@@ -59,9 +55,25 @@ router.get('/myposts', requireAuth, async (req: Request, res: Response) => {
         }
     })
 
-    console.log(posts);
-    
     res.status(200).send({posts: posts});
+});
+
+
+router.put('/toggle_help_post', requireAuth, async (req: Request, res: Response) => {
+
+    const post = await Post.findOne({
+        where: {
+            id: req.body.postID
+        }
+    });
+
+    let emails = post.helps.split(';').map(email=>email==req.body.user.email? "":email);
+
+    post.helps = emails.join(";");
+
+    await post.save();
+
+    res.status(200).send({post: post});
 });
 
 export const PostRouter: Router = router;

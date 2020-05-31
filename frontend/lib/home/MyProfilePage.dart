@@ -13,7 +13,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<ProfileBloc>(context).add(FetchProfile());
+  //  BlocProvider.of<ProfileBloc>(context).add(FetchProfile());
 
     return BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
       
@@ -28,6 +28,8 @@ class ProfilePage extends StatelessWidget {
       }
 
       if (state is ProfileLoaded) {
+        print("Profile Loaded State");
+        print(state.user);
         //fetchprofile method should return User
         return ProfilePageWidget(
           state.user.firstName, 
@@ -37,7 +39,6 @@ class ProfilePage extends StatelessWidget {
           state.user.classStanding,
           state.user.housing,
           () => saveUser(context, new User(
-            token: state.user.token,
             userID: state.user.userID,
             firstName: state.user.firstName,
             lastName: state.user.lastName,

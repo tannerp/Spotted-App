@@ -124,7 +124,7 @@ Future<List<Post>> fetchMyPosts(@required String token) async {
       url,
       headers: arg,
       body: jsonEncode(
-          <String, String>{'title': title, 'content': body, 'userId': ""}),
+          <String, String>{'title': title, 'content': body}),
     );
 
     if (response.statusCode > 300) {

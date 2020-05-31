@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotted/components/bottomNav.dart';
 import 'package:spotted/post/post_bloc.dart';
+import 'package:spotted/profile/profile_state.dart';
 import 'package:spotted/register/register_page.dart';
 // import 'package:spotted/
 
@@ -22,7 +23,7 @@ import 'package:spotted/home/view_post.dart';
 import 'package:spotted/common/common.dart';
 
 import 'package:spotted/login/login_page.dart';
-import 'package:spotted/profile/ProfilePage.dart';
+import 'package:spotted/home/MyProfilePage.dart';
 import 'package:spotted/profile/bloc.dart';
 // import 'package:spotted/common/common.dart';
 
@@ -116,8 +117,9 @@ class App extends StatelessWidget {
               child: SpottedApp()),
               '/home': (context) => BlocProvider.value(value: BlocProvider.of<PostBloc>(context),
               child: SpottedApp()),
-              '/profile': (context) => BlocProvider.value(value: BlocProvider.of<PostBloc>(context),
-              child: ProfilePage()),                  
+              '/profile': (context) => BlocProvider(
+                create: (BuildContext context) => ProfileBloc(repository: userRepository),
+              child: ProfilePage())
             }));
       }
 

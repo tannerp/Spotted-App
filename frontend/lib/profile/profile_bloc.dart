@@ -20,10 +20,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       yield ProfileLoading();
 
       try {
-        final User userProfile =
-            await repository.fetchUserProfile().then((value) {
-          return value;
-        });
+        final User userProfile = await repository.fetchMyProfile();
+
+        print("Profile bloc");
+
+        print(userProfile);
+
         if (userProfile != null) yield ProfileLoaded(user: userProfile);
       } catch (e) {
         yield ProfileError("Error Getting Profile Information");

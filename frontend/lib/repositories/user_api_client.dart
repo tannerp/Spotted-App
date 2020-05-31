@@ -34,32 +34,41 @@ class UserApiClient {
   }
 
 
-Future<User> fetchMyProfile(@required String token) async {
+Future<dynamic> fetchMyProfile(@required String token) async {
     //this url and token might have to updated with actual backend routes
-    final url = '$_baseUrl/user/$token';
+     Map<String, String> arg = {
+      'Authorization': "Bearer $token",
+      "Content-type": "application/json"};
 
-    final http.Response response = await this.httpClient.get(url);
+ 
+    final url = '$_baseUrl/api/v0/users/profile';
 
+    final http.Response response = await this.httpClient.get(url, headers: arg);
+  
     if (response.statusCode != 200) {
       throw new Exception('Authentication Error');
-    }
-    final User userProfile = User.fromJson(response.body);
-    return userProfile;
+     }
+
+    return jsonDecode(response.body);
   }
 
 
-  Future<User> fetchUserProfile(@required String token, String userID) async {
-    //this url and token might have to updated with actual backend routes
-    final url = '$_baseUrl/$token/$userID';
+  // Future<User> fetchUserProfile(@required String token, String userID) async {
+  //   //this url and token might have to updated with actual backend routes
+  //   final url = '$_baseUrl/$token/$userID';
+  //   try{
+  //   final http.Response response = await this.httpClient.get(url);
 
-    final http.Response response = await this.httpClient.get(url);
-
-    if (response.statusCode != 200) {
-      throw new Exception('Authentication Error');
-    }
-    final User userProfile = User.fromJson(response.body);
-    return userProfile;
-  }
+  //   if (response.statusCode != 200) {
+  //     print(response.statusCode);
+  //     throw new Exception('Authentication Error');
+  //   }
+  //   final User userProfile = User.fromJson(response.body);
+  //   return userProfile;
+  //   }catch(e){
+  //     print(e);
+  //   }
+  // }
   
  
   Future<String> updateUser(@required String token, User user) async {
