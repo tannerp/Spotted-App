@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:spotted/components/myProfileTile.dart';
+import 'package:spotted/components/userProfileTile.dart';
 import 'package:spotted/profile/profile_bloc.dart';
 import 'package:spotted/profile/profile_event.dart';
 import 'package:spotted/profile/profile_state.dart';
@@ -36,7 +36,14 @@ class MyProfilePage extends StatelessWidget {
         print(state);
         if (state.user == null) return Container();
 
-        return ProfilePageWidget(state.user.firstName, state.user.lastName);
+        return UserProfilePageWidget(
+          state.user.firstName, 
+          state.user.lastName, 
+          "email",
+          state.user.major,
+          state.user.classStanding,
+          state.user.housing,
+          );
       }
 
       if (state is ProfileLoading) {

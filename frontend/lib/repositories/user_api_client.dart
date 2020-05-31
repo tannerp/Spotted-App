@@ -35,7 +35,8 @@ class UserApiClient {
 
 
 Future<User> fetchMyProfile(@required String token) async {
-    final url = '$_baseUrl/';
+    //this url and token might have to updated with actual backend routes
+    final url = '$_baseUrl/user/$token';
 
     final http.Response response = await this.httpClient.get(url);
 
@@ -48,7 +49,8 @@ Future<User> fetchMyProfile(@required String token) async {
 
 
   Future<User> fetchUserProfile(@required String token, String userID) async {
-    final url = '$_baseUrl/';
+    //this url and token might have to updated with actual backend routes
+    final url = '$_baseUrl/$token/$userID';
 
     final http.Response response = await this.httpClient.get(url);
 
@@ -63,19 +65,28 @@ Future<User> fetchMyProfile(@required String token) async {
   Future<String> updateUser(@required String token, User user) async {
     final String firstName = user.firstName;
     final String lastName = user.lastName;
+    final String major = user.major;
+    final String classStanding = user.classStanding;
+    final String housing = user.housing;
 
 
     Map<String, String> arg = {"Content-type": "application/json"};
     // make POST request
     // use SSL to encrytp body
 
-    final url = _baseUrl + "/newpost";
+    final url = _baseUrl + "/updateUser";
 
     http.Response response = await http.post(
       url,
       headers: arg,
       body: jsonEncode(
-          <String, String>{'first_name': firstName, 'last_name': lastName}),
+          <String, String>{
+            'first_name': firstName, 
+            'last_name': lastName, 
+            'major': major, 
+            'classStanding': classStanding, 
+            'housing': housing
+          }),
     );
 
     if (response.statusCode > 300) {

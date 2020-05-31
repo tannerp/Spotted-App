@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +8,7 @@ import 'package:spotted/profile/bloc.dart';
 import 'package:spotted/profile/profile_state.dart';
 import 'package:spotted/profile/profile_event.dart';
 import 'package:spotted/components/myProfileTile.dart';
+import 'package:spotted/models/user.dart';
 
 class ProfilePage extends StatelessWidget {
   
@@ -28,7 +31,23 @@ class ProfilePage extends StatelessWidget {
 
       if (state is ProfileLoaded) {
         //fetchprofile method should return User
-        return ProfilePageWidget('Lhakpa','sherpal@spu.edu');
+        return ProfilePageWidget(
+          state.user.firstName, 
+          state.user.lastName, 
+          "email",
+          state.user.major,
+          state.user.classStanding,
+          state.user.housing,
+          () => saveUser(context, new User(
+            token: state.user.token,
+            userID: state.user.userID,
+            firstName: state.user.firstName,
+            lastName: state.user.lastName,
+            major: state.user.major,
+            classStanding: state.user.classStanding,
+            housing: state.user.housing,
+          )),
+          );
       }
       return Center(
         child: CircularProgressIndicator(),
@@ -37,4 +56,7 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
-
+void saveUser(BuildContext context, User user) {
+    final bloc = BlocProvider.of<ProfileBloc>(context);
+    bloc.add(SaveProfile(user));
+}
