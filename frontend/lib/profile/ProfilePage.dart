@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotted/profile/bloc.dart';
 import 'package:spotted/profile/profile_state.dart';
 import 'package:spotted/profile/profile_event.dart';
+import 'package:spotted/components/myProfileTile.dart';
 
 class ProfilePage extends StatelessWidget {
   
@@ -26,7 +27,8 @@ class ProfilePage extends StatelessWidget {
       }
 
       if (state is ProfileLoaded) {
-        return Text("Profile Page");
+        //fetchprofile method should return User
+        return ProfilePageWidget('Lhakpa','sherpal@spu.edu');
       }
       return Center(
         child: CircularProgressIndicator(),
@@ -34,3 +36,5 @@ class ProfilePage extends StatelessWidget {
     });
   }
 }
+
+
