@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:meta/meta.dart';
+import 'package:spotted/profile/profile_event.dart';
 import 'package:spotted/repositories/user_api_client.dart';
 import 'package:spotted/models/user.dart';
 
@@ -13,7 +14,7 @@ class UserRepository {
   Future<String> authenticate({
     @required String email,
     @required String password,
-  }) async {
+   }) async {
     final  json_rspn = await client.authenticate(email, password);
     this.user = User.fromJson(json_rspn);
     // fetch api
@@ -37,4 +38,15 @@ class UserRepository {
     await Future.delayed(Duration(seconds: 1));
     return false;
   }
+
+  Future<User> fetchUserProfile() async {
+    final User userProfile = await client.fetchUserProfile();
+    // return postApiClient .fetchNewsfeed();
+    return userProfile;
+  }
+
+  Future<String> updateUser(User user) async {
+    return await client.updateUser(user);
+  }
+
 }

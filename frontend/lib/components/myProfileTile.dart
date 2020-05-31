@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-
-
 class ProfilePageWidget extends StatefulWidget {
   final String userName;
   final String userEmail;

@@ -7,15 +7,14 @@ abstract class ProfileEvent extends Equatable {
   const ProfileEvent();
 }
 
+
 class FetchProfile extends ProfileEvent {
-  final String postId;
-  const FetchProfile({this.postId});
+  final User user;
+  const FetchProfile({this.user});
 
   @override
   List<Object> get props => [];
 }
-
-
 
 class UpdateProfile extends ProfileEvent {
   const UpdateProfile();
@@ -24,33 +23,10 @@ class UpdateProfile extends ProfileEvent {
   List<Object> get props => [];
 }
 
-
-// class FetchNewsfeed extends ProfileEvent {
-//   const FetchNewsfeed();
-
-//   @override
-//   List<Object> get props => [];
-// }
-
-// class FetchMyPosts extends ProfileEvent {
-//   const FetchMyPosts();
-
-//   @override
-//   List<Object> get props => [];
-// }
-
-// class SavePost extends ProfileEvent {
-//   final User user;
-//   const SavePost(this.user);
+class SaveProfile extends ProfileEvent {
+  final User user;
+  const SaveProfile(this.user);
   
-//   @override
-//   List<Object> get props => [user];
-// }
-
-// class DeletePost extends ProfileEvent {
-//   final String postId;
-//   const DeletePost({this.postId});
-  
-//   @override
-//   List<Object> get props => [];
-// }
+  @override
+  List<Object> get props => [user];
+}

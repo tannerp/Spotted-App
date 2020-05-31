@@ -15,41 +15,32 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   @override
   Stream<ProfileState> mapEventToState(ProfileEvent event) async* {
-    // if (event is FetchNewsfeed) {
-    //   yield PostLoading();
    if (event is FetchProfile) {
       print("Fetching my Profile ");
+      yield ProfileLoading();
 
-      yield ProfileLoaded(user: User(firstName: "test", lastName: "test last name", token: "12312513"));
+      try {
+        final User userProfile =
+            await repository.fetchUserProfile().then((value) {
+          return value;
+        });
+        if (userProfile != null) yield ProfileLoaded(user: userProfile);
+      } catch (e) {
+        yield ProfileError("Error Getting Profile Information");
+      }
    }
+   else if (event is SaveProfile) {
+      yield ProfileSaving();
 
-    //   try {
-    //     final List<dynamic> posts =
-    //         await repository.fetchMyPosts().then((value) {
-    //       return value;
-    //     });
-    //     if (posts != null) yield MyPostsReady(posts: posts);
-    //   } catch (e) {
-    //     yield PostError("Please enter your content");
-    //   }
-    // } else if (event is SavePost) {
-    //   yield PostSaving();
+      try {
+        final String message = await repository.updateUser(event.user);
+        print(message);
+        yield ProfileLoading();
 
-    //   try {
-    //     // final String message = await repository.createPost(event.Profile);
-    //     yield PostEmpty();
-    //   } catch (_) {
-    //     yield PostError("Failed to save Profile");
-    //   }
-    // }
-    // else if (event is DeletePost) {
-    //   yield PostDeleted("Successful deleted Profile");
-    //   // We don't have api for delete Profile i'll leave this comment out
-    //   /*try {
-    //     final String message = await repository.deletePost(event.Profile);
-    //     yield PostDeleted();
-    //   } catch (_) {
-    //     yield PostError("Failed to delete Profile");     
-    //   }*/
+      } catch (_) {
+        yield ProfileError("Error saving profile information");
+      }
+    }
+
     }
 }
