@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotted/components/bottomNav.dart';
@@ -49,7 +48,9 @@ class SimpleBlocDelegate extends BlocDelegate {
 
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
+  
   final http.Client httpClient = http.Client();
+
 
   final userRepository = UserRepository(
     client: UserApiClient(
@@ -60,7 +61,7 @@ void main() {
   final PostRepository postRepository = PostRepository(
     postApiClient: PostApiClient(
       httpClient: httpClient,
-    ),
+    ),userRepo: userRepository
   );
 
   runApp(
@@ -121,10 +122,10 @@ class App extends StatelessWidget {
       }
 
       if (state is AuthenticationLoading) {
-        return CircularProgressIndicator();
+            return Center(child: CircularProgressIndicator());
       }
-      return SplashPage();
 
+      return SplashPage();
     }));
   }
 }

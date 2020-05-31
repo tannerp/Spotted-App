@@ -40,13 +40,13 @@ class UserRepository {
   }
 
   Future<User> fetchUserProfile() async {
-    final User userProfile = await client.fetchUserProfile();
+    final User userProfile = await client.fetchUserProfile(user.token, user.userID);
     // return postApiClient .fetchNewsfeed();
     return userProfile;
   }
 
   Future<String> updateUser(User user) async {
-    return await client.updateUser(user);
+    return await client.updateUser(user.token, user);
   }
 
 }

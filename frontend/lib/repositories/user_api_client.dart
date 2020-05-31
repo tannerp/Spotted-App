@@ -33,8 +33,21 @@ class UserApiClient {
     return jsonDecode(response.body);
   }
 
-  //take token for user's id
-  Future<User> fetchUserProfile() async {
+
+Future<User> fetchMyProfile(@required String token) async {
+    final url = '$_baseUrl/';
+
+    final http.Response response = await this.httpClient.get(url);
+
+    if (response.statusCode != 200) {
+      throw new Exception('Authentication Error');
+    }
+    final User userProfile = User.fromJson(response.body);
+    return userProfile;
+  }
+
+
+  Future<User> fetchUserProfile(@required String token, String userID) async {
     final url = '$_baseUrl/';
 
     final http.Response response = await this.httpClient.get(url);
@@ -46,7 +59,8 @@ class UserApiClient {
     return userProfile;
   }
   
-  Future<String> updateUser(User user) async {
+ 
+  Future<String> updateUser(@required String token, User user) async {
     final String firstName = user.firstName;
     final String lastName = user.lastName;
 

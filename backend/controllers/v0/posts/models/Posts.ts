@@ -7,7 +7,7 @@ export class Post extends Model<Post> {
   
   @ForeignKey(() => User)
   @Column
-  userID: number;
+  user_email: String;
 
   @Column
   public title!: string;
