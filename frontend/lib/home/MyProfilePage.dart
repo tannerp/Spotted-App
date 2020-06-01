@@ -13,8 +13,6 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  //  BlocProvider.of<ProfileBloc>(context).add(FetchProfile());
-
     return BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
       
       if (state is ProfileEmpty) {
