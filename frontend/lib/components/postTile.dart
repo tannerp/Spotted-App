@@ -12,11 +12,14 @@ class PostTileWidget extends StatefulWidget {
   final VoidCallback onPressed;
 
   @override
-  _PostTileWidgetState createState() => _PostTileWidgetState();
+  _PostTileWidgetState createState() => _PostTileWidgetState(this.onPressed);
 }
 
 class _PostTileWidgetState extends State<PostTileWidget> {
   bool buttonChecked = false;
+  final VoidCallback _onPressed;
+
+  _PostTileWidgetState(this._onPressed);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -101,6 +104,7 @@ class _PostTileWidgetState extends State<PostTileWidget> {
           color: Colors.blue,
           onPressed: () => setState(() {
             buttonChecked = true;
+            _onPressed();
           }),
           ),
       ),

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spotted/home/home.dart';
 
 import 'package:spotted/post/bloc.dart';
 import 'package:spotted/components/postTile.dart';
 import 'package:spotted/home/MyPostDetailPage.dart';
 import 'package:spotted/post/post_event.dart';
+import 'package:spotted/models/models.dart';
 
 class MyPostsPage extends StatelessWidget {
   @override
@@ -33,7 +35,7 @@ class MyPostsPage extends StatelessWidget {
       if (state is MyPostsReady) {
         // print("My Posts ReadY");
         // print(state);
-        if (state.my_posts == null) return Container();
+        if (state.my_posts == null) return Container(child:Center(child:Text("Empty")));
 
         return ListView.builder(
             itemCount: state.my_posts.length,
@@ -43,6 +45,7 @@ class MyPostsPage extends StatelessWidget {
                 post: state.my_posts[index],
                 userImage: NetworkImage(
                     "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+              onPressed: ()=>onHelpPress(ctxt, state.my_posts[index]),
               ));
             });
       }
@@ -63,4 +66,13 @@ class MyPostsPage extends StatelessWidget {
 
         return Container(child:Center(child: Text("Empty"),));    }));
   }
+}
+
+void onHelpPress(BuildContext context, Post post){
+  print("MyPostPage");
+  // print("On help button pressed");
+  print(post);
+
+  BlocProvider.of<PostBloc>(context).add(ToggleHelpPost(post));
+  
 }

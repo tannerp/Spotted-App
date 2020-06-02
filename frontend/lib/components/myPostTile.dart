@@ -10,7 +10,7 @@ class MyPostTileWidget extends StatelessWidget {
 
   final ImageProvider userImage;
 
-  final VoidCallback onPressed;
+  final VoidCallback  onPressed;
 
   final List<User> userResponseList;
 

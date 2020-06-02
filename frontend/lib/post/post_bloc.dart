@@ -18,7 +18,21 @@ class PostBloc extends Bloc<PostEvent, PostState> {
 
   @override
   Stream<PostState> mapEventToState(PostEvent event) async* {
-    if (event is FetchNewsfeed) {
+    if (event is ToggleHelpPost) {
+      // yield PostLoading();
+
+      try {
+        final bool success = await postRepo.toggleHelpPost(event.post);
+        print("Post bloc togglemypost");
+        print(success);
+        // if (posts != null) yield NewsfeedReady(posts: posts);
+      } catch (e) {
+        print("Error toggle help");
+        print(e);
+        
+        // yield PostError("Failed to get posts");
+      }
+    } else if (event is FetchNewsfeed) {
       yield PostLoading();
 
       try {

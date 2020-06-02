@@ -15,6 +15,14 @@ class FetchPost extends PostEvent {
   List<Object> get props => [];
 }
 
+class ToggleHelpPost extends PostEvent {
+  final Post post;
+
+  ToggleHelpPost(this.post);
+
+  @override
+  List<Object> get props => [post];
+}
 class FetchNewsfeed extends PostEvent {
   const FetchNewsfeed();
 

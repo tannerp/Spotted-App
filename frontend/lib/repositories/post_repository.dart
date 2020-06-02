@@ -19,19 +19,20 @@ class PostRepository {
       
   Future<List<Post>> fetchNewsFeed() async {
     final List<Post> result = await postApiClient.fetchNewsfeed(userRepo.token);
-    // return postApiClient .fetchNewsfeed();
-    print("Post repo");
-    print(result);
     return result;
   }
 
   Future<List<Post>> fetchMyPosts() async {
     final List<Post> result = await postApiClient.fetchMyPosts(userRepo.token);
-    // return postApiClient .fetchNewsfeed();
     return result;
   }
 
   Future<String> createPost(Post post) async {
     return await postApiClient.createPost(userRepo.token, post);
+  }
+
+  Future<bool> toggleHelpPost(Post postID) async {
+    print("Post Repo Toggle HELP POST");
+    return await postApiClient.toggleHelpPost(userRepo.token, postID);
   }
 }
