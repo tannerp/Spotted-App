@@ -26,10 +26,11 @@ class ProfilePage extends StatelessWidget {
       }
 
       if (state is ProfileLoaded) {
-        print("Profile Loaded State");
-        print(state.user);
         //fetchprofile method should return User
-        return ProfilePageWidget(
+        
+        return BlocProvider.value(
+          value: BlocProvider.of<ProfileBloc>(context),
+          child: ProfilePageWidget(
           state.user.firstName, 
           state.user.lastName, 
           "email",
@@ -44,7 +45,7 @@ class ProfilePage extends StatelessWidget {
             classStanding: state.user.classStanding,
             housing: state.user.housing,
           )),
-          );
+          ));
       }
 
       if (state is ProfileLoading) {
@@ -60,6 +61,6 @@ class ProfilePage extends StatelessWidget {
 }
 
 void saveUser(BuildContext context, User user) {
-    final bloc = BlocProvider.of<ProfileBloc>(context);
-    bloc.add(SaveProfile(user));
+    print("save function detected");
+    BlocProvider.of<ProfileBloc>(context).add(SaveProfile(user));
 }

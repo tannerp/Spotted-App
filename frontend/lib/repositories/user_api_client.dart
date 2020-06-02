@@ -59,13 +59,15 @@ Future<dynamic> fetchMyProfile(@required String token) async {
     final String housing = user.housing;
 
 
-    Map<String, String> arg = {"Content-type": "application/json"};
+    Map<String, String> arg = {
+    'Authorization': "Bearer $token",
+    "Content-type": "application/json"};
     // make POST request
     // use SSL to encrytp body
 
-    final url = _baseUrl + "/updateUser";
+    final url = "$_baseUrl/api/v0/users/update_profile";
 
-    http.Response response = await http.post(
+    http.Response response = await http.put(
       url,
       headers: arg,
       body: jsonEncode(
@@ -82,7 +84,7 @@ Future<dynamic> fetchMyProfile(@required String token) async {
       throw new Exception('error updating user profile');
     }
 
-    return ("profile succesfully updated");
+    return ("Profile succesfully updated");
   }
 
 

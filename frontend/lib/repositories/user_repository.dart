@@ -68,8 +68,6 @@ class UserRepository {
       return rsp;
 
       }catch(e){
-        print("Error making user");
-        print(e);
         throw new Exception('UserRepoError: Fetch my profile');
     }
 
