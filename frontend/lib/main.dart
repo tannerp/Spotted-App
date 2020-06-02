@@ -6,7 +6,7 @@ import 'package:spotted/components/bottomNav.dart';
 import 'package:spotted/post/post_bloc.dart';
 import 'package:spotted/profile/profile_state.dart';
 import 'package:spotted/register/register_page.dart';
-// import 'package:spotted/
+import 'package:spotted/style.dart';
 
 import 'package:spotted/repositories/post_api_client.dart';
 import 'package:spotted/repositories/post_repository.dart';
@@ -96,7 +96,13 @@ class App extends StatelessWidget {
         return MaterialApp(
             title: 'Spotted App',
             theme: ThemeData(
-              primarySwatch: Colors.teal,
+              appBarTheme: AppBarTheme(
+              textTheme: TextTheme(headline6: AppBarTextStyle),
+              ),
+            textTheme: TextTheme(
+              headline6: TitleTextStyle,
+              bodyText1: Body1TextStyle,
+            ),
             ),
             initialRoute: 'register',
             routes: {
@@ -111,6 +117,15 @@ class App extends StatelessWidget {
         return BlocProvider(
             create: (context) => PostBloc(postRepo: postRepository, userRepo: userRepository),
             child: MaterialApp(
+              theme: ThemeData(
+              appBarTheme: AppBarTheme(
+              textTheme: TextTheme(headline6: AppBarTextStyle),
+              ),
+            textTheme: TextTheme(
+              headline6: TitleTextStyle,
+              bodyText1: Body1TextStyle,
+            ),
+            ),
               initialRoute: '/', 
               routes: {
               '/': (context) => BlocProvider.value(value: BlocProvider.of<PostBloc>(context),

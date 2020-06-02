@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:validators/validators.dart';
@@ -38,7 +40,7 @@ class _VerifyFormState extends State<VerifyForm> {
   Widget _buildFirstName() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'First Name'),
-      maxLength: 10,
+      maxLength: 20,
       validator: (String value) {
         if (value.isEmpty) {
           return 'Name is Required';
@@ -55,7 +57,7 @@ class _VerifyFormState extends State<VerifyForm> {
   Widget _buildLastName() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Last Name'),
-      maxLength: 10,
+      maxLength: 20,
       validator: (String value) {
         if (value.isEmpty) {
           return 'Name is Required';
@@ -97,22 +99,35 @@ class _VerifyFormState extends State<VerifyForm> {
    @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Verify Email")),
-      body: Container(
+      appBar: AppBar(
+        title: Text("Verify Email"),
+        backgroundColor: Colors.black,
+        ),
+      body:Center(
+        child: Container( 
         margin: EdgeInsets.all(24),
-        child: Form(
-          key: _formKey,
-          child: Column(
+        alignment: Alignment.center,
+             height: 400,
+             width: 400,
+             padding: EdgeInsets.all(20),
+             decoration: BoxDecoration(
+                border: Border.all(
+                color: Colors.black,
+               ),
+                borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: Form(
+            key: _formKey,
+            child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               _buildFirstName(),
               _buildLastName(),
               _buildEmail(),
-              SizedBox(height: 100),
+              SizedBox(height: 20),
               RaisedButton(
                 child: Text(
                   'Submit',
-                  style: TextStyle(color: Colors.blue, fontSize: 16),
                 ),
                 onPressed: () {
                   if (!_formKey.currentState.validate()) {
@@ -120,19 +135,19 @@ class _VerifyFormState extends State<VerifyForm> {
                   }
                   _formKey.currentState.save();
                   //API interaction
-                  _verifyEmailPostRequest(_firstName, _lastName, _email);
-                   Navigator.pushNamed(context, '/register');
+                  _verifyEmailPostRequest(_firstName, _lastName, _email, context);
+                   Navigator.pushNamed(context, '/login');
                 },
               )
             ],
           ),
         ),
       ),
-    );
+    ));
   }
 }
 
-_verifyEmailPostRequest(String firstName, String lastName, String email) async {
+_verifyEmailPostRequest(String firstName, String lastName, String email, BuildContext context) async {
   // set up POST request arguments
 
   //url should be updated with our api route
@@ -155,4 +170,26 @@ _verifyEmailPostRequest(String firstName, String lastName, String email) async {
   else {
     print('post request succesfull status Code: $statusCode');
   }
+
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Thank you Joining Spotted"),
+          content: new Text("Your information has been received. Please check your inbox and follow link to complete Registration"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new Center(
+              child: FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )),
+          ],
+        );
+      },
+    );
+      
 }

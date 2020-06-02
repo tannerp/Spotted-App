@@ -95,6 +95,7 @@ Future<List<Post>> fetchMyPosts(@required String token) async {
     if (response.statusCode != 200) {
       throw new Exception('Authentication Error');
     }
+    print(response.body);
 
     try{
         list = await jsonDecode(response.body)["posts"].map((rawPost) {
