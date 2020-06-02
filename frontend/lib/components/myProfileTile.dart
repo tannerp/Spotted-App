@@ -14,7 +14,7 @@ class ProfilePageWidget extends StatefulWidget {
   final String housing;
   final VoidCallback onPressed;
 
-  ProfilePageWidget(this.firstName, this.userEmail, this.lastName, this.major, this.housing, this.classStanding, this.onPressed);
+  ProfilePageWidget(this.firstName,  this.lastName, this.userEmail, this.major, this.housing, this.classStanding, this.onPressed);
 
   @override
   MapScreenState createState() => MapScreenState();
@@ -46,7 +46,7 @@ class MapScreenState extends State<ProfilePageWidget>
                 child: new Column(
                   children: <Widget>[
                     Padding(
-                        padding: EdgeInsets.only(left: 20.0, top: 20.0),
+                        padding: EdgeInsets.only(left: 20.0, top: 5.0),
                         child: new Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[

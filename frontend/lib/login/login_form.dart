@@ -38,7 +38,7 @@ class _LoginFormState extends State<LoginForm> {
           return Center(
             child: Container(
              alignment: Alignment.center,
-             height: 340,
+             height: 300,
              width: 400,
              padding: EdgeInsets.all(30),
              decoration: BoxDecoration(
@@ -59,6 +59,11 @@ class _LoginFormState extends State<LoginForm> {
                   controller: _passwordController,
                   obscureText: true,
                 ),
+                Container(
+                  child: state is LoginLoading
+                      ? CircularProgressIndicator()
+                      : null,
+                ),
                 const SizedBox(height: 20),
                 new Row (
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -77,12 +82,7 @@ class _LoginFormState extends State<LoginForm> {
                   child: Text('Register'),
                 )
                 ]
-                ),
-                Container(
-                  child: state is LoginLoading
-                      ? CircularProgressIndicator()
-                      : null,
-                ),
+                ),                
               ],
             ),
           )));
