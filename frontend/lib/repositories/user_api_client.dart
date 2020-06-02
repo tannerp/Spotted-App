@@ -1,5 +1,3 @@
-// import 'package:flutter/material.dart';
-
 import 'dart:convert';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
@@ -52,24 +50,6 @@ Future<dynamic> fetchMyProfile(@required String token) async {
     return jsonDecode(response.body);
   }
 
-
-  // Future<User> fetchUserProfile(@required String token, String userID) async {
-  //   //this url and token might have to updated with actual backend routes
-  //   final url = '$_baseUrl/$token/$userID';
-  //   try{
-  //   final http.Response response = await this.httpClient.get(url);
-
-  //   if (response.statusCode != 200) {
-  //     print(response.statusCode);
-  //     throw new Exception('Authentication Error');
-  //   }
-  //   final User userProfile = User.fromJson(response.body);
-  //   return userProfile;
-  //   }catch(e){
-  //     print(e);
-  //   }
-  // }
-  
  
   Future<String> updateUser(@required String token, User user) async {
     final String firstName = user.firstName;

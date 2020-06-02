@@ -30,6 +30,12 @@ class AuthenticationBloc
       }
     }
 
+    if (event is SignOutEvent) {
+      yield AuthenticationLoading();
+      await userRepository.deleteToken();
+      yield AuthenticationUnauthenticated();
+    }
+
     if (event is LoggedIn) {
       yield AuthenticationLoading();
       await userRepository.persistToken(event.token);

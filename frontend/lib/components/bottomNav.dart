@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:spotted/authentication/authentication_bloc.dart';
+import 'package:spotted/authentication/authentication_event.dart';
 import 'package:spotted/components/messagePage.dart';
 import 'package:spotted/home/NewPostPage.dart';
 import '../home/home_page.dart';
@@ -63,10 +65,9 @@ class _SpottedApp extends State<SpottedApp> {
             onPressed: () => {Navigator.pushNamed(context, "/profile")}),
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.message),
+              icon: Icon(Icons.exit_to_app),
               onPressed: () => {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MessageApp()))
+                    BlocProvider.of<AuthenticationBloc>(context).add(SignOutEvent())
                   })
         ],
       ),

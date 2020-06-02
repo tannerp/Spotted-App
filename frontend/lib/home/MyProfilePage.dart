@@ -21,7 +21,7 @@ class ProfilePage extends StatelessWidget {
 
       if (state is ProfileError) {
         return Center(
-          child: Text('failed to fetch profile'),
+          child: Text('Error'),
         );
       }
 

@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
           child: CircularProgressIndicator(),
         );
       } else{
-        return Container();
+        return Container(child:Center(child: Text("Empty"),));
       }
     });
   }
