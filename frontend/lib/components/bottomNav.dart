@@ -42,7 +42,13 @@ class _SpottedApp extends State<SpottedApp> {
       ),
       BlocProvider.value(
         value: BlocProvider.of<PostBloc>(context),
-        child: MyPostsPage(),
+        child: RepositoryProvider.value(
+          value: RepositoryProvider.of<UserRepository>(context),
+          child: MyPostsPage()
+        
+          )
+        
+         
       )
 
       // BlocProvider(

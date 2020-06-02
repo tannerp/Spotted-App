@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:spotted/models/models.dart';
 
 class UserApiClient {
-  final _baseUrl = 'http://localhost:8082';
+  final _baseUrl = 'http://ec2-52-40-149-180.us-west-2.compute.amazonaws.com';
   final http.Client httpClient;
 
   UserApiClient({

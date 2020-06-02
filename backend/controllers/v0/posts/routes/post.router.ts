@@ -61,15 +61,36 @@ router.get('/myposts', requireAuth, async (req: Request, res: Response) => {
 
 router.put('/toggle_help_post', requireAuth, async (req: Request, res: Response) => {
 
+    console.log("Toggle Help Post");
+
+    console.log(req.body);
+
     const post = await Post.findOne({
         where: {
             id: req.body.postID
         }
     });
 
-    let emails = post.helps.split(';').map(email=>email==req.body.user.email? "":email);
+    // function check if user is in list helps
+    // if is already in list, remove it
+    // if it's not already in list, add it
 
-    post.helps = emails.join(";");
+    if (post.helps == null){
+        post.helps = req.body.user.email;
+    }else{
+        let _help;
+        if (post.helps.includes(req.body.user.email)){
+            _help = post.helps.split(";").map( (email)=>{ 
+                if (email == req.body.user.email) return;
+            });
+            if (_help.length == 0) _help = null;
+            else _help = _help.join(";");
+
+        }else _help = post.helps + ";" + req.body.user.email;
+        
+        post.helps = _help;
+    }
+
 
     await post.save();
 
