@@ -35,7 +35,19 @@ class _LoginFormState extends State<LoginForm> {
       },
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
-          return Form(
+          return Center(
+            child: Container(
+             alignment: Alignment.center,
+             height: 250,
+             width: 400,
+             padding: EdgeInsets.all(30),
+             decoration: BoxDecoration(
+                border: Border.all(
+                color: Colors.black,
+               ),
+                borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: Center(
             child: Column(
               children: [
                 TextFormField(
@@ -47,18 +59,24 @@ class _LoginFormState extends State<LoginForm> {
                   controller: _passwordController,
                   obscureText: true,
                 ),
-                RaisedButton(
+                const SizedBox(height: 20),
+                new Row (
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  RaisedButton(
                   onPressed:
                       state is! LoginLoading ? _onLoginButtonPressed : null,
                   child: Text('Login'),
-                ),
-                 RaisedButton(
+                   ),
+                  RaisedButton(
                   onPressed:                  
                       () {
                         Navigator.pushNamed(context, "/register");
   
                         },
                   child: Text('Register'),
+                )
+                ]
                 ),
                 Container(
                   child: state is LoginLoading
@@ -67,7 +85,7 @@ class _LoginFormState extends State<LoginForm> {
                 ),
               ],
             ),
-          );
+          )));
         },
       ),
     );
