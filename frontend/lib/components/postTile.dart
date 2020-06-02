@@ -73,20 +73,10 @@ class _PostTileWidgetState extends State<PostTileWidget> {
                 children: <Widget>[
                   makeHelp(checked: buttonChecked),
                   SizedBox(width: 5,),
-                  //Text("200", style: TextStyle(fontSize: 15, color: Colors.grey[800]),)
                 ],
               ),
-              //Text("400 Helps", style: TextStyle(fontSize: 13, color: Colors.grey[800]),)
             ],
           ),
-          /*
-          SizedBox(height: 20,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              makeHelpButton(isActive: true),
-            ],
-          )*/
         ],
       ),
     );
