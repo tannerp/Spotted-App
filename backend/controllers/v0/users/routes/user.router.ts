@@ -32,6 +32,28 @@ router.get('/profile', requireAuth, async (req: Request, res: Response) => {
 });
 
 
+router.put('/update_profile', requireAuth, async (req: Request, res: Response) => {
+    console.log(req.body);
+
+
+    const user = await User.findOne({
+        where:{
+            email: req.body.user.email
+        }
+    });
+     
+    user["first_name"] = req.body.first_name;
+    user["last_name"] = req.body.last_name;
+    user["major"] = req.body.major;
+    user["housing"] = req.body.housing;
+    user["classStanding"] = req.body.classStanding;
+
+    await user.save();
+
+    res.status(200).send(user);
+});
+
+
 // router.get('/', async (req: Request, res: Response) => {
 // });
 

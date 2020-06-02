@@ -34,10 +34,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
    else if (event is SaveProfile) {
       yield ProfileSaving();
 
+      print(event);
+      print(event.user);
       try {
         final String message = await repository.updateUser(event.user);
         print(message);
-        yield ProfileLoading();
+
+        yield ProfileLoaded(user: event.user);
 
       } catch (_) {
         yield ProfileError("Error saving profile information");

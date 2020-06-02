@@ -1,5 +1,3 @@
-// import 'package:flutter/material.dart';
-
 import 'dart:convert';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
@@ -52,24 +50,6 @@ Future<dynamic> fetchMyProfile(@required String token) async {
     return jsonDecode(response.body);
   }
 
-
-  // Future<User> fetchUserProfile(@required String token, String userID) async {
-  //   //this url and token might have to updated with actual backend routes
-  //   final url = '$_baseUrl/$token/$userID';
-  //   try{
-  //   final http.Response response = await this.httpClient.get(url);
-
-  //   if (response.statusCode != 200) {
-  //     print(response.statusCode);
-  //     throw new Exception('Authentication Error');
-  //   }
-  //   final User userProfile = User.fromJson(response.body);
-  //   return userProfile;
-  //   }catch(e){
-  //     print(e);
-  //   }
-  // }
-  
  
   Future<String> updateUser(@required String token, User user) async {
     final String firstName = user.firstName;
@@ -79,13 +59,15 @@ Future<dynamic> fetchMyProfile(@required String token) async {
     final String housing = user.housing;
 
 
-    Map<String, String> arg = {"Content-type": "application/json"};
+    Map<String, String> arg = {
+    'Authorization': "Bearer $token",
+    "Content-type": "application/json"};
     // make POST request
     // use SSL to encrytp body
 
-    final url = _baseUrl + "/updateUser";
+    final url = "$_baseUrl/api/v0/users/update_profile";
 
-    http.Response response = await http.post(
+    http.Response response = await http.put(
       url,
       headers: arg,
       body: jsonEncode(
@@ -102,7 +84,7 @@ Future<dynamic> fetchMyProfile(@required String token) async {
       throw new Exception('error updating user profile');
     }
 
-    return ("profile succesfully updated");
+    return ("Profile succesfully updated");
   }
 
 

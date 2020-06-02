@@ -61,8 +61,6 @@ class MyPostsPage extends StatelessWidget {
         );
       }
 
-      print(state);
-      return Container();
-    }));
+        return Container(child:Center(child: Text("Empty"),));    }));
   }
 }

@@ -51,6 +51,7 @@ void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
   
   final http.Client httpClient = http.Client();
+  
 
 
   final userRepository = UserRepository(

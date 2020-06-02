@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:spotted/profile/bloc.dart';
+import 'package:spotted/profile/profile_event.dart';
 
 class ProfilePageWidget extends StatefulWidget {
   final String firstName;
@@ -341,9 +345,10 @@ class MapScreenState extends State<ProfilePageWidget>
                 color: Colors.green,
                 onPressed: () {
                   setState(() {
+                        //BlocProvider.of<ProfileBloc>(context).add(SaveProfile(user));
                     _status = true;
                     FocusScope.of(context).requestFocus(new FocusNode());
-                    widget.onPressed;
+                    widget.onPressed();
                   });
                 },
                 shape: new RoundedRectangleBorder(
