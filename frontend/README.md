@@ -71,7 +71,7 @@ After you done set up, simply run "flutter doctor" on your command line to check
 
     cd Spotted-App/frontend 
  
-## Now run the app by 
+### Now run the app 
 
     flutter run -d Chrome
    
