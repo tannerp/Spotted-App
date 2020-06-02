@@ -59,10 +59,6 @@ class MyPostTileWidget extends StatelessWidget {
                   )
                 ],
               ),
-              IconButton(
-                icon: Icon(Icons.more_horiz, size: 30, color: Colors.grey[600],), 
-                onPressed: () {},
-              )
             ],
           ),
           SizedBox(height: 20,),
