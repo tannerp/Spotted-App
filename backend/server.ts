@@ -36,8 +36,11 @@ const c = config.dev;
     res.send( "/api/v0/" );
   } );
 
+  app.use(express.static(path.join(__dirname, '../frontend/web')));
+
   // Email Registration Link
   app.use('/register', express.static(path.join(__dirname, './static/register')));
+
   app.get( "/register/:hash", async ( req, res ) => {
     // console.log(req.body);
     res.sendFile(path.join(__dirname, './static/register/confirm.html'));

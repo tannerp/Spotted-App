@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:spotted/models/models.dart';
 
 class UserApiClient {
-  // final _baseUrl = 'https://jsonplaceholder.typicode.com/posts/1';
   final _baseUrl = 'http://localhost:8082';
   final http.Client httpClient;
 
@@ -33,4 +32,78 @@ class UserApiClient {
 
     return jsonDecode(response.body);
   }
+
+
+Future<dynamic> fetchMyProfile(@required String token) async {
+    //this url and token might have to updated with actual backend routes
+     Map<String, String> arg = {
+      'Authorization': "Bearer $token",
+      "Content-type": "application/json"};
+
+ 
+    final url = '$_baseUrl/api/v0/users/profile';
+
+    final http.Response response = await this.httpClient.get(url, headers: arg);
+  
+    if (response.statusCode != 200) {
+      throw new Exception('Authentication Error');
+     }
+
+    return jsonDecode(response.body);
+  }
+
+
+  // Future<User> fetchUserProfile(@required String token, String userID) async {
+  //   //this url and token might have to updated with actual backend routes
+  //   final url = '$_baseUrl/$token/$userID';
+  //   try{
+  //   final http.Response response = await this.httpClient.get(url);
+
+  //   if (response.statusCode != 200) {
+  //     print(response.statusCode);
+  //     throw new Exception('Authentication Error');
+  //   }
+  //   final User userProfile = User.fromJson(response.body);
+  //   return userProfile;
+  //   }catch(e){
+  //     print(e);
+  //   }
+  // }
+  
+ 
+  Future<String> updateUser(@required String token, User user) async {
+    final String firstName = user.firstName;
+    final String lastName = user.lastName;
+    final String major = user.major;
+    final String classStanding = user.classStanding;
+    final String housing = user.housing;
+
+
+    Map<String, String> arg = {"Content-type": "application/json"};
+    // make POST request
+    // use SSL to encrytp body
+
+    final url = _baseUrl + "/updateUser";
+
+    http.Response response = await http.post(
+      url,
+      headers: arg,
+      body: jsonEncode(
+          <String, String>{
+            'first_name': firstName, 
+            'last_name': lastName, 
+            'major': major, 
+            'classStanding': classStanding, 
+            'housing': housing
+          }),
+    );
+
+    if (response.statusCode > 300) {
+      throw new Exception('error updating user profile');
+    }
+
+    return ("profile succesfully updated");
+  }
+
+
 }

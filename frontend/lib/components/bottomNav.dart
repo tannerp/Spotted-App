@@ -3,7 +3,6 @@ import 'package:spotted/components/messagePage.dart';
 import 'package:spotted/home/NewPostPage.dart';
 import '../home/home_page.dart';
 import '../home/MyPostPage.dart';
-import '../profile/ProfilePage.dart';
 
 import 'package:spotted/post/post_bloc.dart';
 import 'package:spotted/post/post_state.dart';
@@ -15,31 +14,19 @@ import 'package:spotted/repositories/user_api_client.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SpottedApp extends StatefulWidget {
-  final PostRepository postRepository;
-  final UserRepository userRepository;
+  // final PostRepository postRepository;
+  // UserRepository userRepository;
   List<Widget> tabs;
 
-  SpottedApp({Key key, @required this.postRepository, @required this.userRepository})
-      : assert(postRepository != null),
-        super(key: key);
+  SpottedApp({Key key})
+      : super(key: key);
   @override
-  _SpottedApp createState() => _SpottedApp(post_repo: postRepository, user_repo: userRepository);
+  _SpottedApp createState() => _SpottedApp();
 }
 
 class _SpottedApp extends State<SpottedApp> {
   int _selectedIndex = 1;
-  PostRepository post_repo;
-  UserRepository user_repo;
-  
-  PostBloc postBloc;
-
-
   List<Widget> _tabs;
-
-  _SpottedApp({@required this.post_repo, @required this.user_repo}) {
-    this.postBloc = new PostBloc(repo: post_repo, userRepo: user_repo);
-  }
-
   @override
   Widget build(BuildContext context) {
     _tabs = [
@@ -108,10 +95,11 @@ class _SpottedApp extends State<SpottedApp> {
             
             if (index == 1) {
               BlocProvider.of<PostBloc>(context).add(FetchNewsfeed());
-            }
-            if (index == 2) {
+            }            
+            else if (index == 2) {
               BlocProvider.of<PostBloc>(context).add(FetchMyPosts());
             }
+
           });
         },
       ),

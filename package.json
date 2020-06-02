@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf build-backend/ || true",
-    "build": "npm run clean && tsc && cp package.json build-backend/package.json  && cp .npmrc build-backend/.npmrc && mkdir build-backend/tmp/ && cd build-backend && zip -r Archive.zip . && cd ..",
+    "build": "npm run clean && tsc && cp package.json build-backend/package.json && && cp -r static build-backend/static && cd build-backend && npm i && zip -r Archive.zip .",
     "dev": "ts-node-dev --respawn --transpileOnly ./backend/server.ts"
   },
   "repository": {

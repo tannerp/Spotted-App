@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:spotted/models/models.dart';
-import 'package:spotted/models/user.dart';
 import 'package:expandable/expandable.dart';
 
 class MyPostTileWidget extends StatelessWidget {

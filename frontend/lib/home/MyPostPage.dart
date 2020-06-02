@@ -31,8 +31,8 @@ class MyPostsPage extends StatelessWidget {
       }
 
       if (state is MyPostsReady) {
-        print("My Posts ReadY");
-        print(state);
+        // print("My Posts ReadY");
+        // print(state);
         if (state.my_posts == null) return Container();
 
         return ListView.builder(

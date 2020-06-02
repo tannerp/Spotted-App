@@ -7,7 +7,7 @@ export class Post extends Model<Post> {
   
   @ForeignKey(() => User)
   @Column
-  userID: number;
+  user_email: String;
 
   @Column
   public title!: string;
@@ -15,6 +15,9 @@ export class Post extends Model<Post> {
   @Column
   public content!: string; // for nullable fields
 
+  @Column
+  public helps: string; // for nullable fields
+  
   @Column
   @CreatedAt
   public createdAt: Date = new Date();

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotted/components/bottomNav.dart';
 import 'package:spotted/post/post_bloc.dart';
+import 'package:spotted/profile/profile_state.dart';
 import 'package:spotted/register/register_page.dart';
 // import 'package:spotted/
 
@@ -23,7 +23,7 @@ import 'package:spotted/home/view_post.dart';
 import 'package:spotted/common/common.dart';
 
 import 'package:spotted/login/login_page.dart';
-import 'package:spotted/profile/ProfilePage.dart';
+import 'package:spotted/home/MyProfilePage.dart';
 import 'package:spotted/profile/bloc.dart';
 // import 'package:spotted/common/common.dart';
 
@@ -49,7 +49,9 @@ class SimpleBlocDelegate extends BlocDelegate {
 
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
+  
   final http.Client httpClient = http.Client();
+
 
   final userRepository = UserRepository(
     client: UserApiClient(
@@ -60,7 +62,7 @@ void main() {
   final PostRepository postRepository = PostRepository(
     postApiClient: PostApiClient(
       httpClient: httpClient,
-    ),
+    ),userRepo: userRepository
   );
 
   runApp(
@@ -75,11 +77,15 @@ void main() {
 }
 
 class App extends StatelessWidget {
+
   final UserRepository userRepository;
+
   final PostRepository postRepository;
+  
+  final PostBloc postBloc;
 
   App({Key key, @required this.userRepository, @required this.postRepository})
-      : super(key: key);
+      : this.postBloc = new PostBloc(postRepo: postRepository, userRepo: userRepository), super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -94,45 +100,33 @@ class App extends StatelessWidget {
             ),
             initialRoute: 'register',
             routes: {
-              '/': (context) => BlocProvider(
-                    create: (context) => PostBloc(repo: postRepository, userRepo: this.userRepository),
-                    child: LoginPage(userRepository: userRepository),
-                  ),
-              '/login': (context) => BlocProvider(
-                    create: (context) => PostBloc(repo: postRepository, userRepo: this.userRepository),
-                    child: LoginPage(userRepository: userRepository),
-                  ),
+              '/': (context) => LoginPage(userRepository: userRepository),
+              '/login': (context) => LoginPage(userRepository: userRepository,),
               '/register': (context) => RegisterPage(),
             });
       }
+
       if (state is AuthenticationAuthenticated) {
         // return LoginPage(userRepository: userRepository);
         return BlocProvider(
-            create: (context) => PostBloc(repo: postRepository, userRepo: this.userRepository),
-            child: MaterialApp(initialRoute: '/', routes: {
-              '/': (context) => BlocProvider(
-                    create: (context) => PostBloc(repo: postRepository, userRepo: this.userRepository),
-                    child: SpottedApp(
-                      postRepository: postRepository,
-                      userRepository: userRepository,
-                    ),
-                  ),
-              '/home': (context) => BlocProvider(
-                    create: (context) => PostBloc(repo: postRepository, userRepo: this.userRepository),
-                    child: SpottedApp(
-                      postRepository: postRepository,
-                      userRepository: userRepository,),
-                  ),
+            create: (context) => PostBloc(postRepo: postRepository, userRepo: userRepository),
+            child: MaterialApp(
+              initialRoute: '/', 
+              routes: {
+              '/': (context) => BlocProvider.value(value: BlocProvider.of<PostBloc>(context),
+              child: SpottedApp()),
+              '/home': (context) => BlocProvider.value(value: BlocProvider.of<PostBloc>(context),
+              child: SpottedApp()),
               '/profile': (context) => BlocProvider(
-                    create: (context) => ProfileBloc(repository: userRepository),
-                    child: ProfilePage(),
-                  ),
+                create: (BuildContext context) => ProfileBloc(repository: userRepository),
+              child: ProfilePage())
             }));
       }
 
       if (state is AuthenticationLoading) {
-        return CircularProgressIndicator();
+            return Center(child: CircularProgressIndicator());
       }
+
       return SplashPage();
     }));
   }

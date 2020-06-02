@@ -11,7 +11,13 @@ abstract class ProfileState extends Equatable {
 
 class ProfileEmpty extends ProfileState {}
 
-class ProfileError extends ProfileState {}
+class ProfileError extends ProfileState {
+  final String message;
+  const ProfileError(this.message);
+
+  @override 
+  List<Object> get props =>[message];
+}
 
 
 class ProfileSaving extends ProfileState {}
@@ -24,5 +30,5 @@ class ProfileLoaded extends ProfileState {
   const ProfileLoaded({@required this.user}) : assert(Post != null);
 
   @override
-  List<Object> get props => [Post];
+  List<Object> get props => [user];
 }

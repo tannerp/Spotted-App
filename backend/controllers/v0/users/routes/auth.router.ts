@@ -28,6 +28,8 @@ export function generateJWT(user: User): string {
 }
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
+
+    console.log("running requiredAuth")
 //   return next();
     if (!req.headers || !req.headers.authorization){
         return res.status(401).send({ message: 'No authorization headers.' });
@@ -44,6 +46,8 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
       if (err) {
         return res.status(500).send({ auth: false, message: 'Failed to authenticate.' });
       }
+
+      req.body.user = decoded;
       return next();
     });
 }
@@ -83,7 +87,7 @@ router.post('/login', async (req: Request, res: Response) => {
     // Generate JWT
     const jwt = generateJWT(user);
 
-    res.status(200).send({ auth: true, token: jwt, user: user.short()});
+    res.status(200).send({ auth: true, token: jwt, user: user});
 });
 
 //register a new user

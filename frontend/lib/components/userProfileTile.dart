@@ -1,31 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-class ProfilePageWidget extends StatefulWidget {
+class UserProfilePageWidget extends StatelessWidget {
   final String firstName;
   final String lastName;
   final String userEmail;
   final String major;
   final String classStanding;
   final String housing;
-  final VoidCallback onPressed;
 
-  ProfilePageWidget(this.firstName, this.userEmail, this.lastName, this.major, this.housing, this.classStanding, this.onPressed);
-
-  @override
-  MapScreenState createState() => MapScreenState();
-}
-
-class MapScreenState extends State<ProfilePageWidget>
-    with SingleTickerProviderStateMixin {
-  bool _status = true;
-  final FocusNode myFocusNode = FocusNode();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
+  UserProfilePageWidget(this.firstName, this.userEmail, this.lastName, this.major, this.housing, this.classStanding);
 
   @override
   Widget build(BuildContext context) {
@@ -124,13 +108,6 @@ class MapScreenState extends State<ProfilePageWidget>
                                   ),
                                 ],
                               ),
-                              new Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  _status ? _getEditIcon() : new Container(),
-                                ],
-                              )
                             ],
                           )),
                       Padding(
@@ -161,13 +138,7 @@ class MapScreenState extends State<ProfilePageWidget>
                             children: <Widget>[
                               new Flexible(
                                 child: new TextField(
-                                  controller: TextEditingController()..text = widget.firstName + " " + widget.lastName,
-                                  decoration: const InputDecoration(
-                                    hintText: "Enter Your Name",
-                                  ),
-                                  enabled: !_status,
-                                  autofocus: !_status,
-
+                                  controller: TextEditingController()..text = firstName + " " + lastName,
                                 ),
                               ),
                             ],
@@ -200,10 +171,7 @@ class MapScreenState extends State<ProfilePageWidget>
                             children: <Widget>[
                               new Flexible(
                                 child: new TextField(
-                                  controller: TextEditingController()..text = widget.userEmail,
-                                  decoration: const InputDecoration(
-                                      hintText: "Enter Email ID"),
-                                  enabled: !_status,
+                                  controller: TextEditingController()..text = userEmail,
                                 ),
                               ),
                             ],
@@ -236,10 +204,7 @@ class MapScreenState extends State<ProfilePageWidget>
                             children: <Widget>[
                               new Flexible(
                                 child: new TextField(
-                                  controller: TextEditingController()..text = widget.classStanding,
-                                  decoration: const InputDecoration(
-                                      hintText: "Enter Your College Year"),
-                                  enabled: !_status,
+                                  controller: TextEditingController()..text = classStanding,
                                 ),
                               ),
                             ],
@@ -286,26 +251,19 @@ class MapScreenState extends State<ProfilePageWidget>
                                 child: Padding(
                                   padding: EdgeInsets.only(right: 10.0),
                                   child: new TextField(
-                                    controller: TextEditingController()..text = widget.major,
-                                    decoration: const InputDecoration(
-                                        hintText: "Enter Major"),
-                                    enabled: !_status,
+                                    controller: TextEditingController()..text = major,
                                   ),
                                 ),
                                 flex: 2,
                               ),
                               Flexible(
                                 child: new TextField(
-                                  controller: TextEditingController()..text = widget.housing,
-                                  decoration: const InputDecoration(
-                                      hintText: "Enter Oncampus/Offcampus"),
-                                  enabled: !_status,
+                                  controller: TextEditingController()..text = housing,
                                 ),
                                 flex: 2,
                               ),
                             ],
                           )),
-                      !_status ? _getActionButtons() : new Container(),
                     ],
                   ),
                 ),
@@ -315,84 +273,5 @@ class MapScreenState extends State<ProfilePageWidget>
         ],
       ),
     ));
-  }
-
-  @override
-  void dispose() {
-    // Clean up the controller when the Widget is disposed
-    myFocusNode.dispose();
-    super.dispose();
-  }
-
-  Widget _getActionButtons() {
-    return Padding(
-      padding: EdgeInsets.only(left: 25.0, right: 25.0, top: 45.0),
-      child: new Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(right: 10.0),
-              child: Container(
-                child: new RaisedButton(
-                child: new Text("Save"),
-                textColor: Colors.white,
-                color: Colors.green,
-                onPressed: () {
-                  setState(() {
-                    _status = true;
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                    widget.onPressed;
-                  });
-                },
-                shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(20.0)),
-              )),
-            ),
-            flex: 2,
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(left: 10.0),
-              child: Container(
-                  child: new RaisedButton(
-                child: new Text("Cancel"),
-                textColor: Colors.white,
-                color: Colors.blueAccent,
-                onPressed: () {
-                  setState(() {
-                    _status = true;
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                  });
-                },
-                shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(20.0)),
-              )),
-            ),
-            flex: 2,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _getEditIcon() {
-    return new GestureDetector(
-      child: new CircleAvatar(
-        backgroundColor: Colors.blueAccent,
-        radius: 14.0,
-        child: new Icon(
-          Icons.edit,
-          color: Colors.white,
-          size: 16.0,
-        ),
-      ),
-      onTap: () {
-        setState(() {
-          _status = false;
-        });
-      },
-    );
   }
 }
