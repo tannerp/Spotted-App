@@ -59,6 +59,11 @@ class _LoginFormState extends State<LoginForm> {
                   controller: _passwordController,
                   obscureText: true,
                 ),
+                Container(
+                  child: state is LoginLoading
+                      ? CircularProgressIndicator()
+                      : null,
+                ),
                 const SizedBox(height: 20),
                 new Row (
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -76,12 +81,7 @@ class _LoginFormState extends State<LoginForm> {
                 //   child: Text('Register'),
                 // )
                 ]
-                ),
-                Container(
-                  child: state is LoginLoading
-                      ? CircularProgressIndicator()
-                      : null,
-                ),
+                ),                
               ],
             ),
           )));

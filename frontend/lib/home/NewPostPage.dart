@@ -115,7 +115,6 @@ class _CreatePostFormState extends State<CreatePostForm> {
         if (value.isEmpty) {
           return 'Post Body is Required';
         }
-
         return null;
       },
       onSaved: (String value) {

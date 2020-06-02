@@ -33,7 +33,7 @@ class ProfilePage extends StatelessWidget {
           child: ProfilePageWidget(
           state.user.firstName, 
           state.user.lastName, 
-          "email",
+          state.user.email,
           state.user.major,
           state.user.classStanding,
           state.user.housing,

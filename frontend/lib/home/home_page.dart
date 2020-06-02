@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
       }
 
       if (state is NewsfeedReady) {
-        if (state.posts == null) return Container();
+        if (state.posts == null) return Container(child:Center(child: Text("Empty"),));
         return Center(
             child: ListView.builder(
                 itemCount: state.posts.length,

@@ -3,8 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:spotted/models/models.dart';
 
 class PostTileWidget extends StatefulWidget {
-  PostTileWidget({this.post, this.userImage, this.onPressed});
+  PostTileWidget({this.post, this.userImage, this.onPressed, this.showedHelp});
 
+  final bool showedHelp;
+  
   final Post post;
 
   final ImageProvider userImage;
@@ -12,14 +14,14 @@ class PostTileWidget extends StatefulWidget {
   final VoidCallback onPressed;
 
   @override
-  _PostTileWidgetState createState() => _PostTileWidgetState(this.onPressed);
+  _PostTileWidgetState createState() => _PostTileWidgetState(this.onPressed, showedHelp );
 }
 
 class _PostTileWidgetState extends State<PostTileWidget> {
   bool buttonChecked = false;
   final VoidCallback _onPressed;
 
-  _PostTileWidgetState(this._onPressed);
+  _PostTileWidgetState(this._onPressed, this.buttonChecked);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -76,20 +78,10 @@ class _PostTileWidgetState extends State<PostTileWidget> {
                 children: <Widget>[
                   makeHelp(checked: buttonChecked),
                   SizedBox(width: 5,),
-                  //Text("200", style: TextStyle(fontSize: 15, color: Colors.grey[800]),)
                 ],
               ),
-              //Text("400 Helps", style: TextStyle(fontSize: 13, color: Colors.grey[800]),)
             ],
           ),
-          /*
-          SizedBox(height: 20,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              makeHelpButton(isActive: true),
-            ],
-          )*/
         ],
       ),
     );
@@ -103,7 +95,7 @@ class _PostTileWidgetState extends State<PostTileWidget> {
           icon: new Icon(Icons.thumb_up), 
           color: Colors.blue,
           onPressed: () => setState(() {
-            buttonChecked = true;
+            buttonChecked = false;
             _onPressed();
           }),
           ),

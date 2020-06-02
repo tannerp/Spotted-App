@@ -14,7 +14,7 @@ class ProfilePageWidget extends StatefulWidget {
   final String housing;
   final VoidCallback onPressed;
 
-  ProfilePageWidget(this.firstName, this.userEmail, this.lastName, this.major, this.housing, this.classStanding, this.onPressed);
+  ProfilePageWidget(this.firstName,  this.lastName, this.userEmail, this.major, this.housing, this.classStanding, this.onPressed);
 
   @override
   MapScreenState createState() => MapScreenState();
@@ -46,12 +46,18 @@ class MapScreenState extends State<ProfilePageWidget>
                 child: new Column(
                   children: <Widget>[
                     Padding(
-                        padding: EdgeInsets.only(left: 20.0, top: 20.0),
+                        padding: EdgeInsets.only(left: 20.0, top: 5.0),
                         child: new Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
+                          new IconButton(
+                            icon: new Icon(Icons.arrow_back_ios, size: 22.0,),
+                            onPressed: () => {
+                            Navigator.pop(context)
+                            },                           
+                            ),
                             Padding(
-                              padding: EdgeInsets.only(left: 25.0),
+                              padding: EdgeInsets.only(left: 25.0, top: 11.0 ),
                               child: new Text('PROFILE',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -348,7 +354,7 @@ class MapScreenState extends State<ProfilePageWidget>
                         //BlocProvider.of<ProfileBloc>(context).add(SaveProfile(user));
                     _status = true;
                     FocusScope.of(context).requestFocus(new FocusNode());
-                    widget.onPressed();
+                    //widget.onPressed();
                   });
                 },
                 shape: new RoundedRectangleBorder(
