@@ -3,15 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:spotted/models/models.dart';
 
 class PostTileWidget extends StatelessWidget {
-  PostTileWidget({this.post, this.userImage, this.userName, this.postTime, this.onPressed});
+  PostTileWidget({this.post, this.userImage, this.onPressed});
 
   final Post post;
 
-  final String userName;
-
   final ImageProvider userImage;
-
-  final TimeOfDay postTime;
 
   final VoidCallback onPressed;
 
@@ -21,14 +17,12 @@ class PostTileWidget extends StatelessWidget {
       child: makePost(
         post: post,
         userImage: userImage,
-        userName: userName,
-        postTime: postTime
       ),
     );
   }
 }
 
- Widget makePost({Post post, ImageProvider userImage, String userName, TimeOfDay postTime}) {
+ Widget makePost({Post post, ImageProvider userImage}) {
     return Container(
       margin: EdgeInsets.only(bottom: 20),
       child: Column(
@@ -54,9 +48,9 @@ class PostTileWidget extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(userName, style: TextStyle(color: Colors.grey[900], fontSize: 18, fontWeight: FontWeight.bold, letterSpacing: 1),),
+                      Text(post.title.toString(), style: TextStyle(color: Colors.grey[900], fontSize: 18, fontWeight: FontWeight.bold, letterSpacing: 1),),
                       SizedBox(height: 3,),
-                      Text(postTime.toString(), style: TextStyle(fontSize: 15, color: Colors.grey),),
+                      Text(post.postedAt.toString(), style: TextStyle(fontSize: 15, color: Colors.grey),),
                     ],
                   )
                 ],

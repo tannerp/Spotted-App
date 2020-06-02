@@ -38,7 +38,7 @@ class _LoginFormState extends State<LoginForm> {
           return Center(
             child: Container(
              alignment: Alignment.center,
-             height: 250,
+             height: 270,
              width: 400,
              padding: EdgeInsets.all(30),
              decoration: BoxDecoration(

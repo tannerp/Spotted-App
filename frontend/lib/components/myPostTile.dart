@@ -4,15 +4,11 @@ import 'package:spotted/models/models.dart';
 import 'package:expandable/expandable.dart';
 
 class MyPostTileWidget extends StatelessWidget {
-  MyPostTileWidget({this.post, this.userImage, this.userName, this.postTime, this.onPressed, this.userResponseList});
+  MyPostTileWidget({this.post, this.userImage, this.onPressed, this.userResponseList});
 
   final Post post;
 
-  final String userName;
-
   final ImageProvider userImage;
-
-  final TimeOfDay postTime;
 
   final VoidCallback onPressed;
 
@@ -24,8 +20,6 @@ class MyPostTileWidget extends StatelessWidget {
       child: makePost(
         post: post,
         userImage: userImage,
-        userName: userName,
-        postTime: postTime,
         userResponseList: userResponseList,
       ),
     );
@@ -58,9 +52,9 @@ class MyPostTileWidget extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(userName, style: TextStyle(color: Colors.grey[900], fontSize: 18, fontWeight: FontWeight.bold, letterSpacing: 1),),
+                      Text(post.title, style: TextStyle(color: Colors.grey[900], fontSize: 18, fontWeight: FontWeight.bold, letterSpacing: 1),),
                       SizedBox(height: 3,),
-                      Text(postTime.toString(), style: TextStyle(fontSize: 15, color: Colors.grey),),
+                      Text(TimeOfDay.now().toString(), style: TextStyle(fontSize: 15, color: Colors.grey),),
                     ],
                   )
                 ],
