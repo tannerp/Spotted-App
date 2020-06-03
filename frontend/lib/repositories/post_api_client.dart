@@ -9,7 +9,8 @@ import 'package:spotted/models/models.dart';
 import 'package:spotted/post/bloc.dart';
 
 class PostApiClient {
-  final _baseUrl = 'http://ec2-52-40-149-180.us-west-2.compute.amazonaws.com/api/v0/posts';
+  //final _baseUrl = 'http://ec2-52-40-149-180.us-west-2.compute.amazonaws.com/api/v0/posts';
+  final _baseUrl = 'http://localhost:8082/api/v0/posts';
   final http.Client httpClient;
 
   PostApiClient({

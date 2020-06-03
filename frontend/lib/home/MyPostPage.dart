@@ -49,7 +49,7 @@ class MyPostsPage extends StatelessWidget {
                 showedHelp: state.my_posts[index].helps.indexOf(_myemail) > -1,
                 post: state.my_posts[index],
                 userImage: NetworkImage(
-                    "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+                    "https://s3.amazonaws.com/file.imleagues/Images/Schools/Uploaded/201807/20187181826335832fea530d3f43e68c1f65adb0d3c4cea3.jpg"),
               onPressed: ()=>onHelpPress(ctxt, state.my_posts[index]),
               ));
             });
