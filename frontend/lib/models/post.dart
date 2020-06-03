@@ -8,8 +8,9 @@ class Post extends Equatable{
   final String body;
   final String postedAt;
   final String helps;
+  final String email;
 
-  const Post({this.id, this.userID, this.title, this.body, this.postedAt, this.helps});
+  const Post({this.id, this.userID, this.title, this.body, this.postedAt, this.helps, this.email});
 
   @override
   List <Object> get props => [id, title, body];
@@ -23,6 +24,7 @@ class Post extends Equatable{
       body: json['title'] ?? "",
       postedAt: json['createdAt'] ?? "",
       helps: json['helps'] ?? "",
+      email: json['user_email'] ?? "",
     );
   }
   

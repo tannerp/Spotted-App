@@ -55,7 +55,7 @@ class UserProfilePageWidget extends StatelessWidget {
                                   shape: BoxShape.circle,
                                   image: new DecorationImage(
                                     image: NetworkImage(
-                                        "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+                                        "https://us.v-cdn.net/6031128/uploads/defaultavatar/n632NH0JSAC5C.jpg"),
                                     fit: BoxFit.cover,
                                   ),
                                 )),

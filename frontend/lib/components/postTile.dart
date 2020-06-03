@@ -32,6 +32,22 @@ class _PostTileWidgetState extends State<PostTileWidget> {
     );
   }
 
+  String calculateDay(String posted) {
+    DateTime postedDate = DateTime.parse(posted);
+    Duration difference = DateTime.now().difference(postedDate);
+    int seconds = difference.inSeconds;
+    if (seconds < 60) return (widget.post.email.substring(0,widget.post.email.indexOf('@'))+ " " + seconds.toString() + "s ago");
+    else{
+    int minutes = difference.inMinutes;
+    if (minutes < 60) return (widget.post.email.substring(0,widget.post.email.indexOf('@'))+ " " + minutes.toString() + "m ago");
+    else { int hours = difference.inHours;
+    if (hours < 24) return (widget.post.email.substring(0,widget.post.email.indexOf('@'))+ " " + hours.toString() + "h ago");
+    else return (widget.post.email.substring(0,widget.post.email.indexOf('@'))+ " " + difference.inDays.toString() + "d ago");
+    }
+    }
+
+  }
+
   Widget makePost({Post post, ImageProvider userImage, VoidCallback onTap}) {
     return Container(
       margin: EdgeInsets.only(bottom: 20),
@@ -60,7 +76,7 @@ class _PostTileWidgetState extends State<PostTileWidget> {
                     children: <Widget>[
                       Text(post.title.toString(), style: TextStyle(color: Colors.grey[900], fontSize: 18, fontWeight: FontWeight.bold, letterSpacing: 1),),
                       SizedBox(height: 3,),
-                      Text(post.postedAt.toString(), style: TextStyle(fontSize: 15, color: Colors.grey),),
+                      Text(calculateDay(post.postedAt), style: TextStyle(fontSize: 15, color: Colors.grey),),
                     ],
                   )
                 ],

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:spotted/profile/bloc.dart';
 import 'package:spotted/profile/profile_event.dart';
+import 'package:spotted/models/models.dart';
 
 class ProfilePageWidget extends StatefulWidget {
   final String firstName;
@@ -25,6 +26,10 @@ class MapScreenState extends State<ProfilePageWidget>
   bool _status = true;
   final FocusNode myFocusNode = FocusNode();
 
+  final major = TextEditingController();  
+  final housing = TextEditingController();
+  final classStanding = TextEditingController();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -33,6 +38,9 @@ class MapScreenState extends State<ProfilePageWidget>
 
   @override
   Widget build(BuildContext context) {
+    major.text = widget.major;
+    housing.text = widget.housing;
+    classStanding.text = widget.classStanding;
     return new Scaffold(
         body: new Container(
       color: Colors.white,
@@ -81,7 +89,7 @@ class MapScreenState extends State<ProfilePageWidget>
                                   shape: BoxShape.circle,
                                   image: new DecorationImage(
                                     image: NetworkImage(
-                                        "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ83EbEDoTPaqYqqDPnboFuCpjou1e5BKgUCyWia4FzS2r88JF4&usqp=CAU"),
                                     fit: BoxFit.cover,
                                   ),
                                 )),
@@ -246,7 +254,7 @@ class MapScreenState extends State<ProfilePageWidget>
                             children: <Widget>[
                               new Flexible(
                                 child: new TextField(
-                                  controller: TextEditingController()..text = widget.classStanding,
+                                  controller: classStanding,
                                   decoration: const InputDecoration(
                                       hintText: "Enter Your College Year"),
                                   enabled: !_status,
@@ -296,7 +304,7 @@ class MapScreenState extends State<ProfilePageWidget>
                                 child: Padding(
                                   padding: EdgeInsets.only(right: 10.0),
                                   child: new TextField(
-                                    controller: TextEditingController()..text = widget.major,
+                                    controller: major,
                                     decoration: const InputDecoration(
                                         hintText: "Enter Major"),
                                     enabled: !_status,
@@ -306,7 +314,7 @@ class MapScreenState extends State<ProfilePageWidget>
                               ),
                               Flexible(
                                 child: new TextField(
-                                  controller: TextEditingController()..text = widget.housing,
+                                  controller: housing,
                                   decoration: const InputDecoration(
                                       hintText: "Enter Oncampus/Offcampus"),
                                   enabled: !_status,
@@ -351,7 +359,14 @@ class MapScreenState extends State<ProfilePageWidget>
                 color: Colors.green,
                 onPressed: () {
                   setState(() {
-                        //BlocProvider.of<ProfileBloc>(context).add(SaveProfile(user));
+                      BlocProvider.of<ProfileBloc>(context).add(SaveProfile(User (
+                        housing: housing.text,
+                        major: major.text,
+                        classStanding: classStanding.text,
+                        firstName: widget.firstName,
+                        lastName: widget.lastName,
+                        email: widget.userEmail,
+                      )));
                     _status = true;
                     FocusScope.of(context).requestFocus(new FocusNode());
                     //widget.onPressed();
