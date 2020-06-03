@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:spotted/post/bloc.dart';
 import 'package:spotted/components/postTile.dart';
+import 'package:spotted/repositories/repository.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -21,19 +22,29 @@ class HomePage extends StatelessWidget {
 
       if (state is NewsfeedReady) {
         if (state.posts == null) return Container(child:Center(child: Text("Empty"),));
+
+        if (state.posts == null)
+          return Container(
+              child: Center(
+            child: Text("Empty"),
+          ));
+
+        String _myemail =
+            RepositoryProvider.of<UserRepository>(context).user.email;
+
         return Center(
             child: ListView.builder(
                 itemCount: state.posts.length,
                 itemBuilder: (BuildContext ctxt, int index) {
                   return new Card(
-                    child: PostTileWidget(
+                      child: PostTileWidget(
+                    showedHelp:
+                        state.posts[index].helps.indexOf(_myemail) > -1,
                     post: state.posts[index],
                     userImage: NetworkImage(
                         "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
-                    onPressed: ()=> onHelpPress(state.posts[index].id),
-                  
-                  )
-                  );
+                    onPressed: () => onHelpPress(state.posts[index].id),
+                  ));
                 }));
       }
 
@@ -41,15 +52,16 @@ class HomePage extends StatelessWidget {
         return Center(
           child: CircularProgressIndicator(),
         );
-      } else{
-        return Container(child:Center(child: Text("Empty"),));
+      } else {
+        return Container(
+            child: Center(
+          child: Text("Empty"),
+        ));
       }
     });
   }
 }
 
-
-void onHelpPress(int postID){
+void onHelpPress(int postID) {
   print("On help button pressed");
-  
 }

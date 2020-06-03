@@ -34,11 +34,10 @@ class MyPostsPage extends StatelessWidget {
       }
 
       if (state is MyPostsReady) {
-        // print("My Posts ReadY");
-        // print(state);
         if (state.my_posts == null) return Container(child:Center(child:Text("Empty")));
         
         String _myemail = RepositoryProvider.of<UserRepository>(context).user.email;
+
         print("EMAIL $_myemail");
         
         return ListView.builder(
